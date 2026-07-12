@@ -75,6 +75,11 @@ def _db():
         "CREATE TABLE IF NOT EXISTS unanswered ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT, created_at REAL)"
     )
+    try:  # migracao: contador de acertos por pergunta (para o ranking de sugestoes)
+        con.execute("ALTER TABLE cache ADD COLUMN hits INTEGER DEFAULT 0")
+        con.commit()
+    except sqlite3.OperationalError:
+        pass  # coluna ja existe
     return con
 
 
@@ -84,14 +89,14 @@ def _load_cache():
     cutoff = time.time() - TTL_DAYS * 86400
     con = _db()
     rows = con.execute(
-        "SELECT id, question, answer, embedding, created_at FROM cache "
+        "SELECT id, question, answer, embedding, created_at, hits FROM cache "
         "WHERE created_at > ? ORDER BY id", (cutoff,)
     ).fetchall()
     con.close()
     _meta = []
     mats = []
-    for rid, q, a, emb, ts in rows:
-        _meta.append({"id": rid, "question": q, "answer": a, "created_at": ts})
+    for rid, q, a, emb, ts, hits in rows:
+        _meta.append({"id": rid, "question": q, "answer": a, "created_at": ts, "hits": hits or 0})
         mats.append(np.frombuffer(emb, dtype=np.float32))
     _vecs = np.vstack(mats) if mats else None
 
@@ -115,6 +120,12 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"],
 async def index():
     """Serve a interface de chat dos municipes."""
     return FileResponse("web/index.html")
+
+
+@app.get("/relatorio", include_in_schema=False)
+async def relatorio():
+    """Relatorio de capacidade / tempo de resposta."""
+    return FileResponse("web/relatorio.html")
 
 
 # ------------------------------------------------------------- infra externa
@@ -159,7 +170,8 @@ async def _store(question: str, answer: str, vec: np.ndarray):
     rid = cur.lastrowid
     con.close()
     async with _lock:
-        _meta.append({"id": rid, "question": question, "answer": answer, "created_at": ts})
+        _meta.append({"id": rid, "question": question, "answer": answer,
+                      "created_at": ts, "hits": 0})
         _vecs = vec.reshape(1, -1) if _vecs is None else np.vstack([_vecs, vec])
 
 
@@ -241,6 +253,14 @@ async def ask(body: AskIn, request: Request):
     if idx >= 0 and score >= HIT_THRESHOLD:
         _stats["hits"] += 1
         m = _meta[idx]
+        m["hits"] = m.get("hits", 0) + 1          # ranking de sugestoes
+        try:
+            con = _db()
+            con.execute("UPDATE cache SET hits = hits + 1 WHERE id = ?", (m["id"],))
+            con.commit()
+            con.close()
+        except Exception:
+            pass
         return AskOut(answer=m["answer"], cached=True, similarity=round(score, 3),
                       latency_ms=int((time.time() - t0) * 1000),
                       matched_question=m["question"])
@@ -266,6 +286,24 @@ async def ask(body: AskIn, request: Request):
 async def health():
     return {"status": "ok", "workspace": WORKSPACE, "cache_size": len(_meta),
             "threshold": HIT_THRESHOLD, "ttl_days": TTL_DAYS}
+
+
+@app.get("/suggestions")
+async def suggestions(n: int = 3):
+    """Perguntas mais frequentes (por acertos de cache) para exibir como atalhos.
+    Enquanto nao ha histórico suficiente, completa com perguntas padrao."""
+    ranked = sorted((m for m in _meta if m.get("hits", 0) > 0),
+                    key=lambda m: m["hits"], reverse=True)
+    qs = [m["question"] for m in ranked[:n]]
+    padrao = ["Qual a alíquota do ISSQN pela Lei 183?",
+              "O MEI pode pedir o benefício?",
+              "O protocolo de intenções é um contrato?"]
+    for d in padrao:
+        if len(qs) >= n:
+            break
+        if d not in qs:
+            qs.append(d)
+    return {"suggestions": qs}
 
 
 @app.get("/stats")

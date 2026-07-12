@@ -197,7 +197,24 @@
   form.addEventListener("submit", e => { e.preventDefault(); ask(input.value); });
   input.addEventListener("input", () => { input.style.height="auto"; input.style.height = Math.min(input.scrollHeight,110)+"px"; });
   input.addEventListener("keydown", e => { if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); ask(input.value); } });
+  async function loadSuggestions(){
+    try{
+      const r = await fetch(API_BASE + "/suggestions?n=3");
+      if(!r.ok) return;
+      const {suggestions} = await r.json();
+      if(!Array.isArray(suggestions) || !suggestions.length) return;
+      suggest.innerHTML = "";
+      suggestions.forEach(q => {
+        const b = document.createElement("button");
+        b.className = "chip"; b.type = "button"; b.textContent = q;
+        b.addEventListener("click", () => ask(q));
+        suggest.appendChild(b);
+      });
+    }catch(e){ /* mantém os chips padrão do HTML como fallback */ }
+  }
+  // fallback: liga os chips padrão do HTML; depois tenta trocar pelos mais frequentes
   suggest.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => ask(c.textContent)));
+  loadSuggestions();
 
   bubble("Olá! 👋 Sou o assistente virtual da Prefeitura de Aracaju. Tire suas dúvidas sobre o incentivo de ISSQN da Lei Complementar 183/2022. Como posso ajudar?", "bot");
 </script>
