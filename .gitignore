@@ -1,0 +1,18 @@
+# Segredos e credenciais - NUNCA versionar
+.env
+.env.local
+*credenciais*
+*credentials*
+*.key
+*.pem
+
+# Dependencias
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Assistente Virtual — Prefeitura de Aracaju</title>
+<style>
+  :root{
+    --brand:#0d6c70; --brand-ink:#0a565a; --brand-2:#12888d;
+    --ground:#eef2f3; --surface:#ffffff; --surface-2:#f3f6f7;
+    --ink:#16202a; --ink-2:#5a6b76; --line:#dde5e8;
+    --user:#0d6c70; --user-ink:#ffffff;
+    --bot:#ffffff; --bot-ink:#16202a;
+    --danger:#c0453b;
+    --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --brand:#12888d; --brand-ink:#8fd6d9; --brand-2:#15a1a7;
+      --ground:#0b1013; --surface:#141b1f; --surface-2:#1a2327;
+      --ink:#e7edef; --ink-2:#93a3ab; --line:#25313700;
+      --line:#253137; --user:#12888d; --user-ink:#04191a;
+      --bot:#1a2327; --bot-ink:#e7edef; --danger:#e2685a;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);font-family:var(--font);
+    font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+    display:flex;justify-content:center;
+  }
+  .app{
+    width:100%;max-width:640px;height:100dvh;display:flex;flex-direction:column;
+    background:var(--surface);box-shadow:0 0 40px rgba(0,0,0,.06);
+  }
+  /* ---- header ---- */
+  header{
+    background:var(--brand);color:#fff;padding:14px 18px;display:flex;gap:13px;align-items:center;
+    padding-top:max(14px,env(safe-area-inset-top));
+  }
+  .crest{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.16);
+    display:grid;place-items:center}
+  header h1{margin:0;font-size:16px;font-weight:650;letter-spacing:-.01em}
+  header p{margin:2px 0 0;font-size:12.5px;opacity:.82}
+  .status{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;opacity:.9}
+  .status .led{width:8px;height:8px;border-radius:50%;background:#7ff0b0;box-shadow:0 0 0 3px rgba(127,240,176,.25)}
+  /* ---- chat ---- */
+  .chat{flex:1;overflow-y:auto;padding:20px 16px 8px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+  .msg{max-width:85%;padding:11px 14px;border-radius:16px;font-size:15.5px;white-space:pre-wrap;word-wrap:break-word;animation:pop .18s ease-out}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .msg.bot{align-self:flex-start;background:var(--bot);color:var(--bot-ink);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .msg.user{align-self:flex-end;background:var(--user);color:var(--user-ink);border-bottom-right-radius:5px}
+  .msg.err{background:transparent;border:1px dashed var(--danger);color:var(--danger);font-size:14px}
+  /* typing */
+  .typing{align-self:flex-start;background:var(--bot);border:1px solid var(--line);border-bottom-left-radius:5px;
+    padding:13px 16px;border-radius:16px;display:flex;gap:5px}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--ink-2);opacity:.5;animation:blink 1.2s infinite}
+  .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:.9;transform:translateY(-3px)}}
+  /* suggestions */
+  .suggest{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 6px}
+  .chip{border:1px solid var(--line);background:var(--surface-2);color:var(--brand-ink);font-size:13.5px;
+    padding:7px 13px;border-radius:20px;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s}
+  .chip:hover{background:var(--surface);border-color:var(--brand-2)}
+  .chip:focus-visible{outline:2px solid var(--brand-2);outline-offset:2px}
+  /* ---- input ---- */
+  .composer{border-top:1px solid var(--line);padding:12px 14px;padding-bottom:max(12px,env(safe-area-inset-bottom));
+    display:flex;gap:10px;align-items:flex-end;background:var(--surface)}
+  .composer textarea{
+    flex:1;resize:none;border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-family:inherit;
+    font-size:15.5px;line-height:1.4;max-height:120px;background:var(--surface-2);color:var(--ink);
+  }
+  .composer textarea:focus{outline:none;border-color:var(--brand-2);background:var(--surface)}
+  .send{flex:0 0 auto;width:46px;height:46px;border:0;border-radius:13px;background:var(--brand);color:#fff;
+    cursor:pointer;display:grid;place-items:center;transition:background .15s,opacity .15s}
+  .send:hover{background:var(--brand-ink)}
+  .send:disabled{opacity:.45;cursor:not-allowed}
+  .send:focus-visible{outline:2px solid var(--brand-2);outline-offset:2px}
+  .disclaimer{font-size:11.5px;color:var(--ink-2);text-align:center;padding:0 16px 10px;background:var(--surface)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="crest" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Assistente Virtual</h1>
+        <p>Prefeitura de Aracaju · Secretaria da Fazenda</p>
+      </div>
+      <div class="status"><span class="led"></span>online</div>
+    </header>
+
+    <main class="chat" id="chat" aria-live="polite" aria-label="Conversa"></main>
+
+    <div class="suggest" id="suggest" aria-label="Perguntas sugeridas">
+      <button class="chip">Qual a alíquota do ISSQN pela Lei 183?</button>
+      <button class="chip">O MEI pode pedir o benefício?</button>
+      <button class="chip">O protocolo de intenções é um contrato?</button>
+    </div>
+
+    <form class="composer" id="form">
+      <textarea id="input" rows="1" placeholder="Escreva sua dúvida…" autocomplete="off" aria-label="Sua pergunta"></textarea>
+      <button class="send" id="send" type="submit" aria-label="Enviar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </button>
+    </form>
+    <div class="disclaimer">Respostas geradas automaticamente a partir da legislação municipal. Em caso de dúvida, procure a Secretaria da Fazenda.</div>
+  </div>
+
+<script>
+  // Mesma origem quando servido pelo microservico (FastAPI). Ajuste se hospedar o front separado.
+  const API_BASE = "";
+  const chat = document.getElementById("chat");
+  const form = document.getElementById("form");
+  const input = document.getElementById("input");
+  const send = document.getElementById("send");
+  const suggest = document.getElementById("suggest");
+  let busy = false;
+
+  function bubble(text, cls){
+    const d = document.createElement("div");
+    d.className = "msg " + cls;
+    d.textContent = text;
+    chat.appendChild(d);
+    chat.scrollTop = chat.scrollHeight;
+    return d;
+  }
+  function typing(){
+    const d = document.createElement("div");
+    d.className = "typing"; d.innerHTML = "<span></span><span></span><span></span>";
+    chat.appendChild(d); chat.scrollTop = chat.scrollHeight; return d;
+  }
+
+  async function ask(question){
+    if(busy || !question.trim()) return;
+    busy = true; send.disabled = true; input.value = ""; input.style.height = "auto";
+    suggest.style.display = "none";
+    bubble(question, "user");
+    const t = typing();
+    try{
+      const r = await fetch(API_BASE + "/ask", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({question})
+      });
+      if(!r.ok) throw new Error("HTTP " + r.status);
+      const data = await r.json();
+      t.remove();
+      bubble(data.answer || "Não consegui responder agora.", "bot");
+    }catch(e){
+      t.remove();
+      bubble("Desculpe, tive um problema ao consultar. Tente novamente em instantes.", "err");
+    }finally{
+      busy = false; send.disabled = false; input.focus();
+    }
+  }
+
+  form.addEventListener("submit", e => { e.preventDefault(); ask(input.value); });
+  input.addEventListener("input", () => { input.style.height="auto"; input.style.height = Math.min(input.scrollHeight,120)+"px"; });
+  input.addEventListener("keydown", e => {
+    if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); ask(input.value); }
+  });
+  suggest.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => ask(c.textContent)));
+
+  bubble("Olá! 👋 Sou o assistente virtual da Prefeitura de Aracaju. Tire suas dúvidas sobre o incentivo de ISSQN da Lei Complementar 183/2022. Como posso ajudar?", "bot");
+</script>
+</body>
+</html>

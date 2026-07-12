@@ -1,0 +1,105 @@
+{
+  "name": "Invalidacao Cache FAQ",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "minutes", "minutesInterval": 10 }
+          ]
+        }
+      },
+      "id": "a1000000-0000-0000-0000-000000000001",
+      "name": "A cada 10 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://192.168.0.118:3001/api/v1/documents",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer TROQUE_PELA_API_KEY_DO_ANYTHINGLLM" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-0000-0000-000000000002",
+      "name": "Ler documentos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "function walk(node, out){ for (const it of (node.items || [])){ if (it.type === 'folder') walk(it, out); else out.push(it.name + '|' + it.published); } }\nconst out = [];\nwalk($json.localFiles, out);\nconst assinatura = out.sort().join('#');\nconst store = $getWorkflowStaticData('global');\nconst mudou = store.assinatura !== undefined && store.assinatura !== assinatura;\nstore.assinatura = assinatura;\nreturn [{ json: { mudou, assinatura } }];"
+      },
+      "id": "a1000000-0000-0000-0000-000000000003",
+      "name": "Detectar mudanca",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "typeValidation": "strict", "version": 2 },
+          "conditions": [
+            {
+              "id": "cond-mudou",
+              "leftValue": "={{ $json.mudou }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-0000-0000-000000000004",
+      "name": "Mudou?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://192.168.0.118:8000/cache/clear",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer TROQUE_PELO_ADMIN_TOKEN" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-0000-0000-000000000005",
+      "name": "Limpar cache",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 220]
+    }
+  ],
+  "connections": {
+    "A cada 10 min": {
+      "main": [ [ { "node": "Ler documentos", "type": "main", "index": 0 } ] ]
+    },
+    "Ler documentos": {
+      "main": [ [ { "node": "Detectar mudanca", "type": "main", "index": 0 } ] ]
+    },
+    "Detectar mudanca": {
+      "main": [ [ { "node": "Mudou?", "type": "main", "index": 0 } ] ]
+    },
+    "Mudou?": {
+      "main": [
+        [ { "node": "Limpar cache", "type": "main", "index": 0 } ],
+        []
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false
+}

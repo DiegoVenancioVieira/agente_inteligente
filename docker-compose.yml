@@ -1,0 +1,22 @@
+# Deploy na VPS2 (via Coolify ou docker compose up -d).
+# Le as variaveis do .env (mesmo arquivo do projeto).
+services:
+  faq-cache:
+    build: .
+    container_name: faq-cache
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ANYTHINGLLM_URL=${ANYTHINGLLM_URL}
+      - ANYTHINGLLM_API_KEY=${ANYTHINGLLM_API_KEY}
+      - OLLAMA_URL=${OLLAMA_URL}
+      - OLLAMA_EMBEDDER=${OLLAMA_EMBEDDER}
+      - WORKSPACE_SLUG=${WORKSPACE_SLUG:-semde}
+      - CACHE_SIMILARITY_THRESHOLD=${CACHE_SIMILARITY_THRESHOLD:-0.85}
+      - CACHE_TTL_DAYS=${CACHE_TTL_DAYS:-30}
+    volumes:
+      - faq_cache_data:/data
+
+volumes:
+  faq_cache_data:
