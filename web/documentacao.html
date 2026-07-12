@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentação — Assistente FAQ Municipal</title>
+<style>
+  :root{
+    --ground:#f4f7f8; --surface:#ffffff; --surface-2:#eef3f4;
+    --ink:#152229; --ink-2:#54636b; --ink-3:#85959b; --line:#dce4e7;
+    --accent:#0f7c8a; --accent-d:#0b5b66; --accent-soft:#dcedef;
+    --ok:#2f8f5b; --warn:#b9791a; --danger:#c0453b;
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#0c1114; --surface:#151d21; --surface-2:#1b262b;
+      --ink:#e7edef; --ink-2:#9aa8ad; --ink-3:#6a787d; --line:#26333a;
+      --accent:#33b0bf; --accent-d:#7fd4de; --accent-soft:#123037;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font);font-size:15.5px;line-height:1.6}
+  .wrap{max-width:820px;margin:0 auto;padding:40px 22px 80px}
+  img.logo{width:52px;height:52px;border-radius:50%;display:block}
+  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-d);margin:16px 0 4px}
+  h1{font-size:29px;margin:0 0 6px;letter-spacing:-.02em;text-wrap:balance}
+  .lede{color:var(--ink-2);font-size:16px;margin:0 0 8px}
+  nav{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px}
+  nav a{font-size:13px;text-decoration:none;color:var(--accent-d);background:var(--surface);border:1px solid var(--line);
+    padding:6px 12px;border-radius:20px}
+  nav a:hover{background:var(--surface-2)}
+  section{margin-top:34px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);margin:0 0 14px;
+    padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16px;margin:20px 0 6px}
+  p{margin:0 0 12px}
+  code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);padding:1.5px 6px;border-radius:5px}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:18px 20px}
+  .flow{display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+  .flow .node{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+  .flow .arrow{color:var(--ink-3);text-align:center;font-size:13px}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px;margin-top:6px}
+  table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);background:var(--surface-2)}
+  tbody tr:last-child td{border-bottom:0}
+  td code,th code{white-space:nowrap}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;text-transform:uppercase;letter-spacing:.04em}
+  .tag.pub{background:var(--accent-soft);color:var(--accent-d)}
+  .tag.adm{background:#f4e7cf;color:var(--warn)}
+  @media (prefers-color-scheme:dark){.tag.adm{background:#33280f}}
+  ul{margin:0 0 12px;padding-left:20px}
+  li{margin-bottom:6px}
+  .foot{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="logo" src="/static/aju.png" alt="Prefeitura de Aracaju">
+  <div class="eyebrow">Documentação técnica</div>
+  <h1>Assistente de FAQ Municipal</h1>
+  <p class="lede">Agente de IA que responde dúvidas dos municípes com base na legislação e nos documentos das secretarias — self-hosted, sem enviar dados a serviços externos.</p>
+
+  <nav>
+    <a href="/">💬 Chat</a>
+    <a href="/admin">🔑 Painel</a>
+    <a href="/tutorial">📖 Tutorial</a>
+    <a href="/relatorio">📊 Relatório</a>
+  </nav>
+
+  <section>
+    <h2>Visão geral</h2>
+    <p>O cidadão faz uma pergunta em linguagem natural; o sistema busca a resposta nos documentos oficiais da secretaria (RAG — busca semântica) e a devolve de forma curta e fundamentada. Se a informação não existir na base, ele <b>recusa com honestidade</b> em vez de inventar — comportamento essencial para um órgão público.</p>
+    <p>Um <b>cache semântico</b> guarda as respostas já dadas: perguntas repetidas voltam em ~0,3s sem acionar o modelo de IA, aliviando o servidor.</p>
+  </section>
+
+  <section>
+    <h2>Arquitetura</h2>
+    <div class="panel flow">
+      <div class="node"><b>Cidadão</b> → interface de chat (<code>/</code>)</div>
+      <div class="arrow">▼</div>
+      <div class="node"><b>Microserviço (VPS2, porta 8100)</b> — API + cache semântico. Gera o embedding da pergunta, consulta o cache e orquestra a resposta.</div>
+      <div class="arrow">▼ &nbsp;(se não estiver no cache)</div>
+      <div class="node"><b>AnythingLLM (VPS2, porta 3001)</b> — faz a busca nos documentos (RAG) e monta o prompt.</div>
+      <div class="arrow">▼</div>
+      <div class="node"><b>Ollama (VPS1, porta 11434)</b> — modelos de IA em CPU: <code>qwen2.5:7b</code> (gera a resposta) e <code>bge-m3</code> (embeddings, pt-BR).</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Como uma pergunta é respondida</h2>
+    <ul>
+      <li><b>1. Embedding</b> — a pergunta vira um vetor (bge-m3).</li>
+      <li><b>2. Cache</b> — se houver pergunta quase idêntica já respondida (similaridade ≥ 0,85), devolve na hora.</li>
+      <li><b>3. Busca (RAG)</b> — senão, o AnythingLLM recupera os trechos mais relevantes dos documentos (corte de similaridade 0,55).</li>
+      <li><b>4. Geração</b> — o qwen2.5:7b redige a resposta <b>apenas</b> com base nos trechos; se nada for relevante, recusa.</li>
+      <li><b>5. Cache</b> — respostas fundamentadas são guardadas para as próximas vezes.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Endpoints da API</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Rota</th><th>Acesso</th><th>Função</th></tr></thead>
+        <tbody>
+          <tr><td><code>POST /ask</code></td><td><span class="tag pub">Público</span></td><td>Pergunta do cidadão → resposta (com rate-limit por IP)</td></tr>
+          <tr><td><code>GET /</code></td><td><span class="tag pub">Público</span></td><td>Interface de chat</td></tr>
+          <tr><td><code>GET /suggestions</code></td><td><span class="tag pub">Público</span></td><td>Perguntas mais frequentes (atalhos da interface)</td></tr>
+          <tr><td><code>GET /health</code> · <code>/stats</code></td><td><span class="tag pub">Público</span></td><td>Status e métricas de uso</td></tr>
+          <tr><td><code>GET /unanswered</code></td><td><span class="tag adm">Admin</span></td><td>Perguntas sem resposta, por frequência</td></tr>
+          <tr><td><code>POST /answer</code></td><td><span class="tag adm">Admin</span></td><td>Publica resposta → vira conhecimento do bot</td></tr>
+          <tr><td><code>POST /unanswered/dismiss</code></td><td><span class="tag adm">Admin</span></td><td>Remove uma pergunta da fila</td></tr>
+          <tr><td><code>POST /cache/clear</code></td><td><span class="tag adm">Admin</span></td><td>Limpa o cache (após atualizar um PDF)</td></tr>
+          <tr><td><code>GET /admin</code></td><td><span class="tag pub">Público*</span></td><td>Painel das secretarias (protegido por token na tela)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-3);margin-top:8px">Endpoints <b>Admin</b> exigem o cabeçalho <code>Authorization: Bearer &lt;ADMIN_TOKEN&gt;</code>.</p>
+  </section>
+
+  <section>
+    <h2>Configuração (variáveis de ambiente)</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Variável</th><th>Padrão</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><code>ANYTHINGLLM_URL</code></td><td>—</td><td>URL do AnythingLLM (ex.: http://192.168.0.118:3001)</td></tr>
+          <tr><td><code>ANYTHINGLLM_API_KEY</code></td><td>—</td><td>Chave da API do AnythingLLM</td></tr>
+          <tr><td><code>OLLAMA_URL</code></td><td>—</td><td>URL do Ollama (ex.: http://192.168.0.115:11434)</td></tr>
+          <tr><td><code>OLLAMA_EMBEDDER</code></td><td><code>bge-m3</code></td><td>Modelo de embeddings</td></tr>
+          <tr><td><code>WORKSPACE_SLUG</code></td><td><code>semde</code></td><td>Workspace da secretaria no AnythingLLM</td></tr>
+          <tr><td><code>CACHE_SIMILARITY_THRESHOLD</code></td><td><code>0.85</code></td><td>Corte para acerto do cache</td></tr>
+          <tr><td><code>CACHE_TTL_DAYS</code></td><td><code>30</code></td><td>Validade das respostas no cache</td></tr>
+          <tr><td><code>RATE_LIMIT_PER_MIN</code></td><td><code>20</code></td><td>Máx. de perguntas por IP por minuto</td></tr>
+          <tr><td><code>ADMIN_TOKEN</code></td><td>—</td><td>Token dos endpoints administrativos</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Segurança</h2>
+    <ul>
+      <li><b>Self-hosted / LGPD</b> — nenhum dado do cidadão sai para serviços externos; tudo roda nas VPS da prefeitura.</li>
+      <li><b>Rate-limit</b> — protege o modelo contra abuso (429 ao exceder o limite por IP).</li>
+      <li><b>Token de administração</b> — o painel e a base de conhecimento só mudam com o <code>ADMIN_TOKEN</code>. Mantenha-o forte e secreto.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Manutenção</h2>
+    <ul>
+      <li><b>Atualizou um PDF?</b> Limpe o cache (botão no painel ou <code>POST /cache/clear</code>) para não servir respostas antigas.</li>
+      <li><b>Invalidação automática</b> — pode ser ligada via n8n (ver <code>docs/n8n-invalidacao-cache.md</code> no repositório).</li>
+      <li><b>Novas secretarias</b> — cada uma ganha um workspace próprio no AnythingLLM; o serviço evolui para atender várias com um seletor de secretaria.</li>
+    </ul>
+  </section>
+
+  <div class="foot">Prefeitura de Aracaju · Assistente de FAQ Municipal · documentação técnica.</div>
+</div>
+</body>
+</html>

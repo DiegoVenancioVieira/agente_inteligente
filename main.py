@@ -24,6 +24,7 @@ import numpy as np
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------- config (.env)
@@ -132,6 +133,22 @@ async def relatorio():
 async def admin_page():
     """Painel das secretarias (perguntas sem resposta, responder, cache)."""
     return FileResponse("web/admin.html")
+
+
+@app.get("/documentacao", include_in_schema=False)
+async def documentacao_page():
+    """Documentacao tecnica do sistema."""
+    return FileResponse("web/documentacao.html")
+
+
+@app.get("/tutorial", include_in_schema=False)
+async def tutorial_page():
+    """Tutorial para as secretarias."""
+    return FileResponse("web/tutorial.html")
+
+
+# arquivos estaticos (logo aju.png, etc.)
+app.mount("/static", StaticFiles(directory="web"), name="static")
 
 
 # ------------------------------------------------------------- infra externa

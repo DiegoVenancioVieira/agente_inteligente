@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia da Secretaria — Assistente FAQ</title>
+<style>
+  :root{
+    --ground:#f4f7f8; --surface:#ffffff; --surface-2:#eef3f4;
+    --ink:#152229; --ink-2:#54636b; --ink-3:#85959b; --line:#dce4e7;
+    --accent:#0f7c8a; --accent-d:#0b5b66; --accent-soft:#dcedef;
+    --ok:#2f8f5b; --ok-soft:#dcefe4; --warn:#b9791a; --warn-soft:#f4e7cf;
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#0c1114; --surface:#151d21; --surface-2:#1b262b;
+      --ink:#e7edef; --ink-2:#9aa8ad; --ink-3:#6a787d; --line:#26333a;
+      --accent:#33b0bf; --accent-d:#7fd4de; --accent-soft:#123037;
+      --ok:#48b579; --ok-soft:#122e20; --warn:#d8a23f; --warn-soft:#33280f;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font);font-size:15.5px;line-height:1.6}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 22px 80px}
+  img.logo{width:52px;height:52px;border-radius:50%;display:block}
+  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-d);margin:16px 0 4px}
+  h1{font-size:29px;margin:0 0 8px;letter-spacing:-.02em;text-wrap:balance}
+  .lede{color:var(--ink-2);font-size:16.5px;margin:0}
+  nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 4px}
+  nav a{font-size:13px;text-decoration:none;color:var(--accent-d);background:var(--surface);border:1px solid var(--line);padding:6px 12px;border-radius:20px}
+  nav a:hover{background:var(--surface-2)}
+
+  .step{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 20px;margin-top:16px}
+  .step .n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;
+    display:grid;place-items:center;font-weight:700;font-size:16px}
+  .step h3{margin:2px 0 7px;font-size:18px}
+  .step p{margin:0 0 10px}
+  .step ul{margin:0 0 8px;padding-left:20px}
+  .step li{margin-bottom:5px}
+  .step:last-child{margin-bottom:0}
+  code{font-family:var(--mono);font-size:.86em;background:var(--surface-2);padding:1.5px 6px;border-radius:5px}
+  .example{background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 9px 9px 0;padding:11px 14px;font-size:14px;margin:8px 0}
+  .example b{color:var(--accent-d)}
+  .tips{background:var(--ok-soft);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:26px}
+  .tips h2{font-size:15px;margin:0 0 10px;color:var(--ink)}
+  .tips ul{margin:0;padding-left:20px}.tips li{margin-bottom:7px}
+  .callout{background:var(--warn-soft);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:14px;font-size:14.5px}
+  h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);margin:34px 0 4px}
+  .foot{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--ink-3)}
+  a{color:var(--accent-d)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="logo" src="/static/aju.png" alt="Prefeitura de Aracaju">
+  <div class="eyebrow">Guia da secretaria</div>
+  <h1>Como usar o Assistente Virtual</h1>
+  <p class="lede">Um passo a passo simples: desde preparar as perguntas e respostas até responder, no dia a dia, o que os cidadãos ainda não encontram.</p>
+
+  <nav>
+    <a href="/admin">🔑 Abrir o painel</a>
+    <a href="/">💬 Ver o chat do cidadão</a>
+    <a href="/documentacao">📄 Documentação técnica</a>
+  </nav>
+
+  <h2 class="sec">Primeiro uso</h2>
+
+  <div class="step">
+    <div class="n">1</div>
+    <div>
+      <h3>Prepare a lista de perguntas e respostas</h3>
+      <p>O assistente responde com base nos documentos da sua secretaria. Quanto melhor a lista, melhores as respostas. Monte um arquivo (PDF ou texto) seguindo estas regras:</p>
+      <ul>
+        <li><b>Uma pergunta e sua resposta por bloco</b>, cada uma completa por si só.</li>
+        <li><b>Texto de verdade</b> (não uma imagem/escaneado) — o sistema precisa "ler" o conteúdo.</li>
+        <li>Linguagem que o cidadão usa (ex.: "2ª via", "prazo", "como solicitar").</li>
+      </ul>
+      <div class="example">
+        <b>Pergunta:</b> Como emito a 2ª via do IPTU?<br>
+        <b>Resposta:</b> Acesse o site da prefeitura, informe seu CPF ou inscrição do imóvel e clique em "2ª via".
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">2</div>
+    <div>
+      <h3>Carregue o material na base (primeiro load)</h3>
+      <p>Esse arquivo é carregado no espaço da sua secretaria. Nesta fase, a <b>equipe técnica</b> faz esse carregamento inicial para você — basta enviar o arquivo pronto. A partir daí, o assistente já começa a responder as perguntas cobertas pela lista.</p>
+      <div class="callout">💡 Sempre que atualizar essa lista, avise a equipe e depois use <b>“Limpar cache”</b> no painel (passo 6) — assim as respostas antigas dão lugar às novas.</div>
+    </div>
+  </div>
+
+  <h2 class="sec">No dia a dia</h2>
+
+  <div class="step">
+    <div class="n">3</div>
+    <div>
+      <h3>Entre no painel da secretaria</h3>
+      <p>Acesse <a href="/admin"><b>/admin</b></a> e informe o <b>token de acesso</b> (fornecido pela equipe). Ele fica salvo no navegador — você não precisa digitar toda vez.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">4</div>
+    <div>
+      <h3>Responda as perguntas sem resposta</h3>
+      <p>No painel aparece a <b>fila de perguntas que os cidadãos fizeram e o assistente não soube responder</b> — ordenadas pelas mais pedidas (o número <code>×N</code> mostra quantas vezes).</p>
+      <ul>
+        <li>Escreva a resposta oficial no campo e clique em <b>“Publicar resposta”</b>. Pronto: o assistente <b>passa a responder aquela pergunta imediatamente</b>, e ela sai da fila.</li>
+        <li>Se a pergunta for irrelevante ou indevida, clique em <b>“Ignorar”</b>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">5</div>
+    <div>
+      <h3>Perguntas sugeridas (automático)</h3>
+      <p>Na tela do cidadão aparecem atalhos de perguntas prontas. Eles são escolhidos <b>sozinhos</b>, com base nas dúvidas mais frequentes de verdade — você não precisa configurar nada. Quanto mais o serviço é usado, mais certeiros ficam.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">6</div>
+    <div>
+      <h3>Atualizou o material? Limpe o cache</h3>
+      <p>Para acelerar, o assistente guarda respostas já dadas. Se você mudou uma informação (novo prazo, novo valor), clique em <b>“Limpar cache”</b> no painel para que ele pare de repetir a resposta antiga e volte a consultar a base atualizada.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="n">7</div>
+    <div>
+      <h3>Acompanhe os números</h3>
+      <p>No topo do painel você vê quantas perguntas estão <b>sem resposta</b>, quantas respostas estão no cache e a <b>taxa de acerto</b>. É um termômetro de como o atendimento está indo.</p>
+    </div>
+  </div>
+
+  <div class="tips">
+    <h2>✅ Boas práticas ao responder</h2>
+    <ul>
+      <li>Respostas <b>curtas, claras e corretas</b> — o cidadão quer resolver rápido.</li>
+      <li>Use linguagem simples; evite termos internos e siglas sem explicação.</li>
+      <li>Só afirme o que é oficial. Na dúvida, oriente a procurar o setor responsável.</li>
+      <li>Revise antes de publicar: a resposta vira conhecimento do assistente na hora.</li>
+    </ul>
+  </div>
+
+  <div class="foot">Prefeitura de Aracaju · Assistente de FAQ Municipal · guia da secretaria. Dúvidas? Procure a equipe técnica.</div>
+</div>
+</body>
+</html>
