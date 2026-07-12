@@ -60,6 +60,10 @@ def _unit(v: list[float]) -> np.ndarray:
 
 
 def _db():
+    # garante que a pasta do banco exista (ex.: /data do volume) antes de abrir
+    d = os.path.dirname(DB_PATH)
+    if d:
+        os.makedirs(d, exist_ok=True)
     con = sqlite3.connect(DB_PATH)
     con.execute(
         "CREATE TABLE IF NOT EXISTS cache ("
