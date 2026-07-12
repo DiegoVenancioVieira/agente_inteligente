@@ -128,6 +128,12 @@ async def relatorio():
     return FileResponse("web/relatorio.html")
 
 
+@app.get("/admin", include_in_schema=False)
+async def admin_page():
+    """Painel das secretarias (perguntas sem resposta, responder, cache)."""
+    return FileResponse("web/admin.html")
+
+
 # ------------------------------------------------------------- infra externa
 async def _embed(client: httpx.AsyncClient, text: str) -> np.ndarray:
     r = await client.post(f"{OLLAMA_URL}/api/embeddings",
@@ -156,6 +162,24 @@ async def _ask_llm(client: httpx.AsyncClient, question: str) -> tuple[str, int]:
                                 headers=AUTH, timeout=15)
         except Exception:
             pass  # thread orfa nao quebra a resposta
+
+
+async def _add_knowledge(client: httpx.AsyncClient, question: str, answer: str) -> str:
+    """Injeta um novo Q&A no workspace do AnythingLLM (vira conhecimento do bot na hora)."""
+    text = f"Pergunta: {question}\nResposta: {answer}"
+    r = await client.post(
+        f"{API_BASE}/document/raw-text", headers=AUTH,
+        json={"textContent": text,
+              "metadata": {"title": f"secretaria-{int(time.time())}",
+                           "description": "Resposta cadastrada pela secretaria"}},
+        timeout=60)
+    r.raise_for_status()
+    docs = json.loads(r.content).get("documents", [])
+    loc = docs[0]["location"] if docs else None
+    if loc:  # embeda o novo documento no workspace
+        await client.post(f"{API_BASE}/workspace/{WORKSPACE}/update-embeddings",
+                          headers=AUTH, json={"adds": [loc]}, timeout=120)
+    return loc
 
 
 async def _store(question: str, answer: str, vec: np.ndarray):
@@ -329,6 +353,42 @@ async def unanswered(limit: int = 100):
          "last_seen": time.strftime("%Y-%m-%d %H:%M", time.localtime(last))}
         for q, c, last in rows
     ]}
+
+
+class AnswerIn(BaseModel):
+    question: str = Field(..., min_length=2, max_length=1000)
+    answer: str = Field(..., min_length=2, max_length=5000)
+
+
+@app.post("/answer", dependencies=[Depends(require_admin)])
+async def answer(body: AnswerIn):
+    """Secretaria responde uma pergunta -> vira conhecimento do bot + sai da lista."""
+    client: httpx.AsyncClient = app.state.client
+    try:
+        loc = await _add_knowledge(client, body.question, body.answer)
+    except Exception as e:
+        raise HTTPException(502, f"Falha ao gravar no AnythingLLM: {e}")
+    con = _db()
+    con.execute("DELETE FROM unanswered WHERE lower(trim(question)) = ?",
+                (body.question.strip().lower(),))
+    con.commit()
+    con.close()
+    return {"status": "resposta publicada", "location": loc}
+
+
+class QuestionIn(BaseModel):
+    question: str = Field(..., min_length=1, max_length=1000)
+
+
+@app.post("/unanswered/dismiss", dependencies=[Depends(require_admin)])
+async def dismiss(body: QuestionIn):
+    """Remove uma pergunta da lista sem responder (irrelevante/spam)."""
+    con = _db()
+    con.execute("DELETE FROM unanswered WHERE lower(trim(question)) = ?",
+                (body.question.strip().lower(),))
+    con.commit()
+    con.close()
+    return {"status": "removida"}
 
 
 @app.post("/cache/clear", dependencies=[Depends(require_admin)])
