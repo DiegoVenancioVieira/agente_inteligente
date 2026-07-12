@@ -64,8 +64,9 @@ curl http://SEU_HOST:8000/unanswered -H "Authorization: Bearer $ADMIN_TOKEN"
 1. Suba esta pasta como um repositório e conecte no Coolify (ou use `docker compose up -d`).
 2. Garanta que o `.env` esteja presente (contém `ANYTHINGLLM_API_KEY`, URLs, threshold).
    O `.env` **não** vai para o Git (protegido pelo `.gitignore`).
-3. O serviço sobe na porta `8000`. O `cache.db` persiste no volume `faq_cache_data`.
-4. Aponte seu front-end / integração para `http://VPS2:8000/ask`.
+3. O container escuta em `8000` internamente, publicado no host em **`8100`** (a `8000`
+   do host é do Coolify). O `cache.db` persiste no volume `faq_cache_data`.
+4. Aponte seu front-end / integração para `http://VPS2:8100/ask`.
 
 > **Rede:** o serviço precisa alcançar o Ollama da VPS1 (`OLLAMA_URL`) para os embeddings
 > e o AnythingLLM (`ANYTHINGLLM_URL`). Rodando na VPS2, ambos são acessíveis.

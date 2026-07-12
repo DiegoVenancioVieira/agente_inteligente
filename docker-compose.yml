@@ -6,7 +6,8 @@ services:
     container_name: faq-cache
     restart: unless-stopped
     ports:
-      - "8000:8000"
+      # host 8100 (livre na VPS2) -> container 8000. A 8000 do host e do Coolify.
+      - "8100:8000"
     environment:
       - ANYTHINGLLM_URL=${ANYTHINGLLM_URL}
       - ANYTHINGLLM_API_KEY=${ANYTHINGLLM_API_KEY}

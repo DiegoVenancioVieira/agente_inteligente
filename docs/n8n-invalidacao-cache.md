@@ -77,7 +77,7 @@ return [{ json: { mudou, assinatura } }];
 
 **5. HTTP Request (limpar cache)** — só no ramo "true":
 - Método: `POST`
-- URL: `http://VPS2:8000/cache/clear`
+- URL: `http://VPS2:8100/cache/clear`
 - Header: `Authorization` = `Bearer <ADMIN_TOKEN>`
 
 ## Alternativa simples: botão manual
@@ -89,7 +89,7 @@ Menos automático, porém trivial e à prova de erros.
 ## Teste manual do endpoint
 
 ```bash
-curl -X POST http://VPS2:8000/cache/clear \
+curl -X POST http://VPS2:8100/cache/clear \
   -H "Authorization: Bearer <ADMIN_TOKEN>"
 # -> {"status":"cache limpo"}
 ```
