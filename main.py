@@ -59,6 +59,16 @@ SECRETARIAS: dict[str, dict] = {
                   "Posso me arrepender de uma compra pela internet?",
                   "Fui cobrado indevidamente, tenho direito a algo?"],
     },
+    "sermulher": {
+        "label": "SERMULHER",
+        "welcome": ("Olá! 👋 Sou o assistente virtual da SERMULHER (Secretaria Municipal do Respeito "
+                    "às Políticas Públicas para as Mulheres) de Aracaju. Posso orientar sobre nossos "
+                    "serviços e onde buscar ajuda. Se você está em perigo agora, ligue 190. "
+                    "Como posso ajudar?"),
+        "chips": ["Sofri violência, onde busco ajuda?",
+                  "O que é o Disque 180?",
+                  "Quais programas a secretaria oferece?"],
+    },
 }
 DEFAULT_WS = next(iter(SECRETARIAS))
 
