@@ -1,14 +1,13 @@
 """
-Cache semantico + API do agente de FAQ municipal.
+Cache semantico + API do agente de FAQ municipal (MULTI-SECRETARIA).
 
-Fica NA FRENTE do AnythingLLM:
-  pergunta -> embedding (bge-m3) -> busca no cache
-    - se similaridade >= THRESHOLD  -> devolve resposta cacheada (~0,2s, sem LLM)
-    - senao                         -> chama o AnythingLLM (qwen2.5:7b) e grava no cache
+Fica NA FRENTE do AnythingLLM. Cada secretaria = um workspace do AnythingLLM.
+  pergunta (+secretaria) -> embedding (bge-m3) -> busca no cache DAQUELA secretaria
+    - similaridade >= THRESHOLD -> devolve resposta cacheada (~0,3s, sem LLM)
+    - senao                     -> chama o AnythingLLM (qwen2.5:7b) do workspace e grava
 
-Threshold 0,85 calibrado com dados reais:
-  quase-identicas 0,89-1,00 (acerta) | parafrases 0,60-0,71 e diferentes 0,36-0,45 (vao ao LLM).
-Recusas (fora de escopo) NAO sao cacheadas: ja sao rapidas e a FAQ pode mudar.
+Cache, sugestoes e recusas sao SEPARADOS por secretaria (workspace).
+Recusas (fora de escopo) NAO sao cacheadas.
 """
 import os
 import json
@@ -32,7 +31,6 @@ ANYTHINGLLM_URL = os.getenv("ANYTHINGLLM_URL", "http://192.168.0.118:3001").rstr
 ANYTHINGLLM_API_KEY = os.getenv("ANYTHINGLLM_API_KEY", "")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.0.115:11434").rstrip("/")
 EMBEDDER = os.getenv("OLLAMA_EMBEDDER", "bge-m3")
-WORKSPACE = os.getenv("WORKSPACE_SLUG", "semde")
 HIT_THRESHOLD = float(os.getenv("CACHE_SIMILARITY_THRESHOLD", "0.85"))
 TTL_DAYS = int(os.getenv("CACHE_TTL_DAYS", "30"))
 DB_PATH = os.getenv("CACHE_DB_PATH", "./cache.db")
@@ -42,15 +40,46 @@ ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 API_BASE = f"{ANYTHINGLLM_URL}/api/v1"
 AUTH = {"Authorization": f"Bearer {ANYTHINGLLM_API_KEY}"}
 
+# Secretarias atendidas. Cada slug = workspace no AnythingLLM.
+# Para adicionar uma nova: crie o workspace no AnythingLLM e acrescente aqui.
+SECRETARIAS: dict[str, dict] = {
+    "semde": {
+        "label": "SEMDE",
+        "welcome": ("Olá! 👋 Sou o assistente virtual da SEMDE (Secretaria Municipal do "
+                    "Desenvolvimento Econômico e Inovação) de Aracaju. Como posso ajudar?"),
+        "chips": ["Qual a alíquota do ISSQN pela Lei 183?",
+                  "O MEI pode pedir o benefício?",
+                  "O protocolo de intenções é um contrato?"],
+    },
+    "procon": {
+        "label": "PROCON",
+        "welcome": ("Olá! 👋 Sou o assistente virtual do PROCON de Aracaju. "
+                    "Tire suas dúvidas sobre seus direitos como consumidor. Como posso ajudar?"),
+        "chips": ["Comprei um produto com defeito, o que fazer?",
+                  "Posso me arrepender de uma compra pela internet?",
+                  "Fui cobrado indevidamente, tenho direito a algo?"],
+    },
+}
+DEFAULT_WS = next(iter(SECRETARIAS))
+
+
+def _valid_ws(ws: str | None) -> str:
+    """Resolve a secretaria: default se vazia, 404 se desconhecida."""
+    if not ws:
+        return DEFAULT_WS
+    if ws not in SECRETARIAS:
+        raise HTTPException(404, f"Secretaria '{ws}' não encontrada")
+    return ws
+
+
 # --------------------------------------------------------------- estado em RAM
 _lock = asyncio.Lock()
-_vecs: np.ndarray | None = None          # (n, dim) vetores normalizados
-_meta: list[dict] = []                   # [{id, question, answer, created_at}]
-_stats = {"hits": 0, "misses": 0, "refusals": 0}
+_vecs_by_ws: dict[str, np.ndarray] = {}                     # ws -> (n, dim)
+_meta_by_ws: dict[str, list] = defaultdict(list)            # ws -> [{id,question,answer,...}]
+_stats_by_ws: dict[str, dict] = defaultdict(lambda: {"hits": 0, "misses": 0, "refusals": 0})
 
 
 def _norm_text(t: str) -> str:
-    """Normalizacao leve: minusculas + espacos colapsados (ajuda a bater repetidos)."""
     return re.sub(r"\s+", " ", t.strip().lower())
 
 
@@ -61,7 +90,6 @@ def _unit(v: list[float]) -> np.ndarray:
 
 
 def _db():
-    # garante que a pasta do banco exista (ex.: /data do volume) antes de abrir
     d = os.path.dirname(DB_PATH)
     if d:
         os.makedirs(d, exist_ok=True)
@@ -71,35 +99,43 @@ def _db():
         "id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT, answer TEXT, "
         "embedding BLOB, created_at REAL)"
     )
-    # perguntas que o agente NAO soube responder (recusa) -> insumo p/ as secretarias
     con.execute(
         "CREATE TABLE IF NOT EXISTS unanswered ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT, created_at REAL)"
     )
-    try:  # migracao: contador de acertos por pergunta (para o ranking de sugestoes)
-        con.execute("ALTER TABLE cache ADD COLUMN hits INTEGER DEFAULT 0")
-        con.commit()
-    except sqlite3.OperationalError:
-        pass  # coluna ja existe
+    # migracoes idempotentes
+    for tbl, col, ddl in [
+        ("cache", "hits", "ALTER TABLE cache ADD COLUMN hits INTEGER DEFAULT 0"),
+        ("cache", "workspace", f"ALTER TABLE cache ADD COLUMN workspace TEXT DEFAULT '{DEFAULT_WS}'"),
+        ("unanswered", "workspace", f"ALTER TABLE unanswered ADD COLUMN workspace TEXT DEFAULT '{DEFAULT_WS}'"),
+    ]:
+        try:
+            con.execute(ddl)
+            con.commit()
+        except sqlite3.OperationalError:
+            pass  # coluna ja existe
     return con
 
 
 def _load_cache():
-    """Carrega o cache nao-expirado do SQLite para a matriz em memoria."""
-    global _vecs, _meta
+    """Carrega o cache nao-expirado, agrupado por secretaria."""
+    _vecs_by_ws.clear()
+    _meta_by_ws.clear()
     cutoff = time.time() - TTL_DAYS * 86400
     con = _db()
     rows = con.execute(
-        "SELECT id, question, answer, embedding, created_at, hits FROM cache "
+        "SELECT id, question, answer, embedding, created_at, hits, workspace FROM cache "
         "WHERE created_at > ? ORDER BY id", (cutoff,)
     ).fetchall()
     con.close()
-    _meta = []
-    mats = []
-    for rid, q, a, emb, ts, hits in rows:
-        _meta.append({"id": rid, "question": q, "answer": a, "created_at": ts, "hits": hits or 0})
-        mats.append(np.frombuffer(emb, dtype=np.float32))
-    _vecs = np.vstack(mats) if mats else None
+    mats: dict[str, list] = defaultdict(list)
+    for rid, q, a, emb, ts, hits, ws in rows:
+        ws = ws or DEFAULT_WS
+        _meta_by_ws[ws].append({"id": rid, "question": q, "answer": a,
+                                "created_at": ts, "hits": hits or 0})
+        mats[ws].append(np.frombuffer(emb, dtype=np.float32))
+    for ws, m in mats.items():
+        _vecs_by_ws[ws] = np.vstack(m)
 
 
 @asynccontextmanager
@@ -110,44 +146,36 @@ async def lifespan(app: FastAPI):
     await app.state.client.aclose()
 
 
-app = FastAPI(title="Agente FAQ Municipal — API + Cache Semantico", lifespan=lifespan)
-
-# CORS liberado: /ask e um endpoint publico de FAQ (sem dados sensiveis).
+app = FastAPI(title="Agente FAQ Municipal — Multi-secretaria", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_methods=["*"], allow_headers=["*"])
 
 
 @app.get("/", include_in_schema=False)
 async def index():
-    """Serve a interface de chat dos municipes."""
     return FileResponse("web/index.html")
 
 
 @app.get("/relatorio", include_in_schema=False)
 async def relatorio():
-    """Relatorio de capacidade / tempo de resposta."""
     return FileResponse("web/relatorio.html")
 
 
 @app.get("/admin", include_in_schema=False)
 async def admin_page():
-    """Painel das secretarias (perguntas sem resposta, responder, cache)."""
     return FileResponse("web/admin.html")
 
 
 @app.get("/documentacao", include_in_schema=False)
 async def documentacao_page():
-    """Documentacao tecnica do sistema."""
     return FileResponse("web/documentacao.html")
 
 
 @app.get("/tutorial", include_in_schema=False)
 async def tutorial_page():
-    """Tutorial para as secretarias."""
     return FileResponse("web/tutorial.html")
 
 
-# arquivos estaticos (logo aju.png, etc.)
 app.mount("/static", StaticFiles(directory="web"), name="static")
 
 
@@ -159,68 +187,69 @@ async def _embed(client: httpx.AsyncClient, text: str) -> np.ndarray:
     return _unit(r.json()["embedding"])
 
 
-async def _ask_llm(client: httpx.AsyncClient, question: str) -> tuple[str, int]:
-    """Chama o AnythingLLM em thread NOVA (evita contaminacao de historico)."""
-    r = await client.post(f"{API_BASE}/workspace/{WORKSPACE}/thread/new",
+async def _ask_llm(client: httpx.AsyncClient, ws: str, question: str) -> tuple[str, int]:
+    """Chama o AnythingLLM do workspace em thread NOVA (sem contaminacao)."""
+    r = await client.post(f"{API_BASE}/workspace/{ws}/thread/new",
                           headers=AUTH, json={}, timeout=20)
     r.raise_for_status()
     slug = r.json()["thread"]["slug"]
     try:
         r = await client.post(
-            f"{API_BASE}/workspace/{WORKSPACE}/thread/{slug}/chat",
+            f"{API_BASE}/workspace/{ws}/thread/{slug}/chat",
             headers=AUTH, json={"message": question, "mode": "query"}, timeout=180,
         )
         r.raise_for_status()
-        d = json.loads(r.content)  # decode UTF-8 explicito (evita mojibake de acentos)
+        d = json.loads(r.content)
         return d.get("textResponse", ""), len(d.get("sources", []))
     finally:
         try:
-            await client.delete(f"{API_BASE}/workspace/{WORKSPACE}/thread/{slug}",
+            await client.delete(f"{API_BASE}/workspace/{ws}/thread/{slug}",
                                 headers=AUTH, timeout=15)
         except Exception:
-            pass  # thread orfa nao quebra a resposta
+            pass
 
 
-async def _add_knowledge(client: httpx.AsyncClient, question: str, answer: str) -> str:
-    """Injeta um novo Q&A no workspace do AnythingLLM (vira conhecimento do bot na hora)."""
+async def _add_knowledge(client: httpx.AsyncClient, ws: str, question: str, answer: str) -> str:
+    """Injeta um Q&A no workspace (vira conhecimento do bot na hora)."""
     text = f"Pergunta: {question}\nResposta: {answer}"
     r = await client.post(
         f"{API_BASE}/document/raw-text", headers=AUTH,
         json={"textContent": text,
-              "metadata": {"title": f"secretaria-{int(time.time())}",
+              "metadata": {"title": f"{ws}-{int(time.time())}",
                            "description": "Resposta cadastrada pela secretaria"}},
         timeout=60)
     r.raise_for_status()
     docs = json.loads(r.content).get("documents", [])
     loc = docs[0]["location"] if docs else None
-    if loc:  # embeda o novo documento no workspace
-        await client.post(f"{API_BASE}/workspace/{WORKSPACE}/update-embeddings",
+    if loc:
+        await client.post(f"{API_BASE}/workspace/{ws}/update-embeddings",
                           headers=AUTH, json={"adds": [loc]}, timeout=120)
     return loc
 
 
-async def _store(question: str, answer: str, vec: np.ndarray):
-    global _vecs, _meta
+async def _store(ws: str, question: str, answer: str, vec: np.ndarray):
     ts = time.time()
     con = _db()
     cur = con.execute(
-        "INSERT INTO cache (question, answer, embedding, created_at) VALUES (?,?,?,?)",
-        (question, answer, vec.astype(np.float32).tobytes(), ts),
+        "INSERT INTO cache (question, answer, embedding, created_at, workspace) VALUES (?,?,?,?,?)",
+        (question, answer, vec.astype(np.float32).tobytes(), ts, ws),
     )
     con.commit()
     rid = cur.lastrowid
     con.close()
     async with _lock:
-        _meta.append({"id": rid, "question": question, "answer": answer,
-                      "created_at": ts, "hits": 0})
-        _vecs = vec.reshape(1, -1) if _vecs is None else np.vstack([_vecs, vec])
+        _meta_by_ws[ws].append({"id": rid, "question": question, "answer": answer,
+                                "created_at": ts, "hits": 0})
+        v = vec.reshape(1, -1)
+        _vecs_by_ws[ws] = v if ws not in _vecs_by_ws else np.vstack([_vecs_by_ws[ws], vec])
 
 
-def _search(vec: np.ndarray) -> tuple[float, int]:
-    """Melhor similaridade (cosseno) no cache. Retorna (score, indice) ou (0,-1)."""
-    if _vecs is None or len(_meta) == 0:
+def _search(ws: str, vec: np.ndarray) -> tuple[float, int]:
+    """Melhor similaridade no cache DA secretaria. Retorna (score, indice) ou (0,-1)."""
+    vecs = _vecs_by_ws.get(ws)
+    if vecs is None or not _meta_by_ws.get(ws):
         return 0.0, -1
-    sims = _vecs @ vec            # vetores ja normalizados -> produto = cosseno
+    sims = vecs @ vec
     i = int(np.argmax(sims))
     return float(sims[i]), i
 
@@ -230,7 +259,6 @@ _hits_by_ip: dict[str, deque] = defaultdict(deque)
 
 
 def _client_ip(request: Request) -> str:
-    """IP real do cidadao (respeita X-Forwarded-For do Traefik/Coolify)."""
     xff = request.headers.get("x-forwarded-for")
     if xff:
         return xff.split(",")[0].strip()
@@ -238,7 +266,6 @@ def _client_ip(request: Request) -> str:
 
 
 def _rate_ok(ip: str) -> bool:
-    """Janela deslizante de 60s por IP. Protege o LLM contra abuso/DoS."""
     now = time.time()
     dq = _hits_by_ip[ip]
     while dq and now - dq[0] > 60:
@@ -250,17 +277,16 @@ def _rate_ok(ip: str) -> bool:
 
 
 def require_admin(authorization: str = Header(default="")):
-    """Protege endpoints administrativos (fecha por padrao se ADMIN_TOKEN vazio)."""
     if not ADMIN_TOKEN:
         raise HTTPException(503, "ADMIN_TOKEN nao configurado no servidor")
     if authorization != f"Bearer {ADMIN_TOKEN}":
         raise HTTPException(401, "Nao autorizado")
 
 
-def _log_unanswered(question: str):
+def _log_unanswered(ws: str, question: str):
     con = _db()
-    con.execute("INSERT INTO unanswered (question, created_at) VALUES (?,?)",
-                (question, time.time()))
+    con.execute("INSERT INTO unanswered (question, created_at, workspace) VALUES (?,?,?)",
+                (question, time.time(), ws))
     con.commit()
     con.close()
 
@@ -268,6 +294,7 @@ def _log_unanswered(question: str):
 # ------------------------------------------------------------------ API
 class AskIn(BaseModel):
     question: str = Field(..., min_length=2, max_length=1000)
+    secretaria: str | None = None
 
 
 class AskOut(BaseModel):
@@ -278,11 +305,21 @@ class AskOut(BaseModel):
     matched_question: str | None = None
 
 
+@app.get("/secretarias")
+async def secretarias():
+    """Lista das secretarias para o seletor da interface."""
+    return {"secretarias": [
+        {"slug": s, "label": m["label"], "welcome": m["welcome"], "chips": m["chips"]}
+        for s, m in SECRETARIAS.items()
+    ]}
+
+
 @app.post("/ask", response_model=AskOut)
 async def ask(body: AskIn, request: Request):
     if not _rate_ok(_client_ip(request)):
-        raise HTTPException(
-            429, "Muitas perguntas em pouco tempo. Aguarde alguns segundos e tente novamente.")
+        raise HTTPException(429, "Muitas perguntas em pouco tempo. Aguarde e tente novamente.")
+    ws = _valid_ws(body.secretaria)
+    st = _stats_by_ws[ws]
     client: httpx.AsyncClient = app.state.client
     t0 = time.time()
     try:
@@ -290,11 +327,11 @@ async def ask(body: AskIn, request: Request):
     except Exception as e:
         raise HTTPException(502, f"Falha ao gerar embedding: {e}")
 
-    score, idx = _search(vec)
+    score, idx = _search(ws, vec)
     if idx >= 0 and score >= HIT_THRESHOLD:
-        _stats["hits"] += 1
-        m = _meta[idx]
-        m["hits"] = m.get("hits", 0) + 1          # ranking de sugestoes
+        st["hits"] += 1
+        m = _meta_by_ws[ws][idx]
+        m["hits"] = m.get("hits", 0) + 1
         try:
             con = _db()
             con.execute("UPDATE cache SET hits = hits + 1 WHERE id = ?", (m["id"],))
@@ -303,21 +340,19 @@ async def ask(body: AskIn, request: Request):
         except Exception:
             pass
         return AskOut(answer=m["answer"], cached=True, similarity=round(score, 3),
-                      latency_ms=int((time.time() - t0) * 1000),
-                      matched_question=m["question"])
+                      latency_ms=int((time.time() - t0) * 1000), matched_question=m["question"])
 
-    # miss -> LLM
-    _stats["misses"] += 1
+    st["misses"] += 1
     try:
-        answer, n_sources = await _ask_llm(client, body.question)
+        answer, n_sources = await _ask_llm(client, ws, body.question)
     except Exception as e:
         raise HTTPException(502, f"Falha ao consultar o AnythingLLM: {e}")
 
-    if n_sources > 0:                      # so cacheia respostas fundamentadas
-        await _store(body.question, answer, vec)
+    if n_sources > 0:
+        await _store(ws, body.question, answer, vec)
     else:
-        _stats["refusals"] += 1            # recusa: nao cacheia (ja e rapida)
-        _log_unanswered(body.question)     # registra p/ a secretaria melhorar a FAQ
+        st["refusals"] += 1
+        _log_unanswered(ws, body.question)
 
     return AskOut(answer=answer, cached=False, similarity=round(score, 3),
                   latency_ms=int((time.time() - t0) * 1000))
@@ -325,21 +360,18 @@ async def ask(body: AskIn, request: Request):
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "workspace": WORKSPACE, "cache_size": len(_meta),
-            "threshold": HIT_THRESHOLD, "ttl_days": TTL_DAYS}
+    return {"status": "ok", "threshold": HIT_THRESHOLD, "ttl_days": TTL_DAYS,
+            "secretarias": {s: len(_meta_by_ws.get(s, [])) for s in SECRETARIAS}}
 
 
 @app.get("/suggestions")
-async def suggestions(n: int = 3):
-    """Perguntas mais frequentes (por acertos de cache) para exibir como atalhos.
-    Enquanto nao ha histórico suficiente, completa com perguntas padrao."""
-    ranked = sorted((m for m in _meta if m.get("hits", 0) > 0),
+async def suggestions(n: int = 3, secretaria: str | None = None):
+    """Perguntas mais frequentes da secretaria (por acertos de cache); completa com padrao."""
+    ws = _valid_ws(secretaria)
+    ranked = sorted((m for m in _meta_by_ws.get(ws, []) if m.get("hits", 0) > 0),
                     key=lambda m: m["hits"], reverse=True)
     qs = [m["question"] for m in ranked[:n]]
-    padrao = ["Qual a alíquota do ISSQN pela Lei 183?",
-              "O MEI pode pedir o benefício?",
-              "O protocolo de intenções é um contrato?"]
-    for d in padrao:
+    for d in SECRETARIAS[ws]["chips"]:
         if len(qs) >= n:
             break
         if d not in qs:
@@ -348,24 +380,25 @@ async def suggestions(n: int = 3):
 
 
 @app.get("/stats")
-async def stats():
-    total = _stats["hits"] + _stats["misses"]
-    return {**_stats, "cache_size": len(_meta),
-            "hit_rate": round(_stats["hits"] / total, 3) if total else 0.0}
+async def stats(secretaria: str | None = None):
+    ws = _valid_ws(secretaria)
+    st = _stats_by_ws[ws]
+    total = st["hits"] + st["misses"]
+    return {**st, "secretaria": ws, "cache_size": len(_meta_by_ws.get(ws, [])),
+            "hit_rate": round(st["hits"] / total, 3) if total else 0.0}
 
 
 @app.get("/unanswered", dependencies=[Depends(require_admin)])
-async def unanswered(limit: int = 100):
-    """Perguntas que o agente nao soube responder, agrupadas por frequencia.
-    Insumo para as secretarias saberem o que falta na FAQ."""
+async def unanswered(limit: int = 100, secretaria: str | None = None):
+    ws = _valid_ws(secretaria)
     con = _db()
     rows = con.execute(
         "SELECT question, COUNT(*) c, MAX(created_at) last FROM unanswered "
-        "GROUP BY lower(trim(question)) ORDER BY c DESC, last DESC LIMIT ?",
-        (limit,),
+        "WHERE workspace = ? GROUP BY lower(trim(question)) ORDER BY c DESC, last DESC LIMIT ?",
+        (ws, limit),
     ).fetchall()
     con.close()
-    return {"unanswered": [
+    return {"secretaria": ws, "unanswered": [
         {"question": q, "count": c,
          "last_seen": time.strftime("%Y-%m-%d %H:%M", time.localtime(last))}
         for q, c, last in rows
@@ -375,19 +408,20 @@ async def unanswered(limit: int = 100):
 class AnswerIn(BaseModel):
     question: str = Field(..., min_length=2, max_length=1000)
     answer: str = Field(..., min_length=2, max_length=5000)
+    secretaria: str | None = None
 
 
 @app.post("/answer", dependencies=[Depends(require_admin)])
 async def answer(body: AnswerIn):
-    """Secretaria responde uma pergunta -> vira conhecimento do bot + sai da lista."""
+    ws = _valid_ws(body.secretaria)
     client: httpx.AsyncClient = app.state.client
     try:
-        loc = await _add_knowledge(client, body.question, body.answer)
+        loc = await _add_knowledge(client, ws, body.question, body.answer)
     except Exception as e:
         raise HTTPException(502, f"Falha ao gravar no AnythingLLM: {e}")
     con = _db()
-    con.execute("DELETE FROM unanswered WHERE lower(trim(question)) = ?",
-                (body.question.strip().lower(),))
+    con.execute("DELETE FROM unanswered WHERE workspace = ? AND lower(trim(question)) = ?",
+                (ws, body.question.strip().lower()))
     con.commit()
     con.close()
     return {"status": "resposta publicada", "location": loc}
@@ -395,28 +429,37 @@ async def answer(body: AnswerIn):
 
 class QuestionIn(BaseModel):
     question: str = Field(..., min_length=1, max_length=1000)
+    secretaria: str | None = None
 
 
 @app.post("/unanswered/dismiss", dependencies=[Depends(require_admin)])
 async def dismiss(body: QuestionIn):
-    """Remove uma pergunta da lista sem responder (irrelevante/spam)."""
+    ws = _valid_ws(body.secretaria)
     con = _db()
-    con.execute("DELETE FROM unanswered WHERE lower(trim(question)) = ?",
-                (body.question.strip().lower(),))
+    con.execute("DELETE FROM unanswered WHERE workspace = ? AND lower(trim(question)) = ?",
+                (ws, body.question.strip().lower()))
     con.commit()
     con.close()
     return {"status": "removida"}
 
 
 @app.post("/cache/clear", dependencies=[Depends(require_admin)])
-async def clear_cache():
-    """Limpa TODO o cache. Chame quando uma secretaria atualizar um PDF da FAQ."""
-    global _vecs, _meta
+async def clear_cache(secretaria: str | None = None):
+    """Limpa o cache de uma secretaria (?secretaria=) ou de todas."""
     con = _db()
+    if secretaria:
+        ws = _valid_ws(secretaria)
+        con.execute("DELETE FROM cache WHERE workspace = ?", (ws,))
+        con.commit()
+        con.close()
+        async with _lock:
+            _vecs_by_ws.pop(ws, None)
+            _meta_by_ws.pop(ws, None)
+        return {"status": f"cache de {ws} limpo"}
     con.execute("DELETE FROM cache")
     con.commit()
     con.close()
     async with _lock:
-        _vecs = None
-        _meta = []
-    return {"status": "cache limpo"}
+        _vecs_by_ws.clear()
+        _meta_by_ws.clear()
+    return {"status": "cache limpo (todas as secretarias)"}

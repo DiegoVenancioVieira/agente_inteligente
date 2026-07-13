@@ -35,6 +35,8 @@
   .btn.danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
   .btn.danger:hover{background:var(--danger);color:#fff}
   .btn:disabled{opacity:.5;cursor:not-allowed}
+  .wssel{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;
+    padding:8px 10px;font-family:inherit;font-size:13.5px;cursor:pointer}
 
   /* login */
   #login{max-width:380px;margin:12vh auto 0;background:var(--surface);border:1px solid var(--line);
@@ -110,9 +112,10 @@
     <header class="bar">
       <div>
         <h1>Perguntas sem resposta</h1>
-        <div class="sub">Assistente FAQ · Secretaria da Fazenda</div>
+        <div class="sub" id="subLbl">Assistente FAQ</div>
       </div>
       <div class="spacer"></div>
+      <select id="wsSel" class="wssel" aria-label="Secretaria"></select>
       <button class="btn ghost" id="refreshBtn" type="button">Atualizar</button>
       <button class="btn ghost" id="logoutBtn" type="button">Sair</button>
     </header>
@@ -142,6 +145,7 @@
   const KEY = "faq_admin_token";
   const $ = s => document.querySelector(s);
   let token = localStorage.getItem(KEY) || "";
+  let currentWs = null;
 
   function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2600); }
 
@@ -152,6 +156,23 @@
     if(r.status===401){ logout(); throw new Error("401"); }
     if(!r.ok) throw new Error("HTTP "+r.status);
     return r.json();
+  }
+
+  async function loadSecretarias(){
+    try{
+      const r = await fetch("/secretarias");
+      const {secretarias} = await r.json();
+      const sel = $("#wsSel"); sel.innerHTML = "";
+      secretarias.forEach(s => { const o=document.createElement("option"); o.value=s.slug; o.textContent=s.label; sel.appendChild(o); });
+      currentWs = secretarias.length ? secretarias[0].slug : null;
+      sel.value = currentWs;
+      sel.style.display = secretarias.length > 1 ? "" : "none";
+      updateSubLabel();
+    }catch(e){}
+  }
+  function updateSubLabel(){
+    const sel=$("#wsSel"); const o=sel.options[sel.selectedIndex];
+    $("#subLbl").textContent = "Assistente FAQ · " + (o ? o.textContent : "");
   }
 
   function showLogin(){ $("#dash").classList.add("hidden"); $("#login").classList.remove("hidden"); }
@@ -165,20 +186,20 @@
     try{
       await api("/stats");                     // valida o token
       localStorage.setItem(KEY, token);
-      showDash(); loadAll();
+      await loadSecretarias(); showDash(); loadAll();
     }catch(e){
       $("#loginErr").textContent = e.message==="401" ? "Token inválido." : "Falha ao conectar.";
     }
   }
 
   async function loadStats(){
-    const s = await api("/stats");
+    const s = await api("/stats?secretaria="+currentWs);
     $("#tCache").textContent = s.cache_size;
     $("#tHit").textContent = Math.round((s.hit_rate||0)*100)+"%";
   }
 
   async function loadUnanswered(){
-    const {unanswered} = await api("/unanswered");
+    const {unanswered} = await api("/unanswered?secretaria="+currentWs);
     $("#tPend").textContent = unanswered.length;
     const list = $("#list");
     list.innerHTML = "";
@@ -205,14 +226,14 @@
       if(answer.length<2){ toast("Escreva a resposta primeiro."); return; }
       pub.disabled=true; ign.disabled=true; pub.textContent="Publicando…";
       try{
-        await api("/answer",{method:"POST",body:{question:u.question, answer}});
+        await api("/answer",{method:"POST",body:{question:u.question, answer, secretaria:currentWs}});
         toast("Resposta publicada — o bot já responde essa pergunta.");
         c.remove(); loadStats(); refreshPendCount(-1);
       }catch(e){ toast("Erro ao publicar."); pub.disabled=false; ign.disabled=false; pub.textContent="Publicar resposta"; }
     });
     ign.addEventListener("click", async ()=>{
       ign.disabled=true; pub.disabled=true;
-      try{ await api("/unanswered/dismiss",{method:"POST",body:{question:u.question}}); c.remove(); refreshPendCount(-1); }
+      try{ await api("/unanswered/dismiss",{method:"POST",body:{question:u.question, secretaria:currentWs}}); c.remove(); refreshPendCount(-1); }
       catch(e){ toast("Erro ao remover."); ign.disabled=false; pub.disabled=false; }
     });
     return c;
@@ -226,16 +247,17 @@
   async function loadAll(){ try{ await loadStats(); await loadUnanswered(); }catch(e){} }
 
   $("#clearBtn").addEventListener("click", async ()=>{
-    if(!confirm("Limpar todo o cache de respostas? Use após atualizar um PDF.")) return;
-    try{ await api("/cache/clear",{method:"POST"}); toast("Cache limpo."); loadStats(); }catch(e){ toast("Erro ao limpar."); }
+    if(!confirm("Limpar o cache desta secretaria? Use após atualizar um PDF.")) return;
+    try{ await api("/cache/clear?secretaria="+currentWs,{method:"POST"}); toast("Cache limpo."); loadStats(); }catch(e){ toast("Erro ao limpar."); }
   });
   $("#loginBtn").addEventListener("click", doLogin);
   $("#token").addEventListener("keydown", e=>{ if(e.key==="Enter") doLogin(); });
   $("#refreshBtn").addEventListener("click", loadAll);
   $("#logoutBtn").addEventListener("click", logout);
+  $("#wsSel").addEventListener("change", ()=>{ currentWs=$("#wsSel").value; updateSubLabel(); loadAll(); });
 
   // auto-login se ja houver token salvo
-  if(token){ api("/stats").then(()=>{ showDash(); loadAll(); }).catch(()=>showLogin()); }
+  if(token){ api("/stats").then(async ()=>{ await loadSecretarias(); showDash(); loadAll(); }).catch(()=>showLogin()); }
   else showLogin();
 </script>
 </body>

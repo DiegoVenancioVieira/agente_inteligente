@@ -108,7 +108,8 @@
         <tbody>
           <tr><td><code>POST /ask</code></td><td><span class="tag pub">Público</span></td><td>Pergunta do cidadão → resposta (com rate-limit por IP)</td></tr>
           <tr><td><code>GET /</code></td><td><span class="tag pub">Público</span></td><td>Interface de chat</td></tr>
-          <tr><td><code>GET /suggestions</code></td><td><span class="tag pub">Público</span></td><td>Perguntas mais frequentes (atalhos da interface)</td></tr>
+          <tr><td><code>GET /suggestions</code></td><td><span class="tag pub">Público</span></td><td>Perguntas mais frequentes da secretaria (atalhos da interface)</td></tr>
+          <tr><td><code>GET /secretarias</code></td><td><span class="tag pub">Público</span></td><td>Lista de secretarias (alimenta o seletor da interface)</td></tr>
           <tr><td><code>GET /health</code> · <code>/stats</code></td><td><span class="tag pub">Público</span></td><td>Status e métricas de uso</td></tr>
           <tr><td><code>GET /unanswered</code></td><td><span class="tag adm">Admin</span></td><td>Perguntas sem resposta, por frequência</td></tr>
           <tr><td><code>POST /answer</code></td><td><span class="tag adm">Admin</span></td><td>Publica resposta → vira conhecimento do bot</td></tr>
@@ -131,7 +132,7 @@
           <tr><td><code>ANYTHINGLLM_API_KEY</code></td><td>—</td><td>Chave da API do AnythingLLM</td></tr>
           <tr><td><code>OLLAMA_URL</code></td><td>—</td><td>URL do Ollama (ex.: http://192.168.0.115:11434)</td></tr>
           <tr><td><code>OLLAMA_EMBEDDER</code></td><td><code>bge-m3</code></td><td>Modelo de embeddings</td></tr>
-          <tr><td><code>WORKSPACE_SLUG</code></td><td><code>semde</code></td><td>Workspace da secretaria no AnythingLLM</td></tr>
+          <tr><td colspan="3" style="color:var(--ink-2);font-size:13px">As secretarias atendidas são definidas no dicionário <code>SECRETARIAS</code> em <code>main.py</code> (cada slug = um workspace no AnythingLLM), não em variáveis de ambiente.</td></tr>
           <tr><td><code>CACHE_SIMILARITY_THRESHOLD</code></td><td><code>0.85</code></td><td>Corte para acerto do cache</td></tr>
           <tr><td><code>CACHE_TTL_DAYS</code></td><td><code>30</code></td><td>Validade das respostas no cache</td></tr>
           <tr><td><code>RATE_LIMIT_PER_MIN</code></td><td><code>20</code></td><td>Máx. de perguntas por IP por minuto</td></tr>
@@ -155,7 +156,7 @@
     <ul>
       <li><b>Atualizou um PDF?</b> Limpe o cache (botão no painel ou <code>POST /cache/clear</code>) para não servir respostas antigas.</li>
       <li><b>Invalidação automática</b> — pode ser ligada via n8n (ver <code>docs/n8n-invalidacao-cache.md</code> no repositório).</li>
-      <li><b>Novas secretarias</b> — cada uma ganha um workspace próprio no AnythingLLM; o serviço evolui para atender várias com um seletor de secretaria.</li>
+      <li><b>Multi-secretaria</b> — o sistema atende várias secretarias (ex.: SEMDE e PROCON): cada uma tem seu workspace no AnythingLLM, com cache, sugestões e fila próprios, e a interface tem um seletor. Adicionar uma nova: criar o workspace + uma entrada no dicionário <code>SECRETARIAS</code> em <code>main.py</code>.</li>
     </ul>
   </section>
 
