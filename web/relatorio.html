@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Relatório de Capacidade — Agente FAQ (SEMDE)</title>
 <style>
   :root{
@@ -33,12 +38,17 @@
     --crit:#e26a5c; --crit-soft:#361a17;
   }
   *{box-sizing:border-box}
-  body{margin:0}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    line-height:1.55;
+    font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
   .wrap{
     max-width:860px;margin:0 auto;padding:48px 24px 72px;
-    background:var(--ground);color:var(--ink);
-    font-family:var(--font-sans);line-height:1.55;
-    font-size:15px;-webkit-font-smoothing:antialiased;
   }
   .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
   h1{font-size:30px;line-height:1.12;letter-spacing:-.02em;margin:.35em 0 .3em;font-weight:700;text-wrap:balance}
@@ -75,8 +85,8 @@
   .dotm{width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--surface);box-shadow:0 0 0 1.5px var(--accent)}
 
   .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
-  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
-  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px;color:var(--ink)}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);color:inherit}
   thead th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;background:var(--surface-2)}
   tbody tr:last-child td{border-bottom:0}
   td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;text-align:right}
@@ -100,7 +110,8 @@
     h1{font-size:25px}
   }
 </style>
-
+</head>
+<body>
 <div class="wrap">
   <img src="/static/aju.png" alt="Prefeitura de Aracaju" style="width:46px;height:46px;border-radius:50%;display:block;margin-bottom:16px">
   <div class="eyebrow">Relatório de capacidade · teste de carga</div>
@@ -293,3 +304,5 @@
     <b>Metodologia.</b> Medições reais via API do AnythingLLM (endpoint de chat, <code>mode:query</code>, thread nova por requisição) contra a VPS1 em produção. Níveis 1 e 3 (LLM) e 10 (caminho leve) foram executados; 10/100/1000 são <b>projeções</b> a partir da latência medida (~5s/resposta) e do modelo de fila serializada. Latência real varia com o tamanho da resposta (respostas mais longas: 10–20s). Não foram disparadas 100/1000 requisições reais para não sobrecarregar a instância.
   </div>
 </div>
+</body>
+</html>
