@@ -94,6 +94,11 @@
   .pill.ok{background:var(--ok-soft);color:var(--ok)}
   .pill.warn{background:var(--warn-soft);color:var(--warn)}
   .pill.crit{background:var(--crit-soft);color:var(--crit)}
+  .pill.est{background:var(--surface-3);color:var(--ink-2)}
+
+  .scen{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:26px 2px 10px}
+  .scen h3{margin:0;font-size:15px;font-weight:650;color:var(--ink)}
+  .scen .cfg{font-family:var(--font-mono);font-size:12px;color:var(--ink-3)}
 
   .list{display:flex;flex-direction:column;gap:12px}
   .item{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 18px}
@@ -217,6 +222,11 @@
 
   <section>
     <h2>Projeção por nível de concorrência</h2>
+    <div class="scen" style="margin-top:0">
+      <h3>Cenário atual — CPU, sem GPU</h3>
+      <span class="cfg">~10 tok/s · 1 slot · vazão ~0,2 req/s</span>
+      <span class="pill ok">medido</span>
+    </div>
     <div class="tablewrap">
       <table>
         <thead>
@@ -256,47 +266,77 @@
       </table>
     </div>
     <p style="font-size:12.5px;color:var(--ink-3);margin:10px 2px 0">* Valor teórico da fila. Na prática, 1000 conexões simultâneas estouram limites de conexão/timeout do AnythingLLM e a RAM antes de chegar lá — o sistema recusa ou trava, não espera 83 min.</p>
-  </section>
 
-  <section>
-    <h2>Por que serializa</h2>
-    <div class="panel" style="font-size:14px;color:var(--ink-2)">
-      <p style="margin:0 0 10px">Gerar texto num LLM é <b style="color:var(--ink)">limitado por CPU</b>. Com 4 vCPU e <code style="font-family:var(--font-mono);font-size:12.5px">OLLAMA_NUM_PARALLEL=1</code>, o Ollama processa <b style="color:var(--ink)">uma resposta por vez</b> — as demais aguardam na fila. Foi exatamente o observado nas 3 simultâneas (6s, 11s, 16s: cada uma ~5s, uma após a outra).</p>
-      <p style="margin:0">Aumentar o paralelismo <b style="color:var(--ink)">não resolve</b> nesse hardware: 2 respostas ao mesmo tempo dividem os mesmos 4 núcleos e ficam ~2× mais lentas cada — a vazão total quase não muda, e o consumo de RAM dobra. A vazão só sobe de verdade com <b style="color:var(--ink)">GPU</b> ou <b style="color:var(--ink)">menos chamadas ao LLM</b> (cache).</p>
+    <div class="scen">
+      <h3>Cenário A — 1 GPU</h3>
+      <span class="cfg">~60 tok/s · 4 slots · vazão ~4 req/s</span>
+      <span class="pill est">estimativa</span>
     </div>
-  </section>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Simultâneas</th>
+            <th>Espera do último usuário<br>(sem cache)</th>
+            <th>Com cache semântico<br>(~70% acerto)</th>
+            <th>Viabilidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="num">~1s</td><td class="num">~1s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">10</td><td class="num">~2,5s</td><td class="num">~1s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">100</td><td class="num">~25s</td><td class="num">~8s</td><td><span class="pill ok">Aceitável</span></td></tr>
+          <tr><td class="num">1000</td><td class="num">~4&nbsp;min</td><td class="num">~1,5&nbsp;min</td><td><span class="pill warn">Degrada</span></td></tr>
+        </tbody>
+      </table>
+    </div>
 
-  <section>
-    <h2>Alavancas — em ordem de impacto</h2>
-    <div class="list">
-      <div class="item">
-        <div class="n">1</div>
-        <div>
-          <h3>Cache semântico <span class="pill ok" style="vertical-align:middle">em produção</span></h3>
-          <p>FAQ de prefeitura repete muito (IPTU, prazos, 2ª via). Servir os repetidos direto do cache — <b>medido: 334ms</b> em produção, sem tocar no 7b — <b>triplica a capacidade efetiva</b> e some com a fila na maioria dos acessos.</p>
-        </div>
-      </div>
-      <div class="item">
-        <div class="n">2</div>
-        <div>
-          <h3>Fixar o modelo quente (<code style="font-family:var(--font-mono);font-size:12.5px">OLLAMA_KEEP_ALIVE=-1</code>) <span class="pill ok" style="vertical-align:middle">✅ aplicado</span></h3>
-          <p>Eliminou os <b>60s de carga a frio</b>. Confirmado: 7b e bge-m3 fixos na RAM (não expiram). Primeira resposta agora sai em ~5s.</p>
-        </div>
-      </div>
-      <div class="item">
-        <div class="n">3</div>
-        <div>
-          <h3>UX de fila para picos</h3>
-          <p>Em rajada, mostrar “estou consultando, um instante…” e enfileirar com ordem justa evita timeouts e a sensação de travamento. Barato e eficaz.</p>
-        </div>
-      </div>
-      <div class="item">
-        <div class="n">4</div>
-        <div>
-          <h3>GPU na VPS1 — só se o volume crescer</h3>
-          <p>Levaria a resposta de <b>~5s para ~1s</b> e permitiria concorrência real. É o próximo degrau de hardware, <b>não necessário agora</b> para ~1000/dia diluídas.</p>
-        </div>
-      </div>
+    <div class="scen">
+      <h3>Cenário B — 2 GPUs</h3>
+      <span class="cfg">2 réplicas · 8 slots · vazão ~8 req/s</span>
+      <span class="pill est">estimativa</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Simultâneas</th>
+            <th>Espera do último usuário<br>(sem cache)</th>
+            <th>Com cache semântico<br>(~70% acerto)</th>
+            <th>Viabilidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="num">~1s</td><td class="num">~1s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">10</td><td class="num">~1,3s</td><td class="num">~1s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">100</td><td class="num">~13s</td><td class="num">~4s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">1000</td><td class="num">~2&nbsp;min</td><td class="num">~40s</td><td><span class="pill ok">Aceitável</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scen">
+      <h3>Cenário C — 4 GPUs</h3>
+      <span class="cfg">4 réplicas · 16 slots · vazão ~16 req/s</span>
+      <span class="pill est">estimativa</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Simultâneas</th>
+            <th>Espera do último usuário<br>(sem cache)</th>
+            <th>Com cache semântico<br>(~70% acerto)</th>
+            <th>Viabilidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="num">~1s</td><td class="num">~1s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">10</td><td class="num">~1s</td><td class="num">~1s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">100</td><td class="num">~6s</td><td class="num">~2s</td><td><span class="pill ok">Ótimo</span></td></tr>
+          <tr><td class="num">1000</td><td class="num">~1&nbsp;min</td><td class="num">~20s</td><td><span class="pill ok">Aceitável</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
