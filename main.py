@@ -69,6 +69,15 @@ SECRETARIAS: dict[str, dict] = {
                   "O que é o Disque 180?",
                   "Quais programas a secretaria oferece?"],
     },
+    "integraju": {
+        "label": "IntegrAju",
+        "welcome": ("Olá! 👋 Sou o assistente virtual do IntegrAju, a plataforma digital de serviços "
+                    "da Prefeitura de Aracaju. Posso orientar sobre solicitações de serviços, "
+                    "denúncias, sugestões e acompanhamento de demandas. Como posso ajudar?"),
+        "chips": ["O que é o IntegrAju?",
+                  "Como solicito um serviço?",
+                  "Como acompanho minha solicitação?"],
+    },
 }
 DEFAULT_WS = next(iter(SECRETARIAS))
 
