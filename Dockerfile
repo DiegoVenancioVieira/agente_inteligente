@@ -7,6 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY main.py .
 COPY web ./web
+# sources/ tem o intents-1doc.json que o POST /intent/reindex le
+COPY sources ./sources
 
 # cache.db persiste no volume montado em /data (ver docker-compose)
 ENV CACHE_DB_PATH=/data/cache.db
