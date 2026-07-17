@@ -282,6 +282,16 @@ async def documentacao_page():
     return FileResponse("web/documentacao.html")
 
 
+@app.get("/api-intent", include_in_schema=False)
+async def api_intent_page():
+    return FileResponse("web/api-intent.html")
+
+
+@app.get("/relatorio-intent", include_in_schema=False)
+async def relatorio_intent_page():
+    return FileResponse("web/relatorio-intent.html")
+
+
 @app.get("/tutorial", include_in_schema=False)
 async def tutorial_page():
     return FileResponse("web/tutorial.html")
@@ -579,7 +589,11 @@ async def intent_reindex(request: Request):
 @app.get("/health")
 async def health():
     return {"status": "ok", "threshold": HIT_THRESHOLD, "ttl_days": TTL_DAYS,
-            "secretarias": {s: len(_meta_by_ws.get(s, [])) for s in SECRETARIAS}}
+            "secretarias": {s: len(_meta_by_ws.get(s, [])) for s in SECRETARIAS},
+            # sinonimos=0 depois de um deploy significa que falta rodar /intent/reindex
+            "intent": {"sinonimos": 0 if _intent_vecs is None else int(_intent_vecs.shape[0]),
+                       "assuntos": len({m["value"] for m in _intent_meta}),
+                       "threshold": INTENT_THRESHOLD, "margin": INTENT_MARGIN}}
 
 
 @app.get("/suggestions")

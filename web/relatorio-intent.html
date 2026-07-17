@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relatório — API de Intenção (1doc)</title>
+<style>
+  :root{
+    --ground:#f5f7f9; --surface:#ffffff; --surface-2:#eef1f5; --surface-3:#e6eaf0;
+    --ink:#151b23; --ink-2:#586573; --ink-3:#8b96a3; --line:#d9e0e8;
+    --accent:#0f7c8a; --accent-ink:#0a5b66; --accent-soft:#d6ecef;
+    --ok:#2f8f5b; --ok-soft:#dcefe4; --warn:#b9791a; --warn-soft:#f4e7cf;
+    --crit:#c1443a; --crit-soft:#f5dcd8;
+    --font-sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono","Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#0c0f13; --surface:#141a20; --surface-2:#1b222a; --surface-3:#232c35;
+      --ink:#e8ecf1; --ink-2:#9aa5b1; --ink-3:#6b7783; --line:#28323d;
+      --accent:#3bb4c3; --accent-ink:#83d6df; --accent-soft:#12303a;
+      --ok:#48b579; --ok-soft:#122e20; --warn:#d8a23f; --warn-soft:#33280f;
+      --crit:#e26a5c; --crit-soft:#361a17;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-sans);
+    line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 24px 72px}
+  img.logo{width:50px;height:50px;border-radius:50%;display:block;margin-bottom:14px}
+  .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+  h1{font-size:30px;line-height:1.12;letter-spacing:-.02em;margin:.35em 0 .3em;font-weight:700;text-wrap:balance}
+  h2{font-size:15px;font-weight:700;letter-spacing:.02em;margin:0 0 14px;text-transform:uppercase;color:var(--ink-2)}
+  .meta{color:var(--ink-2);font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px}
+  .meta b{color:var(--ink);font-weight:600}
+  .meta code{font-family:var(--font-mono);font-size:12.5px;background:var(--surface-2);padding:1px 6px;border-radius:5px}
+  section{margin-top:40px}
+  nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  nav a{font-size:13px;text-decoration:none;color:var(--accent-ink);background:var(--surface);
+    border:1px solid var(--line);padding:6px 12px;border-radius:20px}
+
+  .verdict{margin-top:28px;display:flex;gap:16px;align-items:flex-start;background:var(--surface);
+    border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:12px;padding:20px 22px}
+  .verdict .dot{flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:var(--ok-soft);
+    display:grid;place-items:center;color:var(--ok);font-weight:800;font-size:17px;margin-top:1px}
+  .verdict p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .verdict p.lede{font-weight:600;font-size:15.5px;margin-bottom:5px;color:var(--ink)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 15px}
+  .card .k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);min-height:2.4em}
+  .card .v{font-family:var(--font-mono);font-size:27px;font-weight:600;letter-spacing:-.01em;margin-top:6px;font-variant-numeric:tabular-nums}
+  .card .s{font-size:12px;color:var(--ink-2);margin-top:3px}
+  .card.good .v{color:var(--ok)}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .chartwrap{overflow-x:auto}
+  svg.chart{display:block;width:100%;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:12.5px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dotl{width:10px;height:10px;border-radius:50%}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px;color:var(--ink)}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  thead th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;background:var(--surface-2)}
+  tbody tr:last-child td{border-bottom:0}
+  td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;text-align:right}
+  td code,th code{font-family:var(--font-mono);font-size:12.5px}
+  .pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:20px;white-space:nowrap}
+  .pill.ok{background:var(--ok-soft);color:var(--ok)}
+  .pill.warn{background:var(--warn-soft);color:var(--warn)}
+  .pill.crit{background:var(--crit-soft);color:var(--crit)}
+  .scen{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:26px 2px 10px}
+  .scen h3{margin:0;font-size:15px;font-weight:650;color:var(--ink)}
+  .scen .cfg{font-family:var(--font-mono);font-size:12px;color:var(--ink-3)}
+  .note{font-size:12.5px;color:var(--ink-3);margin:10px 2px 0}
+  .foot{margin-top:40px;font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:16px}
+  .foot code{font-family:var(--font-mono)}
+  @media (max-width:640px){ .cards{grid-template-columns:repeat(2,1fr)} h1{font-size:25px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="logo" src="/static/aju.png" alt="Prefeitura de Aracaju">
+  <div class="eyebrow">Relatório · API de intenção</div>
+  <h1>Classificação de intenção para o 1doc</h1>
+  <div class="meta">
+    <span>Base: <b>intents-1doc.json</b> (ex-Dialogflow)</span>
+    <span>Embedder: <code>bge-m3</code></span>
+    <span>Sem LLM</span>
+    <span>Medido: <b>17/07/2026</b> · em produção (<code>:8100</code>)</span>
+  </div>
+
+  <nav>
+    <a href="/api-intent">📘 Documentação desta API</a>
+  </nav>
+
+  <div class="verdict">
+    <div class="dot">✓</div>
+    <div>
+      <p class="lede">Em produção, com os números iguais aos do teste local.</p>
+      <p>O limite de acurácia não é o modelo — é o cadastro. <b>88 sinônimos apontam para mais de um assunto</b>, e nenhum classificador resolve isso, porque a informação não está no texto do cidadão.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2>O que foi medido (dados reais)</h2>
+    <div class="cards">
+      <div class="card good">
+        <div class="k">Latência por consulta</div>
+        <div class="v">306ms</div>
+        <div class="s">média de 10 · 272–343ms</div>
+      </div>
+      <div class="card">
+        <div class="k">Índice</div>
+        <div class="v">1.888</div>
+        <div class="s">sinônimos → 756 assuntos</div>
+      </div>
+      <div class="card">
+        <div class="k">Reindex completo</div>
+        <div class="v">122s</div>
+        <div class="s">só quando o 1doc muda</div>
+      </div>
+      <div class="card">
+        <div class="k">Assuntos com órgão</div>
+        <div class="v">77%</div>
+        <div class="s">581 de 758</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Calibração do corte</h2>
+    <div class="panel">
+      <div class="chartwrap">
+        <svg class="chart" viewBox="0 0 720 230" role="img" aria-label="Distribuição de scores: dentro e fora do escopo">
+          <!-- eixo -->
+          <line x1="60" y1="196" x2="660" y2="196" stroke="var(--line)" stroke-width="1"/>
+          <g fill="var(--ink-3)" font-family="var(--font-mono)" font-size="11" text-anchor="middle">
+            <text x="60" y="214">0,40</text>
+            <text x="160" y="214">0,50</text>
+            <text x="260" y="214">0,60</text>
+            <text x="360" y="214">0,70</text>
+            <text x="460" y="214">0,80</text>
+            <text x="560" y="214">0,90</text>
+            <text x="660" y="214">1,00</text>
+          </g>
+          <g stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4">
+            <line x1="160" y1="40" x2="160" y2="196"/><line x1="260" y1="40" x2="260" y2="196"/>
+            <line x1="460" y1="40" x2="460" y2="196"/><line x1="560" y1="40" x2="560" y2="196"/>
+          </g>
+
+          <!-- corte -->
+          <line x1="360" y1="34" x2="360" y2="196" stroke="var(--accent)" stroke-width="2"/>
+          <text x="366" y="44" fill="var(--accent-ink)" font-size="11.5" font-weight="600" font-family="var(--font-sans)">corte 0,70</text>
+
+          <!-- dentro -->
+          <text x="60" y="72" fill="var(--ink-2)" font-size="12" font-family="var(--font-sans)" text-anchor="start">dentro do escopo (14)</text>
+          <g fill="var(--ok)" fill-opacity="0.75">
+            <circle cx="660" cy="96" r="6"/><circle cx="546" cy="96" r="6"/><circle cx="590" cy="96" r="6"/>
+            <circle cx="385" cy="96" r="6"/><circle cx="433" cy="96" r="6"/><circle cx="533" cy="96" r="6"/>
+            <circle cx="606" cy="96" r="6"/><circle cx="493" cy="96" r="6"/><circle cx="494" cy="96" r="6"/>
+            <circle cx="488" cy="96" r="6"/><circle cx="519" cy="96" r="6"/><circle cx="383" cy="96" r="6"/>
+            <circle cx="465" cy="96" r="6"/>
+          </g>
+          <circle cx="329" cy="96" r="6" fill="var(--crit)" fill-opacity="0.8"/>
+          <text x="322" y="82" fill="var(--crit)" font-size="10.5" text-anchor="end" font-family="var(--font-mono)">0,669</text>
+
+          <!-- fora -->
+          <text x="60" y="142" fill="var(--ink-2)" font-size="12" font-family="var(--font-sans)" text-anchor="start">fora do escopo (8)</text>
+          <g fill="var(--ink-3)" fill-opacity="0.75">
+            <circle cx="222" cy="166" r="6"/><circle cx="185" cy="166" r="6"/><circle cx="137" cy="166" r="6"/>
+            <circle cx="293" cy="166" r="6"/><circle cx="67" cy="166" r="6"/><circle cx="188" cy="166" r="6"/>
+            <circle cx="134" cy="166" r="6"/>
+          </g>
+          <circle cx="341" cy="166" r="6" fill="var(--warn)" fill-opacity="0.9"/>
+          <text x="348" y="184" fill="var(--warn)" font-size="10.5" font-family="var(--font-mono)">0,681 “celular” → tlf</text>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><span class="dotl" style="background:var(--ok)"></span> Dentro do escopo</span>
+        <span><span class="dotl" style="background:var(--ink-3)"></span> Fora do escopo</span>
+        <span><span class="dotl" style="background:var(--crit)"></span> Dentro, mas recusado</span>
+        <span><span class="dotl" style="background:var(--warn)"></span> Fora, quase aceito</span>
+      </div>
+    </div>
+
+    <div class="tablewrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>Conjunto</th><th>Mínimo</th><th>Média</th><th>Máximo</th><th>Frases</th></tr></thead>
+        <tbody>
+          <tr><td>Dentro do escopo</td><td class="num">0,669</td><td class="num"><b>0,835</b></td><td class="num">1,000</td><td class="num">14</td></tr>
+          <tr><td>Fora do escopo</td><td class="num">0,407</td><td class="num"><b>0,536</b></td><td class="num">0,681</td><td class="num">8</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scen">
+      <h3>Escolha do corte</h3>
+      <span class="cfg">custo assimétrico: formulário errado &gt; nenhum formulário</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Corte</th><th>Perde de dentro</th><th>Aceita de fora</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="num">0,62</td><td class="num">0 / 14</td><td class="num">2 / 8</td><td><span class="pill crit">permissivo</span></td></tr>
+          <tr><td class="num">0,65</td><td class="num">0 / 14</td><td class="num">1 / 8</td><td><span class="pill warn">permissivo</span></td></tr>
+          <tr><td class="num">0,68</td><td class="num">1 / 14</td><td class="num">1 / 8</td><td><span class="pill warn">—</span></td></tr>
+          <tr><td class="num"><b>0,70</b></td><td class="num">1 / 14</td><td class="num"><b>0 / 8</b></td><td><span class="pill ok">adotado</span></td></tr>
+          <tr><td class="num">0,72</td><td class="num">1 / 14</td><td class="num">0 / 8</td><td><span class="pill ok">—</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A única frase de dentro perdida a 0,70 — “como solicito o habite-se da minha obra” (0,669) — vinha com o assunto <b>errado</b>, então recusá-la era o comportamento correto.</p>
+
+    <div class="scen">
+      <h3>Margem de desambiguação</h3>
+      <span class="cfg">MARGIN 0,04 · 14 consultas legítimas</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Resultado</th><th>Consultas</th><th>Margem 1º–2º</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill ok">ok</span></td><td class="num">12 / 14</td><td class="num">mediana 0,120</td></tr>
+          <tr><td><span class="pill warn">ambiguo</span></td><td class="num">2 / 14</td><td class="num">0,029 e 0,039</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">As 2 marcadas como ambíguas <b>não são falso-positivo</b>: “licença ambiental” (licenciamento × autorização, SEMA) e “auxílio funeral” (SEPLOG, servidor × SEMFAS, assistência social) são serviços distintos para públicos distintos.</p>
+  </section>
+
+  <section>
+    <h2>Ambiguidade do cadastro</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="k">Sinônimos ambíguos</div>
+        <div class="v">88</div>
+        <div class="s">de 1.888</div>
+      </div>
+      <div class="card">
+        <div class="k">Pior caso</div>
+        <div class="v">23</div>
+        <div class="s"><code>nota fiscal</code></div>
+      </div>
+      <div class="card">
+        <div class="k">Segundo pior</div>
+        <div class="v">20</div>
+        <div class="s"><code>mandado judicial</code></div>
+      </div>
+      <div class="card">
+        <div class="k">Colisões residuais</div>
+        <div class="v">8</div>
+        <div class="s">mesmo órgão</div>
+      </div>
+    </div>
+
+    <div class="scen">
+      <h3>Efeito do parâmetro <code>orgao</code></h3>
+      <span class="cfg">verificado com embeddings reais</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Consulta</th><th>1º</th><th>2º</th><th>Margem</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>nota fiscal</code></td><td class="num">1,0000</td><td class="num">1,0000</td><td class="num">0,0000</td><td><span class="pill warn">ambiguo</span></td></tr>
+          <tr><td><code>nota fiscal</code> + <code>orgao=sms</code></td><td class="num">1,0000</td><td class="num">0,8380</td><td class="num">0,1620</td><td><span class="pill ok">ok</span></td></tr>
+          <tr><td><code>mandado judicial</code></td><td class="num">1,0000</td><td class="num">1,0000</td><td class="num">0,0000</td><td><span class="pill warn">ambiguo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scen">
+      <h3>As 8 colisões que o <code>orgao</code> não resolve</h3>
+      <span class="cfg">distinção de negócio real — só card ou regra do chamador</span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Órgão</th><th>Colisão</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td>SEMFAZ</td><td><code>parcelamento de iptu</code> × <code>reparcelamento de iptu</code></td><td class="num">1,0000 = 1,0000</td></tr>
+          <tr><td>SEMFAZ</td><td><code>parcelamento de tlf ou iss</code> × <code>reparcelamento de iss</code></td><td class="num">1,0000 = 1,0000</td></tr>
+          <tr><td>SEMFAZ</td><td><code>parcelamento de tlf</code> × <code>reparcelamento de tlf</code></td><td class="num">1,0000 = 1,0000</td></tr>
+          <tr><td>SEMFAZ</td><td><code>isencao de iptu</code> × <code>isencao de iptu servidor</code></td><td class="num">0,9813 = 0,9813</td></tr>
+          <tr><td>SEMFAZ</td><td><code>isencao de itbi</code> × <code>deferimento parcial da isencao do itbi</code></td><td class="num">0,9793 = 0,9793</td></tr>
+          <tr><td>EMURB</td><td><code>autorizacao de demolicao</code> × <code>certidao de demolicao</code></td><td class="num">1,0000 = 1,0000</td></tr>
+          <tr><td>EMURB</td><td><code>obras de infraestrutura</code>: água/esgoto × obras em geral</td><td class="num">—</td></tr>
+          <tr><td>SMS</td><td><code>nota fiscal sms</code> × <code>nota fiscal sms saude</code></td><td class="num">1,0000 / 0,9739</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Todas as 8 retornam <code>ambiguo</code> corretamente. A última é <b>duplicata de cadastro</b>, não distinção de negócio — vale corrigir no 1doc.</p>
+  </section>
+
+  <section>
+    <h2>Fragilidades conhecidas do cadastro</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Problema</th><th>Evidência</th><th>Correção</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Sigla engana o modelo</b></td>
+            <td>“preciso comprar um celular novo” → <code>reparcelamento de tlf</code> a <b>0,681</b>. O <code>bge-m3</code> lê <code>tlf</code> como “telefone”; no cadastro é <i>Taxa de Licença e Funcionamento</i>. Ficou 0,019 abaixo do corte.</td>
+            <td>escrever a sigla por extenso no sinônimo</td>
+          </tr>
+          <tr>
+            <td><b>Verbo genérico domina</b></td>
+            <td>“como <b>solicito</b> o habite-se” → <code>praca da juventude <b>solicitar</b> utilizacao</code> a 0,669. Sozinho, <code>certidao de habite-se</code> acerta com <b>0,912</b>.</td>
+            <td>sinônimos com substantivo, não verbo</td>
+          </tr>
+          <tr>
+            <td><b>Jargão de servidor</b></td>
+            <td>“quero o alvará pra construir <b>minha casa</b>” não acha <code>alvara de construcao <b>uniresidencial</b></code>.</td>
+            <td>sinônimos em língua de cidadão</td>
+          </tr>
+          <tr>
+            <td><b><code>value</code> duplicado</b></td>
+            <td>2 assuntos repetidos: <code>oficio</code> e <code>fornecimento boletim de medicao nota fiscal emurb</code>. Por isso 758 entradas viram <b>756</b> assuntos.</td>
+            <td>remover do 1doc</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Comportamento verificado em produção</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Texto do cidadão</th><th>Score</th><th>Status</th><th>Assunto</th></tr></thead>
+        <tbody>
+          <tr><td>preciso <b>dividir o iptu em várias vezes</b></td><td class="num">0,849</td><td><span class="pill warn">ambiguo</span></td><td>parcelamento × reparcelamento</td></tr>
+          <tr><td>quero pedir <b>ISENÇÃO</b> do meu IPTU</td><td class="num">0,969</td><td><span class="pill warn">ambiguo</span></td><td>comum × servidor</td></tr>
+          <tr><td>preciso da segunda via da guia do ITBI</td><td class="num">0,886</td><td><span class="pill ok">ok</span></td><td><code>liberacao de guia de itbi</code></td></tr>
+          <tr><td>quero cancelar meu vale transporte</td><td class="num">0,946</td><td><span class="pill ok">ok</span></td><td><code>cancelamento de vale transporte</code></td></tr>
+          <tr><td>nota fiscal <b>+ orgao=sms</b></td><td class="num">1,000</td><td><span class="pill ok">ok</span></td><td><code>nota fiscal sms saude</code></td></tr>
+          <tr><td>quero solicitar auxílio funeral</td><td class="num">0,829</td><td><span class="pill warn">ambiguo</span></td><td>SEPLOG × SEMFAS</td></tr>
+          <tr><td>qual o melhor filme de 2025</td><td class="num">0,474</td><td><span class="pill crit">não identificado</span></td><td>—</td></tr>
+          <tr><td>quero fazer um bolo de chocolate</td><td class="num">0,562</td><td><span class="pill crit">não identificado</span></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">As duas primeiras linhas são o ganho sobre o Dialogflow: <b>paráfrase</b> que ninguém cadastrou, e <b>acento/caixa</b> que o cadastro não tem.</p>
+  </section>
+
+  <div class="foot">
+    <b>Metodologia.</b> Índice construído com <code>bge-m3</code> real na VPS1 (1.888 embeddings, 122s) e consultado via
+    <code>POST /intent</code> na VPS2 em produção. Calibração: 14 frases dentro do escopo × 8 fora, escritas em língua de
+    cidadão — <b>não</b> copiadas dos sinônimos cadastrados. Amostra pequena (22 frases): vale refazer com log de
+    perguntas reais depois que a integração estiver rodando (<code>scripts/testa_intent.py</code>). A análise de
+    ambiguidade percorre as 1.888 entradas do JSON, não é amostra.
+  </div>
+</div>
+</body>
+</html>
