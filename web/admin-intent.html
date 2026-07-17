@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão de Assuntos — API de Intenção</title>
+<style>
+  :root{
+    --ground:#eef2f4; --surface:#ffffff; --surface-2:#f4f7f8;
+    --ink:#16232a; --ink-2:#5b6b73; --ink-3:#8a999f; --line:#dde5e8;
+    --accent:#0f7c8a; --accent-d:#0b5b66; --accent-soft:#dcedef;
+    --ok:#2f8f5b; --ok-soft:#dcefe4; --danger:#c0453b; --danger-soft:#f6ddda;
+    --warn:#b9791a; --warn-soft:#f4e7cf;
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#0c1114; --surface:#151d21; --surface-2:#1c262b;
+      --ink:#e7edef; --ink-2:#9aa8ad; --ink-3:#6a787d; --line:#26333a;
+      --accent:#33b0bf; --accent-d:#7fd4de; --accent-soft:#123037;
+      --ok:#48b579; --ok-soft:#122e20; --danger:#e2685a; --danger-soft:#361a17;
+      --warn:#d8a23f; --warn-soft:#33280f;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
+  .wrap{max-width:860px;margin:0 auto;padding:22px 18px 60px}
+  a{color:var(--accent-d)}
+  h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:700;margin:26px 0 12px}
+  .muted{color:var(--ink-2)}
+  button{font-family:inherit;cursor:pointer}
+  .btn{border:0;border-radius:9px;padding:9px 15px;font-size:14px;font-weight:600;background:var(--accent);color:#fff}
+  .btn:hover{background:var(--accent-d)}
+  .btn.ghost{background:transparent;color:var(--ink-2);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--surface-2)}
+  .btn.danger{background:transparent;color:var(--danger);border:1px solid var(--danger)}
+  .btn.danger:hover{background:var(--danger);color:#fff}
+  .btn.sm{padding:5px 11px;font-size:12.5px}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  input,textarea{font-family:inherit;font-size:14px;color:var(--ink);background:var(--surface-2);
+    border:1px solid var(--line);border-radius:9px;padding:10px 12px;width:100%}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  textarea{resize:vertical;min-height:88px;font-family:var(--mono);font-size:13px;line-height:1.5}
+  label{display:block;font-size:12px;font-weight:600;color:var(--ink-2);margin:0 0 5px}
+  code{font-family:var(--mono);font-size:.87em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+
+  /* login */
+  #login{max-width:380px;margin:12vh auto 0;background:var(--surface);border:1px solid var(--line);
+    border-radius:16px;padding:28px 24px;text-align:center}
+  #login .crest{width:58px;height:58px;border-radius:50%;background:#fff;overflow:hidden;margin:0 auto 14px;box-shadow:0 0 0 1px var(--line)}
+  #login .crest img{width:100%;height:100%;object-fit:cover;display:block}
+  #login h1{font-size:18px}
+  #login p{margin:6px 0 18px;font-size:13.5px}
+  #login input{text-align:center;font-family:var(--mono);margin-bottom:12px}
+  #login .btn{width:100%}
+  #loginErr{color:var(--danger);font-size:13px;min-height:18px;margin-top:8px}
+
+  header.bar{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  header.bar .crest{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--line);flex:0 0 auto}
+  header.bar .crest img{width:100%;height:100%;object-fit:cover;display:block}
+  header.bar .sub{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  header.bar .spacer{flex:1}
+  nav.links{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  nav.links a{font-size:12.5px;text-decoration:none;color:var(--accent-d);background:var(--surface);
+    border:1px solid var(--line);padding:5px 11px;border-radius:20px}
+
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 4px}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px 16px}
+  .tile .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600}
+  .tile .v{font-family:var(--mono);font-size:23px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+  .tile .v.warn{color:var(--warn)}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .row{display:flex;gap:9px;flex-wrap:wrap;align-items:flex-end}
+  .grow{flex:1 1 260px;min-width:0}
+  .hint{font-size:12px;color:var(--ink-3);margin-top:6px}
+  .hint b{color:var(--ink-2)}
+  .warnbox{background:var(--warn-soft);border-left:3px solid var(--warn);border-radius:0 9px 9px 0;
+    padding:10px 13px;font-size:13px;margin:0 0 14px}
+  .warnbox b{color:var(--ink)}
+
+  .orgtag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;
+    background:var(--accent-soft);color:var(--accent-d);font-family:var(--mono)}
+  .orgtag.none{background:var(--surface-2);color:var(--ink-3)}
+
+  /* testador */
+  .st{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;font-family:var(--mono)}
+  .st.ok{background:var(--ok-soft);color:var(--ok)}
+  .st.amb{background:var(--warn-soft);color:var(--warn)}
+  .st.no{background:var(--danger-soft);color:var(--danger)}
+  #testOut{margin-top:12px;font-size:13.5px}
+  #testOut .res{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  #testOut .intent{font-family:var(--mono);font-size:13px;margin-top:6px;word-break:break-word}
+  #testOut .cand{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12px;
+    color:var(--ink-2);padding:3px 0;border-top:1px dashed var(--line)}
+
+  /* lista */
+  .search{display:flex;gap:9px;margin-bottom:12px}
+  .subj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin-bottom:10px}
+  .subj .top{display:flex;align-items:flex-start;gap:10px}
+  .subj .val{font-family:var(--mono);font-size:13px;font-weight:600;word-break:break-word;flex:1}
+  .subj .acts{display:flex;gap:6px;flex:0 0 auto}
+  .syns{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+  .syn{font-size:12px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:3px 10px}
+  .pager{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:8px;font-size:13px;color:var(--ink-2)}
+  .empty{text-align:center;color:var(--ink-3);padding:26px;font-size:13.5px}
+
+  .hidden{display:none!important}
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--ink);color:var(--ground);padding:10px 18px;border-radius:10px;font-size:13.5px;
+    transition:.25s;pointer-events:none;z-index:50;max-width:90vw}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (max-width:560px){ .tiles{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div id="login">
+    <div class="crest"><img src="/static/aju.png" alt="Prefeitura de Aracaju"></div>
+    <h1>Gestão de Assuntos</h1>
+    <p class="muted">Informe o token de administração.</p>
+    <input id="token" type="password" placeholder="Token de administração" autocomplete="off" aria-label="Token">
+    <button class="btn" id="loginBtn">Entrar</button>
+    <div id="loginErr"></div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dash" class="hidden">
+    <header class="bar">
+      <div class="crest"><img src="/static/aju.png" alt=""></div>
+      <div>
+        <h1>Gestão de Assuntos</h1>
+        <div class="sub">API de intenção · base do 1doc</div>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn ghost sm" id="logoutBtn">Sair</button>
+    </header>
+
+    <nav class="links">
+      <a href="/api-intent">📘 Documentação</a>
+      <a href="/relatorio-intent">📊 Relatório</a>
+    </nav>
+
+    <div class="tiles">
+      <div class="tile"><div class="k">Assuntos</div><div class="v" id="tAssuntos">—</div></div>
+      <div class="tile"><div class="k">Sinônimos (índice)</div><div class="v" id="tSinonimos">—</div></div>
+      <div class="tile"><div class="k">Corte / margem</div><div class="v" id="tCorte" style="font-size:17px">—</div></div>
+    </div>
+
+    <!-- TESTADOR -->
+    <h2>Testar como o cidadão escreve</h2>
+    <div class="card">
+      <div class="search">
+        <input type="text" id="testQ" class="grow" placeholder="Ex.: quero construir minha casa" autocomplete="off">
+        <button class="btn" id="testBtn">Classificar</button>
+      </div>
+      <div class="hint">Serve para conferir, na hora, se um assunto novo passou a ser reconhecido.</div>
+      <div id="testOut"></div>
+    </div>
+
+    <!-- ADICIONAR / EDITAR -->
+    <h2 id="formTitle">Adicionar assunto</h2>
+    <div class="card">
+      <div class="warnbox">
+        O campo <b>assunto (value)</b> é a string devolvida pela API e usada para achar o formulário no 1doc —
+        precisa bater <b>exatamente</b> com o texto do 1doc. Escreva os sinônimos <b>como o cidadão fala</b>
+        (“minha casa”), não em jargão interno (“uniresidencial”).
+      </div>
+      <label for="fValue">Assunto (value) — texto exato do 1doc</label>
+      <input type="text" id="fValue" placeholder="ex.: alvara de construcao uniresidencial emurb obras e urbanizacao" autocomplete="off">
+      <div class="hint">Órgão detectado: <span id="fOrg" class="orgtag none">—</span>
+        <span class="muted">— vem do fim do texto; permite desambiguar “nota fiscal” &amp; cia.</span></div>
+
+      <div style="margin-top:14px">
+        <label for="fSyns">Sinônimos — um por linha</label>
+        <textarea id="fSyns" placeholder="quero construir minha casa&#10;preciso do alvara pra minha casa&#10;alvara de construcao residencial"></textarea>
+        <div class="hint">Vazios e repetidos são descartados automaticamente.</div>
+      </div>
+
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="saveBtn">Salvar assunto</button>
+        <button class="btn ghost hidden" id="cancelEditBtn">Cancelar edição</button>
+        <span class="grow"></span>
+      </div>
+    </div>
+
+    <!-- LISTA -->
+    <h2>Assuntos cadastrados</h2>
+    <div class="search">
+      <input type="text" id="q" class="grow" placeholder="Buscar por assunto ou sinônimo…" autocomplete="off">
+      <button class="btn ghost" id="searchBtn">Buscar</button>
+    </div>
+    <div id="list"></div>
+    <div class="pager hidden" id="pager">
+      <button class="btn ghost sm" id="prevBtn">‹ anteriores</button>
+      <span id="pageInfo"></span>
+      <button class="btn ghost sm" id="nextBtn">próximos ›</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const KEY = "faq_admin_token";      // mesmo token do painel /admin
+let token = localStorage.getItem(KEY) || "";
+let orgaosRE = null;                 // regex p/ detectar orgao no value (client-side, so feedback)
+let offset = 0, total = 0;
+const LIMIT = 25;
+
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2600); }
+
+async function api(path, {method="GET", body=null}={}){
+  const opt = {method, headers:{"Authorization":"Bearer "+token}};
+  if(body){ opt.headers["Content-Type"]="application/json"; opt.body=JSON.stringify(body); }
+  const r = await fetch(path, opt);
+  if(r.status===401){ logout(); throw new Error("401"); }
+  if(!r.ok){ let d={}; try{d=await r.json();}catch(e){} throw new Error(d.detail || ("HTTP "+r.status)); }
+  return r.json();
+}
+
+/* ---- login ---- */
+function showLogin(){ $("#dash").classList.add("hidden"); $("#login").classList.remove("hidden"); }
+function showDash(){ $("#login").classList.add("hidden"); $("#dash").classList.remove("hidden"); }
+function logout(){ localStorage.removeItem(KEY); token=""; showLogin(); }
+async function doLogin(){
+  token = $("#token").value.trim();
+  if(!token) return;
+  $("#loginErr").textContent="";
+  try{
+    await api("/intent/subjects?limit=1");   // valida o token
+    localStorage.setItem(KEY, token);
+    showDash(); await boot();
+  }catch(e){ $("#loginErr").textContent = e.message==="401" ? "Token inválido." : ("Erro: "+e.message); }
+}
+
+/* ---- órgão detectado (feedback client-side; o servidor é a autoridade) ---- */
+async function loadOrgaos(){
+  try{
+    const {orgaos} = await (await fetch("/intent/orgaos")).json();
+    const siglas = orgaos.map(o=>o.sigla).sort((a,b)=>b.length-a.length);
+    orgaosRE = new RegExp("\\b("+siglas.join("|")+")\\b");
+  }catch(e){}
+}
+function detectOrg(v){
+  const m = orgaosRE && v ? _norm(v).match(orgaosRE) : null;
+  return m ? m[1] : "";
+}
+function _norm(t){ return t.normalize("NFKD").replace(/[̀-ͯ]/g,"").toLowerCase(); }
+function updateOrg(){
+  const o = detectOrg($("#fValue").value);
+  const el = $("#fOrg");
+  el.textContent = o ? o : "genérico (sem órgão)";
+  el.className = "orgtag" + (o ? "" : " none");
+}
+
+/* ---- status ---- */
+async function loadStatus(){
+  try{
+    const h = await (await fetch("/health")).json();
+    $("#tAssuntos").textContent = h.intent.assuntos ?? "—";
+    const sin = h.intent.sinonimos ?? 0;
+    const el = $("#tSinonimos"); el.textContent = sin;
+    el.className = "v" + (sin===0 ? " warn" : "");
+    $("#tCorte").textContent = h.intent.threshold + " / " + h.intent.margin;
+  }catch(e){}
+}
+
+/* ---- testador ---- */
+const rot = {ok:"ok", ambiguo:"ambiguo", nao_identificado:"nao_identificado"};
+const cls = {ok:"ok", ambiguo:"amb", nao_identificado:"no"};
+async function testar(){
+  const text = $("#testQ").value.trim(); if(!text) return;
+  $("#testOut").innerHTML = '<div class="res muted">consultando…</div>';
+  try{
+    const r = await fetch("/intent",{method:"POST",headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({text, top_n:4})});
+    const d = await r.json();
+    let h = `<div class="res"><span class="st ${cls[d.status]}">${rot[d.status]}</span> <span class="muted">score ${d.score}</span>`;
+    if(d.intent) h += `<div class="intent">${esc(d.intent)}</div>`;
+    for(const c of (d.candidates||[])) h += `<div class="cand"><span>${esc(c.intent)}</span><span>${c.score.toFixed(3)}</span></div>`;
+    h += `<div class="hint" style="margin-top:8px">${d.took_ms} ms</div></div>`;
+    $("#testOut").innerHTML = h;
+  }catch(e){ $("#testOut").innerHTML = `<div class="res" style="color:var(--danger)">${esc(e.message)}</div>`; }
+}
+
+/* ---- salvar (add/edit) ---- */
+async function salvar(){
+  const value = $("#fValue").value.trim();
+  const synonyms = $("#fSyns").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  if(!value){ toast("Informe o assunto (value)."); return; }
+  if(!synonyms.length){ toast("Informe ao menos um sinônimo."); return; }
+  $("#saveBtn").disabled = true;
+  try{
+    const d = await api("/intent/subjects", {method:"POST", body:{value, synonyms}});
+    toast(d.novo ? "Assunto adicionado." : "Assunto atualizado.");
+    limparForm(); await loadStatus(); await buscar();
+  }catch(e){ toast("Erro: "+e.message); }
+  finally{ $("#saveBtn").disabled = false; }
+}
+function editar(value, synonyms){
+  $("#formTitle").textContent = "Editar assunto";
+  $("#fValue").value = value;
+  $("#fSyns").value = synonyms.join("\n");
+  $("#cancelEditBtn").classList.remove("hidden");
+  updateOrg();
+  $("#fValue").scrollIntoView({behavior:"smooth", block:"center"});
+}
+function limparForm(){
+  $("#formTitle").textContent = "Adicionar assunto";
+  $("#fValue").value=""; $("#fSyns").value="";
+  $("#cancelEditBtn").classList.add("hidden"); updateOrg();
+}
+async function excluir(value){
+  if(!confirm("Remover o assunto:\n\n"+value+"\n\nEle deixa de ser reconhecido pela API.")) return;
+  try{ await api("/intent/subjects/delete", {method:"POST", body:{value}});
+    toast("Assunto removido."); await loadStatus(); await buscar();
+  }catch(e){ toast("Erro: "+e.message); }
+}
+
+/* ---- lista ---- */
+async function buscar(reset=true){
+  if(reset) offset = 0;
+  const q = encodeURIComponent($("#q").value.trim());
+  try{
+    const d = await api(`/intent/subjects?q=${q}&limit=${LIMIT}&offset=${offset}`);
+    total = d.total;
+    render(d.subjects);
+    const to = Math.min(offset+d.count, total);
+    $("#pageInfo").textContent = total ? `${offset+1}–${to} de ${total}` : "";
+    $("#pager").classList.toggle("hidden", total <= LIMIT);
+    $("#prevBtn").disabled = offset===0;
+    $("#nextBtn").disabled = offset+LIMIT >= total;
+  }catch(e){ toast("Erro: "+e.message); }
+}
+function render(subjects){
+  const box = $("#list");
+  if(!subjects.length){ box.innerHTML = '<div class="empty">Nenhum assunto encontrado.</div>'; return; }
+  box.innerHTML = "";
+  for(const s of subjects){
+    const el = document.createElement("div");
+    el.className = "subj";
+    const org = s.orgao ? `<span class="orgtag">${esc(s.orgao)}</span>` : `<span class="orgtag none">genérico</span>`;
+    el.innerHTML =
+      `<div class="top"><div class="val">${esc(s.value)}</div><div class="acts"></div></div>
+       <div style="margin-top:6px">${org}</div>
+       <div class="syns">${s.synonyms.map(x=>`<span class="syn">${esc(x)}</span>`).join("")}</div>`;
+    const acts = el.querySelector(".acts");
+    const be=document.createElement("button"); be.className="btn ghost sm"; be.textContent="Editar";
+    be.onclick=()=>editar(s.value, s.synonyms);
+    const bd=document.createElement("button"); bd.className="btn danger sm"; bd.textContent="Excluir";
+    bd.onclick=()=>excluir(s.value);
+    acts.append(be, bd);
+    box.appendChild(el);
+  }
+}
+
+function esc(s){ const d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+
+/* ---- boot / listeners ---- */
+async function boot(){ await loadOrgaos(); await loadStatus(); await buscar(); updateOrg(); }
+
+$("#loginBtn").addEventListener("click", doLogin);
+$("#token").addEventListener("keydown", e=>{ if(e.key==="Enter") doLogin(); });
+$("#logoutBtn").addEventListener("click", logout);
+$("#testBtn").addEventListener("click", testar);
+$("#testQ").addEventListener("keydown", e=>{ if(e.key==="Enter") testar(); });
+$("#saveBtn").addEventListener("click", salvar);
+$("#cancelEditBtn").addEventListener("click", limparForm);
+$("#fValue").addEventListener("input", updateOrg);
+$("#searchBtn").addEventListener("click", ()=>buscar());
+$("#q").addEventListener("keydown", e=>{ if(e.key==="Enter") buscar(); });
+$("#prevBtn").addEventListener("click", ()=>{ offset=Math.max(0,offset-LIMIT); buscar(false); });
+$("#nextBtn").addEventListener("click", ()=>{ offset+=LIMIT; buscar(false); });
+
+if(token){ api("/intent/subjects?limit=1").then(()=>{ showDash(); boot(); }).catch(()=>showLogin()); }
+else showLogin();
+</script>
+</body>
+</html>

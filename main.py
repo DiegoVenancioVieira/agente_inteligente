@@ -37,7 +37,11 @@ TTL_DAYS = int(os.getenv("CACHE_TTL_DAYS", "30"))
 DB_PATH = os.getenv("CACHE_DB_PATH", "./cache.db")
 
 # --- classificacao de intencao (API para outros sistemas; substitui o Dialogflow)
-INTENTS_PATH = os.getenv("INTENTS_PATH", "./sources/intents-1doc.json")
+# INTENTS_SEED: copia read-only que vem DENTRO da imagem (Dockerfile COPY sources).
+# INTENTS_PATH: fonte-da-verdade editavel, no VOLUME persistente (/data). A tela de
+# gestao grava aqui; o reindex le daqui. Semeada do SEED no 1o boot (_ensure_intents_file).
+INTENTS_SEED = os.getenv("INTENTS_SEED", "./sources/intents-1doc.json")
+INTENTS_PATH = os.getenv("INTENTS_PATH", "/data/intents-1doc.json")
 # CALIBRADOS em 2026-07-17 com bge-m3 real (scripts/testa_intent.py):
 # 14 frases dentro do escopo (min 0.669, media 0.835) x 8 fora (max 0.681, media 0.536).
 # Corte em 0.70: nao aceita nenhuma das 8 de fora e perde 1 das 14 de dentro -- e essa
@@ -248,9 +252,33 @@ def _load_intents():
     _intent_orgs = np.array([m["orgao"] for m in _intent_meta])
 
 
+def _read_intents_file() -> list[dict]:
+    """Le a fonte-da-verdade (volume). Cai no SEED da imagem se ainda nao semeada."""
+    path = INTENTS_PATH if os.path.exists(INTENTS_PATH) else INTENTS_SEED
+    return json.load(open(path, encoding="utf-8"))
+
+
+def _write_intents_file(data: list[dict]):
+    """Grava a fonte-da-verdade de forma atomica (tmp + replace)."""
+    d = os.path.dirname(INTENTS_PATH)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    tmp = INTENTS_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, INTENTS_PATH)
+
+
+def _ensure_intents_file():
+    """1o boot: copia o SEED da imagem para o volume, para virar editavel."""
+    if not os.path.exists(INTENTS_PATH) and os.path.exists(INTENTS_SEED):
+        _write_intents_file(json.load(open(INTENTS_SEED, encoding="utf-8")))
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     _load_cache()
+    _ensure_intents_file()
     _load_intents()
     app.state.client = httpx.AsyncClient(timeout=httpx.Timeout(30.0))
     yield
@@ -290,6 +318,11 @@ async def api_intent_page():
 @app.get("/relatorio-intent", include_in_schema=False)
 async def relatorio_intent_page():
     return FileResponse("web/relatorio-intent.html")
+
+
+@app.get("/admin-intent", include_in_schema=False)
+async def admin_intent_page():
+    return FileResponse("web/admin-intent.html")
 
 
 @app.get("/tutorial", include_in_schema=False)
@@ -559,11 +592,12 @@ async def intent_orgaos():
 
 @app.post("/intent/reindex", dependencies=[Depends(require_admin)])
 async def intent_reindex(request: Request):
-    """Reconstroi o indice a partir do JSON. Demorado (1 embedding por sinonimo):
-    roda so quando a lista de assuntos do 1doc muda."""
-    if not os.path.exists(INTENTS_PATH):
+    """Reconstroi TODO o indice a partir do arquivo. Demorado (1 embedding por
+    sinonimo): so p/ mudanca em massa ou troca de embedder. Para adicionar 1
+    assunto use POST /intent/subjects, que embeda so o que mudou."""
+    if not os.path.exists(INTENTS_PATH) and not os.path.exists(INTENTS_SEED):
         raise HTTPException(400, f"arquivo nao encontrado: {INTENTS_PATH}")
-    data = json.load(open(INTENTS_PATH, encoding="utf-8"))
+    data = _read_intents_file()
     pares = [(_norm_intent(s), e["value"]) for e in data for s in e.get("synonyms", [])
              if s and s.strip()]
     if not pares:
@@ -584,6 +618,96 @@ async def intent_reindex(request: Request):
     return {"status": "ok", "sinonimos": len(pares),
             "assuntos": len({v for _, v in pares}),
             "segundos": round(time.time() - t0, 1)}
+
+
+# --------------------- gestao de assuntos (tela /admin-intent, para a equipe)
+def _clean_synonyms(syns: list[str]) -> list[str]:
+    """Tira espacos, vazios e duplicatas, preservando a ordem e o texto original."""
+    out, vistos = [], set()
+    for s in syns:
+        s = re.sub(r"\s+", " ", (s or "").strip())
+        k = _norm_intent(s)
+        if s and k not in vistos:
+            vistos.add(k)
+            out.append(s)
+    return out
+
+
+class SubjectIn(BaseModel):
+    value: str = Field(min_length=1, max_length=300)
+    synonyms: list[str] = Field(min_length=1)
+
+
+class SubjectDelIn(BaseModel):
+    value: str = Field(min_length=1)
+
+
+@app.get("/intent/subjects", dependencies=[Depends(require_admin)])
+async def intent_subjects(q: str = "", limit: int = 50, offset: int = 0):
+    """Lista/busca assuntos do arquivo-fonte (texto original, legivel)."""
+    data = _read_intents_file()
+    ql = _norm_intent(q) if q else ""
+    if ql:
+        data = [e for e in data
+                if ql in _norm_intent(e["value"] + " " + " ".join(e.get("synonyms", [])))]
+    page = data[offset:offset + limit]
+    return {"total": len(data), "count": len(page),
+            "subjects": [{"value": e["value"], "orgao": _orgao_de(e["value"]),
+                          "synonyms": e.get("synonyms", [])} for e in page]}
+
+
+@app.post("/intent/subjects", dependencies=[Depends(require_admin)])
+async def intent_subject_upsert(body: SubjectIn, request: Request):
+    """Cria ou atualiza um assunto AO VIVO (sem redeploy, sem reindex completo).
+    Embeda so os sinonimos deste assunto. O 'value' e' gravado como veio: PRECISA
+    bater exatamente com a string do 1doc."""
+    value = re.sub(r"\s+", " ", body.value.strip())
+    synonyms = _clean_synonyms(body.synonyms)
+    if not synonyms:
+        raise HTTPException(400, "informe ao menos um sinonimo nao-vazio")
+
+    pares = [(_norm_intent(s), value) for s in synonyms]
+    vecs = await _embed_batch(request.app.state.client, [s for s, _ in pares])
+
+    data = _read_intents_file()
+    idx = next((i for i, e in enumerate(data) if e["value"] == value), None)
+    novo = idx is None
+    if novo:
+        data.append({"value": value, "synonyms": synonyms})
+    else:
+        data[idx] = {**data[idx], "value": value, "synonyms": synonyms}
+
+    con = _db()
+    con.execute("DELETE FROM intents WHERE value=?", (value,))
+    con.executemany(
+        "INSERT INTO intents (synonym, value, orgao, embedding) VALUES (?,?,?,?)",
+        [(s, v, _orgao_de(v), vec.astype(np.float32).tobytes())
+         for (s, v), vec in zip(pares, vecs)])
+    con.commit()
+    con.close()
+    _write_intents_file(data)
+    async with _lock:
+        _load_intents()
+    return {"status": "ok", "value": value, "novo": novo,
+            "sinonimos": len(synonyms), "orgao": _orgao_de(value)}
+
+
+@app.post("/intent/subjects/delete", dependencies=[Depends(require_admin)])
+async def intent_subject_delete(body: SubjectDelIn):
+    """Remove um assunto ao vivo (do arquivo-fonte e do indice)."""
+    value = re.sub(r"\s+", " ", body.value.strip())
+    data = _read_intents_file()
+    novo = [e for e in data if e["value"] != value]
+    if len(novo) == len(data):
+        raise HTTPException(404, f"assunto nao encontrado: {value}")
+    con = _db()
+    con.execute("DELETE FROM intents WHERE value=?", (value,))
+    con.commit()
+    con.close()
+    _write_intents_file(novo)
+    async with _lock:
+        _load_intents()
+    return {"status": "ok", "removido": value}
 
 
 @app.get("/health")
