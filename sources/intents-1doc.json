@@ -1,0 +1,5680 @@
+[
+  {
+    "value": "oftalmo",
+    "synonyms": [
+      "oftalmo",
+      "oftalmologista oculista vista"
+    ]
+  },
+  {
+    "value": "sms demora em marcar procedimento ginecologico",
+    "synonyms": [
+      "ginecologia",
+      "ginecologista mulher"
+    ]
+  },
+  {
+    "value": "ressonancia magnetica",
+    "synonyms": [
+      "ressonancia magnetica"
+    ]
+  },
+  {
+    "value": "acuidade visual",
+    "synonyms": [
+      "acuidade visual"
+    ]
+  },
+  {
+    "value": "anuencia previa uso multifamiliar horizontal emurb obras e urbanizacao",
+    "synonyms": [
+      "anuencia previa uso multifamiliar horizontal",
+      "anuencia previa uso multifamiliar horizontal emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "alvara de construcao loteamento emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao loteamento",
+      "alvara construcao loteamento",
+      "alvara de construcao loteamento emurb obras e urbanizacao",
+      "alvara"
+    ]
+  },
+  {
+    "value": "alvara de construcao multiresidencial vertical emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara construcao multiresidencial vertical",
+      "alvara de construcao multiresidencial vertical",
+      "alvara de construcao multiresidencial vertical emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "alvara de construcao uniresidencial emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao uniresidencial",
+      "alvara construcao uniresidencial",
+      "alvara de construcao uniresidencial emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "alvara de construcao nao residencial misto emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao nao residencial misto",
+      "alvara de construcao nao residencial misto emurb obras e urbanizacao",
+      "alvara construcao nao residencial misto"
+    ]
+  },
+  {
+    "value": "anuencia previa uso multifamiliar vertical emurb obras e urbanizacao",
+    "synonyms": [
+      "anuencia previa uso multifamiliar vertical",
+      "anuencia previa uso multifamiliar vertical emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "anuencia previa uso nao residencial emurb obras e urbanizacao",
+    "synonyms": [
+      "anuencia previa uso nao residencial",
+      "anuencia previa uso nao residencial emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de laudo de vistoria emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de laudo de vistoria",
+      "laudo de vistoria",
+      "certidao de laudo de vistoria emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "autorizacao de demolicao emurb obras e urbanizacao",
+    "synonyms": [
+      "autorizacao de demolicao",
+      "demolicao",
+      "autorizacao de demolicao emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "autorizacao de reparos gerais emurb obras e urbanizacao",
+    "synonyms": [
+      "autorizacao de reparos gerais",
+      "reparos gerais",
+      "autorizacao de reparos gerais emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "autorizacao de reparos gerais acessibilidade emurb obras e urbanizacao",
+    "synonyms": [
+      "autorizacao de reparos gerais acessibilidade emurb obras e urbanizacao",
+      "autorizacao de reparos gerais acessibilidade",
+      "reparos gerais acessibilidade"
+    ]
+  },
+  {
+    "value": "alvara de construcao multiresidencial horizontal emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao multiresidencial horizontal",
+      "alvara de construcao multiresidencial horizontal emurb obras e urbanizacao",
+      "alvara construcao multiresidencial horizontal"
+    ]
+  },
+  {
+    "value": "certidao adequacao urbanistica multifamiliar vertical emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao adequacao urbanistica multifamiliar vertical",
+      "certidao adequacao urbanistica multifamiliar vertical emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de demarcacao emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de demarcacao emurb obras e urbanizacao",
+      "demarcacao",
+      "certidao de demarcacao"
+    ]
+  },
+  {
+    "value": "certidao de retificacao de endereco e numero emurb obras e urbanizacao",
+    "synonyms": [
+      "retificacao de endereco e numero",
+      "certidao de retificacao de endereco e numero emurb obras e urbanizacao",
+      "certidao de retificacao de endereco e numero"
+    ]
+  },
+  {
+    "value": "certidao de uso e ocupacao do solo emurb obras e urbanizacao",
+    "synonyms": [
+      "uso e ocupacao do solo",
+      "certidao de uso e ocupacao do solo",
+      "certidao de uso e ocupacao do solo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de adequacao urbanistica multifamiliar horizontal emurb obras e urbanizacao",
+    "synonyms": [
+      "adequacao urbanistica multifamiliar horizontal",
+      "certidao de adequacao urbanistica multifamiliar horizontal",
+      "certidao de adequacao urbanistica multifamiliar horizontal emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "termo de desmembramento gleba maior 40000 m2 emurb obras e urbanizacao",
+    "synonyms": [
+      "termo de desmembramento gleba maior 40000 m2",
+      "termo de desmembramento gleba maior 40000 m2 emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "termo de desmembramento lote ate 40000 m2 emurb obras e urbanizacao",
+    "synonyms": [
+      "termo de desmembramento lote ate 40000 m2",
+      "termo de desmembramento lote ate 40000 m2 emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de habite se emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de habite se",
+      "habite se",
+      "certidao de habite se emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de regularizacao de parcelamento emurb obras e urbanizacao",
+    "synonyms": [
+      "regularizacao de parcelamento",
+      "certidao de regularizacao de parcelamento",
+      "certidao de regularizacao de parcelamento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de adequacao urbanistica nao residencial misto emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de adequacao urbanistica nao residencial misto",
+      "adequacao urbanistica nao residencial misto",
+      "certidao de adequacao urbanistica nao residencial misto emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de regularizacao uso uniresidencial emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de regularizacao uso uniresidencial emurb obras e urbanizacao",
+      "certidao de regularizacao uso uniresidencial",
+      "regularizacao uso uniresidencial"
+    ]
+  },
+  {
+    "value": "termo de remembramento desmembramento emurb obras e urbanizacao",
+    "synonyms": [
+      "termo de remembramento desmembramento",
+      "termo de remembramento desmembramento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "termo de remembramento emurb obras e urbanizacao",
+    "synonyms": [
+      "termo de remembramento",
+      "termo de remembramento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "renovacao de habite se certidao emurb obras e urbanizacao",
+    "synonyms": [
+      "renovacao de habite se certidao",
+      "renovacao de habite se certidao emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "abono de faltas",
+    "synonyms": [
+      "abono de faltas seplog planejamento e gestao",
+      "abono de faltas"
+    ]
+  },
+  {
+    "value": "abono de permanencia",
+    "synonyms": [
+      "abono de permanencia seplog planejamento e gestao",
+      "abono de permanencia",
+      "abono permanencia"
+    ]
+  },
+  {
+    "value": "adicional de 1 3 seplog planejamento e gestao",
+    "synonyms": [
+      "adicional de 1 3",
+      "adicional de 1 3 seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "adicional noturno seplog planejamento e gestao",
+    "synonyms": [
+      "adicional noturno seplog planejamento e gestao",
+      "adicional noturno"
+    ]
+  },
+  {
+    "value": "pedido de afastamento para aguardar aposentadoria seplog planejamento e gestao",
+    "synonyms": [
+      "pedido de afastamento para aguardar aposentadoria seplog planejamento e gestao",
+      "pedido de afastamento para aguardar aposentadoria"
+    ]
+  },
+  {
+    "value": "ampliacao de carga horaria seplog planejamento e gestao",
+    "synonyms": [
+      "ampliacao de carga horaria",
+      "ampliacao de carga horaria seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "aposentadoria especial seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria especial",
+      "aposentadoria especial seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "aposentadoria por idade seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria por idade",
+      "aposentadoria por idade seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "aposentadoria por invalidez seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria por invalidez seplog planejamento e gestao",
+      "aposentadoria por invalidez"
+    ]
+  },
+  {
+    "value": "aposentadoria tempo contribuicao seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria tempo contribuicao seplog planejamento e gestao",
+      "aposentadoria tempo contribuicao"
+    ]
+  },
+  {
+    "value": "atualizacao de cadastro seplog planejamento e gestao",
+    "synonyms": [
+      "atualizacao de cadastro",
+      "atualizacao de cadastro seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "atualizacao de salario seplog planejamento e gestao",
+    "synonyms": [
+      "atualizacao de salario seplog planejamento e gestao",
+      "atualizacao de salario"
+    ]
+  },
+  {
+    "value": "auxilio funeral seplog planejamento e gestao",
+    "synonyms": [
+      "auxilio funeral",
+      "auxilio funeral seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "averbacao de tempo de contribuicao seplog planejamento e gestao",
+    "synonyms": [
+      "averbacao de tempo de contribuicao",
+      "averbacao de tempo de contribuicao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "cadastramento para vale transporte seplog planejamento e gestao",
+    "synonyms": [
+      "cadastramento para vale transporte",
+      "cadastramento para vale transporte seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "cancelamento de averbacao por tempo de contribuicao seplog planejamento e gestao",
+    "synonyms": [
+      "cancelamento de averbacao por tempo de contribuicao seplog planejamento e gestao",
+      "cancelamento de averbacao por tempo de contribuicao"
+    ]
+  },
+  {
+    "value": "cancelamento de vale transporte seplog planejamento e gestao",
+    "synonyms": [
+      "cancelamento de vale transporte",
+      "cancelamento de vale transporte seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "ctc certidao tempo de contribuicao ajuprev previdencia municipal",
+    "synonyms": [
+      "ctc certidao tempo de contribuicao",
+      "ctc certidao tempo de contribuicao ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "complementacao de vale transporte seplog planejamento e gestao",
+    "synonyms": [
+      "complementacao de vale transporte",
+      "complementacao de vale transporte seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "copia de contrato seplog planejamento e gestao",
+    "synonyms": [
+      "copia de contrato",
+      "copia de contrato seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "copia do processo seplog planejamento e gestao",
+    "synonyms": [
+      "copia do processo",
+      "copia do processo seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao categoria profissional seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao categoria profissional",
+      "declaracao categoria profissional seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao de dependentes seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de dependentes seplog planejamento e gestao",
+      "declaracao de dependentes"
+    ]
+  },
+  {
+    "value": "declaracao de vencimento seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de vencimento seplog planejamento e gestao",
+      "declaracao de vencimento"
+    ]
+  },
+  {
+    "value": "declaracao de vencimento ipes ajuprev previdencia municipal",
+    "synonyms": [
+      "declaracao de vencimento ipes",
+      "declaracao de vencimento ipes ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "declaracao de comprovacao de vinculo",
+    "synonyms": [
+      "declaracao de comprovacao de vinculo",
+      "declaracao de comprovacao de vinculo seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "encaminhamento para junta medica seplog planejamento e gestao",
+    "synonyms": [
+      "encaminhamento para junta medica",
+      "encaminhamento para junta medica seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "enquadramento seplog planejamento e gestao",
+    "synonyms": [
+      "enquadramento seplog planejamento e gestao",
+      "enquadramento"
+    ]
+  },
+  {
+    "value": "exoneracao",
+    "synonyms": [
+      "exoneracao seplog planejamento e gestao",
+      "exoneracao"
+    ]
+  },
+  {
+    "value": "ficha financeira",
+    "synonyms": [
+      "ficha financeira seplog planejamento e gestao",
+      "ficha financeira"
+    ]
+  },
+  {
+    "value": "gratificacao de tempo integral",
+    "synonyms": [
+      "gratificacao de tempo integral",
+      "gratificacao de tempo integral seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "gratificacao medidas socio educativas",
+    "synonyms": [
+      "gratificacao medidas socio educativas eca seplog planejamento e gestao",
+      "gratificacao medidas socio educativas eca"
+    ]
+  },
+  {
+    "value": "gratificacao por titulacao",
+    "synonyms": [
+      "gratificacao por titulacao quadro geral",
+      "gratificacao por titulacao quadro geral seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "hora extra",
+    "synonyms": [
+      "hora extra",
+      "hora extra seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "horas suplementares",
+    "synonyms": [
+      "horas suplementares seplog planejamento e gestao",
+      "horas suplementares"
+    ]
+  },
+  {
+    "value": "inclusao de dependentes seplog planejamento e gestao",
+    "synonyms": [
+      "inclusao de dependentes",
+      "inclusao de dependentes seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "incorporacao de carga horaria seplog planejamento e gestao",
+    "synonyms": [
+      "incorporacao de carga horaria seplog planejamento e gestao",
+      "incorporacao de carga horaria"
+    ]
+  },
+  {
+    "value": "indenizacao de direitos demitido seplog planejamento e gestao",
+    "synonyms": [
+      "indenizacao de direitos demitido seplog planejamento e gestao",
+      "indenizacao de direitos demitido"
+    ]
+  },
+  {
+    "value": "indenizacao de direitos falecido seplog planejamento e gestao",
+    "synonyms": [
+      "indenizacao de direitos falecido seplog planejamento e gestao",
+      "indenizacao de direitos falecido"
+    ]
+  },
+  {
+    "value": "indenizacao de ferias seplog planejamento e gestao",
+    "synonyms": [
+      "indenizacao de ferias seplog planejamento e gestao",
+      "indenizacao de ferias"
+    ]
+  },
+  {
+    "value": "indenizacao licenca premio",
+    "synonyms": [
+      "indenizacao licenca premio lei 153 16 art 89 2",
+      "indenizacao licenca premio lei 153 16 art 89 2 seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "insalubridade",
+    "synonyms": [
+      "insalubridade",
+      "insalubridade seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "isencao da contribuicao sindical",
+    "synonyms": [
+      "isencao da contribuicao sindical",
+      "isencao da contribuicao sindical seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "isencao de imposto de renda",
+    "synonyms": [
+      "isencao de imposto de renda",
+      "isencao de imposto de renda seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "licenca para concorrer a mandato eletivo",
+    "synonyms": [
+      "licenca para concorrer a mandato eletivo seplog planejamento e gestao",
+      "licenca para concorrer a mandato eletivo"
+    ]
+  },
+  {
+    "value": "licenca para curso",
+    "synonyms": [
+      "licenca para curso seplog planejamento e gestao",
+      "licenca para curso"
+    ]
+  },
+  {
+    "value": "licenca para interesse particular",
+    "synonyms": [
+      "licenca para interesse particular seplog planejamento e gestao",
+      "licenca para interesse particular"
+    ]
+  },
+  {
+    "value": "licenca premio",
+    "synonyms": [
+      "licenca premio seplog planejamento e gestao",
+      "licenca premio"
+    ]
+  },
+  {
+    "value": "alteracao de nome",
+    "synonyms": [
+      "alteracao de nome",
+      "alteracao de nome seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "pagamento de 1 3 de ferias",
+    "synonyms": [
+      "pagamento de 1 3 de ferias seplog planejamento e gestao",
+      "pagamento de 1 3 de ferias"
+    ]
+  },
+  {
+    "value": "pensao por falecimento",
+    "synonyms": [
+      "pensao por falecimento",
+      "pensao por falecimento ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "periculosidade",
+    "synonyms": [
+      "periculosidade seplog planejamento e gestao",
+      "periculosidade"
+    ]
+  },
+  {
+    "value": "progressao por nova habilitacao",
+    "synonyms": [
+      "progressao por nova habilitacao",
+      "progressao por nova habilitacao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "readaptacao de funcao",
+    "synonyms": [
+      "readaptacao de funcao seplog planejamento e gestao",
+      "readaptacao de funcao"
+    ]
+  },
+  {
+    "value": "reducao chs filho portador necessidade especial",
+    "synonyms": [
+      "reducao chs filho portador necessidade especial",
+      "reducao chs filho portador necessidade especial seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "reducao de carga horaria",
+    "synonyms": [
+      "reducao de carga horaria",
+      "reducao de carga horaria seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "rescisao de contrato temporario",
+    "synonyms": [
+      "rescisao de contrato temporario",
+      "rescisao de contrato temporario seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "restituicao da previdencia ajuprev",
+    "synonyms": [
+      "restituicao da previdencia",
+      "restituicao da previdencia ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "restituicao de ipes saude",
+    "synonyms": [
+      "restituicao de ipes saude",
+      "restituicao de ipes saude seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "restituicao de vale transporte",
+    "synonyms": [
+      "restituicao de vale transporte seplog planejamento e gestao",
+      "restituicao de vale transporte"
+    ]
+  },
+  {
+    "value": "retorno as funcoes",
+    "synonyms": [
+      "retorno as funcoes",
+      "retorno as funcoes seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "retroativo de pagamento",
+    "synonyms": [
+      "retroativo de pagamento seplog planejamento e gestao",
+      "retroativo de pagamento"
+    ]
+  },
+  {
+    "value": "pedido de revisao de aposentadoria ajuprev",
+    "synonyms": [
+      "pedido de revisao de aposentadoria ajuprev previdencia municipal",
+      "pedido de revisao de aposentadoria"
+    ]
+  },
+  {
+    "value": "revisao de insalubridade",
+    "synonyms": [
+      "revisao de insalubridade",
+      "revisao de insalubridade seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "revisao de letra",
+    "synonyms": [
+      "revisao de letra",
+      "revisao de letra seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "revisao de remuneracao",
+    "synonyms": [
+      "revisao de remuneracao",
+      "revisao de remuneracao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "revisao de trienios",
+    "synonyms": [
+      "revisao de trienios",
+      "revisao de trienios seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "salario familia",
+    "synonyms": [
+      "salario familia",
+      "salario familia seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "solicitacao de estagio",
+    "synonyms": [
+      "solicitacao de estagio",
+      "solicitacao de estagio seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "alteracao de endereco eletronico de contribuinte semfaz",
+    "synonyms": [
+      "alteracao de endereco eletronico e mail de contribuinte",
+      "alteracao de endereco eletronico e mail de contribuinte semfaz financas"
+    ]
+  },
+  {
+    "value": "alteracao de endereco de correspondencia semfaz financas",
+    "synonyms": [
+      "alteracao de endereco de correspondencia",
+      "alteracao de endereco de correspondencia semfaz financas"
+    ]
+  },
+  {
+    "value": "baixa de autonomo semfaz financas",
+    "synonyms": [
+      "baixa de autonomo",
+      "baixa de autonomo semfaz financas"
+    ]
+  },
+  {
+    "value": "baixa de microempreendedor individual mei semfaz financas",
+    "synonyms": [
+      "baixa de microempreendedor individual mei semfaz financas",
+      "baixa de microempreendedor individual mei"
+    ]
+  },
+  {
+    "value": "baixa de empresa semfaz financas",
+    "synonyms": [
+      "baixa de empresa",
+      "baixa de empresa semfaz financas"
+    ]
+  },
+  {
+    "value": "baixa de debito pago pessoa fisica semfaz financas",
+    "synonyms": [
+      "baixa de debito pago pessoa fisica",
+      "baixa de debito pago pessoa fisica semfaz financas"
+    ]
+  },
+  {
+    "value": "baixa de debito pago empresas semfaz financas",
+    "synonyms": [
+      "baixa de debito pago empresas semfaz financas",
+      "baixa de debito pago empresas"
+    ]
+  },
+  {
+    "value": "cancelamento de debito de iptu semfaz financas",
+    "synonyms": [
+      "cancelamento de debito de iptu",
+      "cancelamento de debito de iptu semfaz financas",
+      "iptu cancelamento de debito",
+      "cancelar debito iptu",
+      "cancelar debito meu iptu",
+      "cancelar debito o iptu",
+      "quitar debito iptu",
+      "quitar debito meu iptu",
+      "quitar debito o iptu",
+      "baixar debito iptu",
+      "baixar debito meu iptu",
+      "baixar debito o iptu"
+    ]
+  },
+  {
+    "value": "cancelamento de parcelamento de debitos semfaz financas",
+    "synonyms": [
+      "cancelamento de parcelamento de debitos semfaz financas",
+      "cancelamento de parcelamento de debitos"
+    ]
+  },
+  {
+    "value": "compensacao de iptu semfaz financas",
+    "synonyms": [
+      "compensacao de iptu",
+      "compensacao de iptu semfaz financas",
+      "iptu compensacao",
+      "pedir compensacao iptu",
+      "pedir compensacao meu iptu",
+      "pedir compensacao o iptu",
+      "solicitar compensacao iptu",
+      "solicitar compensacao meu iptu",
+      "solicitar compensacao o iptu"
+    ]
+  },
+  {
+    "value": "certidao de decadencia declaracao para o inss",
+    "synonyms": [
+      "certidao de decadencia declaracao para o inss"
+    ]
+  },
+  {
+    "value": "enquadramento para sociedade uniprofissional semfaz financas",
+    "synonyms": [
+      "enquadramento para sociedade uniprofissional",
+      "enquadramento para sociedade uniprofissional semfaz financas"
+    ]
+  },
+  {
+    "value": "impugnacao ou defesa de auto de infracao semfaz financas",
+    "synonyms": [
+      "impugnacao ou defesa de auto de infracao semfaz financas",
+      "impugnacao ou defesa de auto de infracao"
+    ]
+  },
+  {
+    "value": "imunidade tributaria iss semfaz financas",
+    "synonyms": [
+      "imunidade tributaria iss",
+      "imunidade tributaria iss semfaz financas",
+      "iss imunidade tributaria",
+      "pedir imunidade tributaria iss",
+      "pedir imunidade tributaria meu iss",
+      "pedir imunidade tributaria o iss",
+      "solicitar imunidade tributaria iss",
+      "solicitar imunidade tributaria meu iss",
+      "solicitar imunidade tributaria o iss"
+    ]
+  },
+  {
+    "value": "isencao de iptu semfaz financas",
+    "synonyms": [
+      "isencao de iptu",
+      "isencao de iptu semfaz financas",
+      "iptu isencao",
+      "pedir isencao iptu",
+      "pedir isencao meu iptu",
+      "pedir isencao o iptu",
+      "solicitar isencao iptu",
+      "solicitar isencao meu iptu",
+      "solicitar isencao o iptu",
+      "quero isencao iptu",
+      "quero isencao meu iptu",
+      "quero isencao o iptu",
+      "gostaria de isencao iptu",
+      "gostaria de isencao meu iptu",
+      "gostaria de isencao o iptu"
+    ]
+  },
+  {
+    "value": "defesa de notificacao emurb obras e urbanizacao",
+    "synonyms": [
+      "defesa de notificacao emurb obras e urbanizacao",
+      "defesa de notificacao"
+    ]
+  },
+  {
+    "value": "nao incidencia de itbi semfaz financas",
+    "synonyms": [
+      "nao incidencia de itbi",
+      "nao incidencia de itbi semfaz financas",
+      "itbi nao incidencia"
+    ]
+  },
+  {
+    "value": "parcelamento de itbi lei nº4380 13 semfaz financas",
+    "synonyms": [
+      "parcelamento de itbi lei nº4380 13",
+      "parcelamento de itbi lei no4380 13",
+      "parcelamento de itbi lei nº4380 13 semfaz financas",
+      "itbi parcelamento lei nº4380 13",
+      "itbi parcelamento lei no4380 13",
+      "parcelar itbi",
+      "parcelar meu itbi",
+      "parcelar o itbi",
+      "quero parcelar itbi",
+      "quero parcelar meu itbi",
+      "quero parcelar o itbi",
+      "gostaria de parcelar itbi",
+      "gostaria de parcelar meu itbi",
+      "gostaria de parcelar o itbi",
+      "negociar itbi",
+      "negociar meu itbi",
+      "negociar o itbi",
+      "acordo de itbi",
+      "acordo de meu itbi",
+      "acordo de o itbi",
+      "preciso parcelar meu itbi",
+      "tenho que parcelar meu itbi"
+    ]
+  },
+  {
+    "value": "planta de quadra semfaz financas",
+    "synonyms": [
+      "planta de quadra semfaz financas",
+      "planta de quadra"
+    ]
+  },
+  {
+    "value": "prescricao de debitos semfaz financas",
+    "synonyms": [
+      "prescricao de debitos",
+      "prescricao de debitos semfaz financas"
+    ]
+  },
+  {
+    "value": "restituicao de issqn semfaz financas",
+    "synonyms": [
+      "restituicao de issqn",
+      "restituicao de issqn semfaz financas",
+      "pedir restituicao iss",
+      "pedir restituicao meu iss",
+      "pedir restituicao o iss",
+      "solicitar restituicao iss",
+      "solicitar restituicao meu iss",
+      "solicitar restituicao o iss",
+      "quero restituicao iss",
+      "quero restituicao meu iss",
+      "quero restituicao o iss"
+    ]
+  },
+  {
+    "value": "revisao de numero de porta semfaz financas",
+    "synonyms": [
+      "revisao de numero de porta semfaz financas",
+      "revisao de numero de porta"
+    ]
+  },
+  {
+    "value": "revisao de iptu semfaz financas",
+    "synonyms": [
+      "revisao de iptu",
+      "revisao de iptu semfaz financas",
+      "iptu revisao",
+      "pedir revisao iptu",
+      "pedir revisao meu iptu",
+      "pedir revisao o iptu",
+      "solicitar revisao iptu",
+      "solicitar revisao meu iptu",
+      "solicitar revisao o iptu",
+      "quero revisar iptu",
+      "quero revisar meu iptu",
+      "quero revisar o iptu",
+      "gostaria de revisar iptu",
+      "gostaria de revisar meu iptu",
+      "gostaria de revisar o iptu"
+    ]
+  },
+  {
+    "value": "revisao de itbi semfaz financas",
+    "synonyms": [
+      "revisao de itbi",
+      "revisao de itbi semfaz financas",
+      "itbi revisao",
+      "pedir revisao itbi",
+      "pedir revisao meu itbi",
+      "pedir revisao o itbi",
+      "solicitar revisao itbi",
+      "solicitar revisao meu itbi",
+      "solicitar revisao o itbi",
+      "quero revisar itbi",
+      "quero revisar meu itbi",
+      "quero revisar o itbi",
+      "gostaria de revisar itbi",
+      "gostaria de revisar meu itbi",
+      "gostaria de revisar o itbi"
+    ]
+  },
+  {
+    "value": "transferencia de proprietario de imovel semfaz financas",
+    "synonyms": [
+      "transferencia de proprietario de imovel",
+      "transferencia de proprietario de imovel semfaz financas"
+    ]
+  },
+  {
+    "value": "unificacao de matricula imobiliaria semfaz financas",
+    "synonyms": [
+      "unificacao de matricula imobiliaria semfaz financas",
+      "unificacao de matricula imobiliaria"
+    ]
+  },
+  {
+    "value": "localizacao de matricula imobiliaria semfaz financas",
+    "synonyms": [
+      "localizacao de matricula imobiliaria",
+      "localizacao de matricula imobiliaria semfaz financas"
+    ]
+  },
+  {
+    "value": "servidor municipal",
+    "synonyms": [
+      "servidor municipal"
+    ]
+  },
+  {
+    "value": "declaracao de existencia ou ausencia de processo administrativo disciplinares seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de existencia ou ausencia de processo administrativo disciplinares seplog planejamento e gestao",
+      "declaracao de existencia ou ausencia de processo administrativo disciplinares"
+    ]
+  },
+  {
+    "value": "gratificacao por titulacao quadro saude seplog planejamento e gestao",
+    "synonyms": [
+      "gratificacao por titulacao quadro saude",
+      "gratificacao por titulacao quadro saude seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "retificacao da rais seplog planejamento e gestao",
+    "synonyms": [
+      "retificacao da rais",
+      "retificacao da rais seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "laudo de vistoria de deposito de residuos emsurb servicos urbanos",
+    "synonyms": [
+      "laudo de vistoria de deposito de residuos",
+      "laudo de vistoria de deposito de residuos emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "declaracao de comprovacao de vacancia seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de comprovacao de vacancia",
+      "declaracao de comprovacao de vacancia seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao de pedido de exoneracao seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de pedido de exoneracao",
+      "declaracao de pedido de exoneracao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao de comprovacao de licenca sem vencimento seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de comprovacao de licenca sem vencimento seplog planejamento e gestao",
+      "declaracao de comprovacao de licenca sem vencimento"
+    ]
+  },
+  {
+    "value": "declaracao para cedidos e requisitados seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao para cedidos e requisitados seplog planejamento e gestao",
+      "declaracao para cedidos e requisitados"
+    ]
+  },
+  {
+    "value": "declaracao de pis seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de pis seplog planejamento e gestao",
+      "declaracao de pis"
+    ]
+  },
+  {
+    "value": "declaracao de tempo averbado seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de tempo averbado",
+      "declaracao de tempo averbado seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao de andamento de processo seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de andamento de processo",
+      "declaracao de andamento de processo seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao de retirada de certidao seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de retirada de certidao",
+      "declaracao de retirada de certidao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "incorporacao da gratificacao de tempo integral seplog planejamento e gestao",
+    "synonyms": [
+      "incorporacao da gratificacao de tempo integral",
+      "incorporacao da gratificacao de tempo integral seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "financas",
+    "synonyms": [
+      "financas"
+    ]
+  },
+  {
+    "value": "alteracao de razao social licenca autorizacao ambiental sema meio ambiente",
+    "synonyms": [
+      "alteracao de razao social licenca autorizacao ambiental",
+      "alteracao de razao social licenca autorizacao ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "termo de apensamento sema meio ambiente",
+    "synonyms": [
+      "termo de apensamento",
+      "termo de apensamento sema meio ambiente"
+    ]
+  },
+  {
+    "value": "autorizacao ambiental de eventos sema meio ambiente",
+    "synonyms": [
+      "autorizacao ambiental de eventos",
+      "autorizacao ambiental de eventos sema meio ambiente"
+    ]
+  },
+  {
+    "value": "autorizacao ambiental sema meio ambiente",
+    "synonyms": [
+      "autorizacao ambiental",
+      "autorizacao ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "imunidade tributaria iptu semfaz financas",
+    "synonyms": [
+      "imunidade tributaria iptu",
+      "imunidade tributaria iptu semfaz financas",
+      "iptu imunidade tributaria",
+      "pedir imunidade tributaria iptu",
+      "pedir imunidade tributaria meu iptu",
+      "pedir imunidade tributaria o iptu",
+      "solicitar imunidade tributaria iptu",
+      "solicitar imunidade tributaria meu iptu",
+      "solicitar imunidade tributaria o iptu"
+    ]
+  },
+  {
+    "value": "restituicao de iptu semfaz financas",
+    "synonyms": [
+      "restituicao de imposto",
+      "restituicao de iptu",
+      "restituicao de iptu semfaz financas",
+      "iptu restituicao",
+      "pedir restituicao iptu",
+      "pedir restituicao meu iptu",
+      "pedir restituicao o iptu",
+      "solicitar restituicao iptu",
+      "solicitar restituicao meu iptu",
+      "solicitar restituicao o iptu",
+      "quero restituicao iptu",
+      "quero restituicao meu iptu",
+      "quero restituicao o iptu"
+    ]
+  },
+  {
+    "value": "renovacao de certificado de dispensa de licenca ambiental sema meio ambiente",
+    "synonyms": [
+      "renovacao de certificado de dispensa de licenca ambiental",
+      "renovacao de certificado de dispensa de licenca ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "renovacao de autorizacao ambiental sema meio ambiente",
+    "synonyms": [
+      "renovacao de autorizacao ambiental",
+      "renovacao de autorizacao ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "licenciamento ambiental simplificado sema meio ambiente",
+    "synonyms": [
+      "licenciamento ambiental simplificado",
+      "licenciamento ambiental simplificado sema meio ambiente"
+    ]
+  },
+  {
+    "value": "renovacao de licenciamento ambiental simplificado sema meio ambiente",
+    "synonyms": [
+      "renovacao de licenciamento ambiental simplificado",
+      "renovacao de licenciamento ambiental simplificado sema meio ambiente"
+    ]
+  },
+  {
+    "value": "solicitacao de prorrogacao de prazo notificacao ambiental sema meio ambiente",
+    "synonyms": [
+      "solicitacao de prorrogacao de prazo notificacao ambiental",
+      "solicitacao de prorrogacao de prazo notificacao ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "alteracao de titularidade licenca autorizacao ambiental sema meio ambiente",
+    "synonyms": [
+      "alteracao de titularidade licenca autorizacao ambiental",
+      "alteracao de titularidade licenca autorizacao ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "certidao de perimetro urbano semfaz financas",
+    "synonyms": [
+      "perimetro urbano",
+      "certidao de perimetro urbano",
+      "certidao de perimetro urbano semfaz financas"
+    ]
+  },
+  {
+    "value": "ranfs semfaz financas",
+    "synonyms": [
+      "ranfs",
+      "ranfs semfaz financas"
+    ]
+  },
+  {
+    "value": "recebimento de cec semfaz financas",
+    "synonyms": [
+      "recebimento de cec",
+      "recebimento de cec semfaz financas"
+    ]
+  },
+  {
+    "value": "certidao positiva com efeito de negativa semfaz financas",
+    "synonyms": [
+      "certidao positiva com efeito de negativa",
+      "certidao positiva com efeito de negativa semfaz financas"
+    ]
+  },
+  {
+    "value": "inscricao de autonomo semfaz financas",
+    "synonyms": [
+      "inscricao de autonomo",
+      "inscricao de autonomo semfaz financas"
+    ]
+  },
+  {
+    "value": "compensacao de tlf semfaz financas",
+    "synonyms": [
+      "compensacao de tlf",
+      "compensacao de tlf semfaz financas",
+      "tlf compensacao",
+      "pedir compensacao tlf",
+      "pedir compensacao meu tlf",
+      "pedir compensacao o tlf",
+      "solicitar compensacao tlf",
+      "solicitar compensacao meu tlf",
+      "solicitar compensacao o tlf"
+    ]
+  },
+  {
+    "value": "revisao de processo seplog planejamento e gestao",
+    "synonyms": [
+      "revisao de processo",
+      "revisao de processo seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "isencao de iptu servidor semfaz financas",
+    "synonyms": [
+      "isencao de iptu servidor",
+      "isencao de iptu servidor semfaz financas",
+      "iptu isencao servidor",
+      "pedir isencao iptu",
+      "pedir isencao meu iptu",
+      "pedir isencao o iptu",
+      "solicitar isencao iptu",
+      "solicitar isencao meu iptu",
+      "solicitar isencao o iptu",
+      "quero isencao iptu",
+      "quero isencao meu iptu",
+      "quero isencao o iptu",
+      "gostaria de isencao iptu",
+      "gostaria de isencao meu iptu",
+      "gostaria de isencao o iptu"
+    ]
+  },
+  {
+    "value": "remocao seplog planejamento e gestao",
+    "synonyms": [
+      "remocao",
+      "remocao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "reconsideracao seplog planejamento e gestao",
+    "synonyms": [
+      "reconsideracao seplog planejamento e gestao",
+      "reconsideracao"
+    ]
+  },
+  {
+    "value": "recurso seplog planejamento e gestao",
+    "synonyms": [
+      "recurso",
+      "recurso seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "solicitacao seplog planejamento e gestao",
+    "synonyms": [
+      "solicitacao",
+      "solicitacao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao diversos seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao diversos seplog planejamento e gestao",
+      "declaracao diversos"
+    ]
+  },
+  {
+    "value": "restituicao de ipva semfaz financas",
+    "synonyms": [
+      "restituicao de ipva",
+      "restituicao de ipva semfaz financas",
+      "ipva restituicao",
+      "pedir restituicao ipva",
+      "pedir restituicao meu ipva",
+      "pedir restituicao o ipva",
+      "solicitar restituicao ipva",
+      "solicitar restituicao meu ipva",
+      "solicitar restituicao o ipva",
+      "quero restituicao ipva",
+      "quero restituicao meu ipva",
+      "quero restituicao o ipva"
+    ]
+  },
+  {
+    "value": "majoracao de licenca seplog planejamento e gestao",
+    "synonyms": [
+      "majoracao de licenca",
+      "majoracao de licenca seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "copia de prontuario seplog planejamento e gestao",
+    "synonyms": [
+      "copia de prontuario",
+      "copia de prontuario seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "nota fiscal seplog planejamento e gestao",
+    "synonyms": [
+      "nota fiscal seplog planejamento e gestao",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "parcelamento de iptu semfaz financas",
+    "synonyms": [
+      "parcelamento de iptu",
+      "parcelamento de iptu semfaz financas",
+      "iptu parcelamento",
+      "parcelar iptu",
+      "parcelar meu iptu",
+      "parcelar o iptu",
+      "quero parcelar iptu",
+      "quero parcelar meu iptu",
+      "quero parcelar o iptu",
+      "gostaria de parcelar iptu",
+      "gostaria de parcelar meu iptu",
+      "gostaria de parcelar o iptu",
+      "negociar iptu",
+      "negociar meu iptu",
+      "negociar o iptu",
+      "acordo de iptu",
+      "acordo de meu iptu",
+      "acordo de o iptu",
+      "preciso parcelar meu iptu",
+      "tenho que parcelar meu iptu"
+    ]
+  },
+  {
+    "value": "parcelamento de tlf ou iss semfaz financas",
+    "synonyms": [
+      "parcelamento de tlf ou iss",
+      "parcelamento de tlf ou iss semfaz financas",
+      "iss parcelamento de tlf",
+      "parcelar iss",
+      "parcelar meu iss",
+      "parcelar o iss",
+      "quero parcelar iss",
+      "quero parcelar meu iss",
+      "quero parcelar o iss",
+      "gostaria de parcelar iss",
+      "gostaria de parcelar meu iss",
+      "gostaria de parcelar o iss",
+      "negociar iss",
+      "negociar meu iss",
+      "negociar o iss",
+      "acordo de iss",
+      "acordo de meu iss",
+      "acordo de o iss",
+      "preciso parcelar meu iss",
+      "tenho que parcelar meu iss"
+    ]
+  },
+  {
+    "value": "cancelamento de nota fiscal semfaz financas",
+    "synonyms": [
+      "cancelamento de nota fiscal",
+      "cancelamento de nota fiscal semfaz financas"
+    ]
+  },
+  {
+    "value": "suspensao de empresa semfaz financas",
+    "synonyms": [
+      "suspensao de empresa",
+      "suspensao de empresa semfaz financas"
+    ]
+  },
+  {
+    "value": "copia de portaria seplog planejamento e gestao",
+    "synonyms": [
+      "copia de portaria",
+      "copia de portaria seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "desconto de inss seplog planejamento e gestao",
+    "synonyms": [
+      "desconto de inss",
+      "desconto de inss seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "folha de ponto seplog planejamento e gestao",
+    "synonyms": [
+      "folha de ponto seplog planejamento e gestao",
+      "folha de ponto"
+    ]
+  },
+  {
+    "value": "previdencia municipal",
+    "synonyms": [
+      "previdencia municipal"
+    ]
+  },
+  {
+    "value": "aposentadoria compulsoria seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria compulsoria",
+      "aposentadoria compulsoria seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "atualizacao de cadastro de aposentado ajuprev previdencia municipal",
+    "synonyms": [
+      "atualizacao de cadastro de aposentado",
+      "atualizacao de cadastro de aposentado ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "copia de processo ajuprev previdencia municipal",
+    "synonyms": [
+      "copia de processo ajuprev previdencia municipal",
+      "copia de processo"
+    ]
+  },
+  {
+    "value": "declaracao de dependentes ajuprev previdencia municipal",
+    "synonyms": [
+      "declaracao de dependentes",
+      "declaracao de dependentes ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "solicitacao de declaracoes diversas ajuprev previdencia municipal",
+    "synonyms": [
+      "solicitacao de declaracoes diversas ajuprev previdencia municipal",
+      "solicitacao de declaracoes diversas"
+    ]
+  },
+  {
+    "value": "desconto de pensao alimenticia ajuprev previdencia municipal",
+    "synonyms": [
+      "desconto de pensao alimenticia",
+      "desconto de pensao alimenticia ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "inclusao de dependentes ajuprev previdencia municipal",
+    "synonyms": [
+      "inclusao de dependentes ajuprev previdencia municipal",
+      "inclusao de dependentes"
+    ]
+  },
+  {
+    "value": "indenizacao de direitos falecido ajuprev previdencia municipal",
+    "synonyms": [
+      "indenizacao de direitos falecido",
+      "indenizacao de direitos falecido ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "solicitacao de isencao de imposto de renda ajuprev previdencia municipal",
+    "synonyms": [
+      "solicitacao de isencao de imposto de renda",
+      "solicitacao de isencao de imposto de renda ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "certificado de estagio seplog planejamento e gestao",
+    "synonyms": [
+      "certificado de estagio",
+      "certificado de estagio seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "desfiliacao seplog planejamento e gestao",
+    "synonyms": [
+      "desfiliacao",
+      "desfiliacao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "obras e urbanizacao",
+    "synonyms": [
+      "obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos urbanos",
+    "synonyms": [
+      "servicos urbanos"
+    ]
+  },
+  {
+    "value": "nota fiscal emsurb servicos urbanos",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "liberacao de guia de itbi semfaz financas",
+    "synonyms": [
+      "liberacao de guia de itbi",
+      "liberacao de guia de itbi semfaz financas",
+      "itbi liberacao de guia",
+      "emitir guia itbi",
+      "emitir guia meu itbi",
+      "emitir guia o itbi",
+      "gerar guia itbi",
+      "gerar guia meu itbi",
+      "gerar guia o itbi",
+      "segunda via da guia itbi",
+      "segunda via da guia meu itbi",
+      "segunda via da guia o itbi",
+      "2 via da guia itbi",
+      "2 via da guia meu itbi",
+      "2 via da guia o itbi"
+    ]
+  },
+  {
+    "value": "adesao ao simples nacional semfaz financas",
+    "synonyms": [
+      "adesao ao simples nacional semfaz financas",
+      "adesao ao simples nacional"
+    ]
+  },
+  {
+    "value": "cancelamento de processo seplog planejamento e gestao",
+    "synonyms": [
+      "cancelamento de processo",
+      "cancelamento de processo seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "assistencia social",
+    "synonyms": [
+      "assistencia social"
+    ]
+  },
+  {
+    "value": "demonstrativo de extratos de servicos semfas assistencia social",
+    "synonyms": [
+      "demonstrativo de extratos de servicos",
+      "demonstrativo de extratos de servicos semfas assistencia social"
+    ]
+  },
+  {
+    "value": "mandado judicial semfas assistencia social",
+    "synonyms": [
+      "mandado judicial semfas assistencia social",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "nota fiscal semfas assistencia social",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal semfas assistencia social"
+    ]
+  },
+  {
+    "value": "vale card semfas assistencia social",
+    "synonyms": [
+      "vale card semfas assistencia social",
+      "vale card"
+    ]
+  },
+  {
+    "value": "isencao de itbi semfaz financas",
+    "synonyms": [
+      "isencao de itbi",
+      "isencao de itbi semfaz financas",
+      "itbi isencao",
+      "pedir isencao itbi",
+      "pedir isencao meu itbi",
+      "pedir isencao o itbi",
+      "solicitar isencao itbi",
+      "solicitar isencao meu itbi",
+      "solicitar isencao o itbi",
+      "quero isencao itbi",
+      "quero isencao meu itbi",
+      "quero isencao o itbi",
+      "gostaria de isencao itbi",
+      "gostaria de isencao meu itbi",
+      "gostaria de isencao o itbi"
+    ]
+  },
+  {
+    "value": "certidao tempo de contribuicao ctc anexo iv e v seplog planejamento e gestao",
+    "synonyms": [
+      "certidao tempo de contribuicao ctc anexo iv e v",
+      "certidao tempo de contribuicao ctc anexo iv e v seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "reconsideracao de parecer semfaz financas",
+    "synonyms": [
+      "reconsideracao de parecer",
+      "reconsideracao de parecer semfaz financas"
+    ]
+  },
+  {
+    "value": "consulta tributaria semfaz financas",
+    "synonyms": [
+      "consulta tributaria",
+      "consulta tributaria semfaz financas"
+    ]
+  },
+  {
+    "value": "incorporacao seplog planejamento e gestao",
+    "synonyms": [
+      "incorporacao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "meio ambiente",
+    "synonyms": [
+      "meio ambiente"
+    ]
+  },
+  {
+    "value": "esporte",
+    "synonyms": [
+      "esporte"
+    ]
+  },
+  {
+    "value": "nota fiscal sejesp esporte",
+    "synonyms": [
+      "nota fiscal sejesp esporte",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "arte e cultura",
+    "synonyms": [
+      "arte e cultura"
+    ]
+  },
+  {
+    "value": "nota fiscal funcaju arte e cultura",
+    "synonyms": [
+      "nota fiscal funcaju arte e cultura",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "educacao",
+    "synonyms": [
+      "educacao"
+    ]
+  },
+  {
+    "value": "nota fiscal segov secretaria de governo",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal segov secretaria de governo"
+    ]
+  },
+  {
+    "value": "nota fiscal secom comunicacao social",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal secom comunicacao social"
+    ]
+  },
+  {
+    "value": "solicitacao para uso do campo de futebol do parque augusto franco emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao para uso do campo de futebol do parque augusto franco emsurb servicos urbanos",
+      "solicitacao para uso do campo de futebol do parque augusto franco"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para eventos no parque augusto franco emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para eventos no parque augusto franco",
+      "solicitacao de permissao para eventos no parque augusto franco emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "autorizacao para comercializacao no parque augusto franco sementeira emsurb servicos urbanos",
+    "synonyms": [
+      "autorizacao para comercializacao no parque augusto franco sementeira",
+      "autorizacao para comercializacao no parque augusto franco sementeira emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "solicitacao de material esportivo sejesp esporte",
+    "synonyms": [
+      "solicitacao de material esportivo",
+      "solicitacao de material esportivo sejesp esporte"
+    ]
+  },
+  {
+    "value": "solicitacao de transporte para competicoes esportivas sejesp esporte",
+    "synonyms": [
+      "solicitacao de transporte para competicoes esportivas sejesp esporte",
+      "solicitacao de transporte para competicoes esportivas"
+    ]
+  },
+  {
+    "value": "solicitacao de apoio para competicoes esportivas sejesp esporte",
+    "synonyms": [
+      "solicitacao de apoio para competicoes esportivas",
+      "solicitacao de apoio para competicoes esportivas sejesp esporte"
+    ]
+  },
+  {
+    "value": "solicitacao para utilizacao de pracas esportivas sejesp esporte",
+    "synonyms": [
+      "solicitacao para utilizacao de pracas esportivas",
+      "solicitacao para utilizacao de pracas esportivas sejesp esporte"
+    ]
+  },
+  {
+    "value": "praca da juventude solicitar utilizacao sejesp esporte",
+    "synonyms": [
+      "praca da juventude solicitar utilizacao",
+      "praca da juventude solicitar utilizacao sejesp esporte"
+    ]
+  },
+  {
+    "value": "contracheque seplog planejamento e gestao",
+    "synonyms": [
+      "contracheque seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "aviso de ferias seplog planejamento e gestao",
+    "synonyms": [
+      "aviso de ferias seplog planejamento e gestao",
+      "aviso de ferias"
+    ]
+  },
+  {
+    "value": "solicitacao de alvara sanitario sms saude",
+    "synonyms": [
+      "solicitacao de alvara sanitario",
+      "solicitacao de alvara sanitario sms saude"
+    ]
+  },
+  {
+    "value": "consultas juridicas funcaju arte e cultura",
+    "synonyms": [
+      "consultas juridicas funcaju arte e cultura",
+      "consultas juridicas"
+    ]
+  },
+  {
+    "value": "solicitacao de apoios para eventos culturais funcaju arte e cultura",
+    "synonyms": [
+      "solicitacao de apoios para eventos culturais",
+      "solicitacao de apoios para eventos culturais funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "escola de artes valdice teles e informacoes funcaju arte e cultura",
+    "synonyms": [
+      "escola de artes valdice teles e informacoes funcaju arte e cultura",
+      "escola de artes valdice teles e informacoes"
+    ]
+  },
+  {
+    "value": "solicitacao para pauta do teatro joao costa e informacoes funcaju arte e cultura",
+    "synonyms": [
+      "solicitacao para pauta do teatro joao costa e informacoes funcaju arte e cultura",
+      "solicitacao para pauta do teatro joao costa e informacoes"
+    ]
+  },
+  {
+    "value": "solicitacao para eventos nas bibliotecas municipais e informacoes funcaju arte e cultura",
+    "synonyms": [
+      "solicitacao para eventos nas bibliotecas municipais e informacoes",
+      "solicitacao para eventos nas bibliotecas municipais e informacoes funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "solicitacao para eventos na galeria de artes e informacoes funcaju arte e cultura",
+    "synonyms": [
+      "solicitacao para eventos na galeria de artes e informacoes",
+      "solicitacao para eventos na galeria de artes e informacoes funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "mapa cultural funcaju arte e cultura",
+    "synonyms": [
+      "mapa cultural",
+      "mapa cultural funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "arquivo publico de aracaju funcaju arte e cultura",
+    "synonyms": [
+      "arquivo publico de aracaju",
+      "arquivo publico de aracaju funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "nota fiscal fundat qualificacao e trabalho",
+    "synonyms": [
+      "nota fiscal fundat qualificacao e trabalho",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "qualificacao e trabalho",
+    "synonyms": [
+      "qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "solicitacao de parceria fundat qualificacao e trabalho",
+    "synonyms": [
+      "solicitacao de parceria fundat qualificacao e trabalho",
+      "solicitacao de parceria"
+    ]
+  },
+  {
+    "value": "nota fiscal setur turismo",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal setur turismo"
+    ]
+  },
+  {
+    "value": "reparcelamento de iptu semfaz financas",
+    "synonyms": [
+      "reparcelamento de iptu",
+      "reparcelamento de iptu semfaz financas",
+      "iptu reparcelamento",
+      "parcelar iptu",
+      "parcelar meu iptu",
+      "parcelar o iptu",
+      "quero parcelar iptu",
+      "quero parcelar meu iptu",
+      "quero parcelar o iptu",
+      "gostaria de parcelar iptu",
+      "gostaria de parcelar meu iptu",
+      "gostaria de parcelar o iptu",
+      "negociar iptu",
+      "negociar meu iptu",
+      "negociar o iptu",
+      "acordo de iptu",
+      "acordo de meu iptu",
+      "acordo de o iptu",
+      "preciso parcelar meu iptu",
+      "tenho que parcelar meu iptu"
+    ]
+  },
+  {
+    "value": "nota fiscal sms saude",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal sms saude",
+      "nota fiscal saude",
+      "nota fiscal da saude",
+      "gerar nota fiscal saude"
+    ]
+  },
+  {
+    "value": "remissao de iptu semfaz financas",
+    "synonyms": [
+      "remissao de iptu",
+      "remissao de iptu semfaz financas",
+      "iptu remissao",
+      "pedir remissao iptu",
+      "pedir remissao meu iptu",
+      "pedir remissao o iptu",
+      "solicitar remissao iptu",
+      "solicitar remissao meu iptu",
+      "solicitar remissao o iptu"
+    ]
+  },
+  {
+    "value": "vacancia seplog planejamento e gestao",
+    "synonyms": [
+      "vacancia",
+      "vacancia seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "cadastro tecnico de consultores ambientais sema meio ambiente",
+    "synonyms": [
+      "cadastro tecnico de consultores ambientais",
+      "cadastro tecnico de consultores ambientais sema meio ambiente"
+    ]
+  },
+  {
+    "value": "inscricao de empresa semfaz financas",
+    "synonyms": [
+      "inscricao de empresa",
+      "inscricao de empresa semfaz financas"
+    ]
+  },
+  {
+    "value": "alteracao de empresa semfaz financas",
+    "synonyms": [
+      "alteracao de empresa",
+      "alteracao de empresa semfaz financas"
+    ]
+  },
+  {
+    "value": "processo administrativo fiscal semfaz financas",
+    "synonyms": [
+      "processo administrativo fiscal",
+      "processo administrativo fiscal semfaz financas"
+    ]
+  },
+  {
+    "value": "suspensao de dedicacao exclusiva semed educacao",
+    "synonyms": [
+      "suspensao de dedicacao exclusiva",
+      "suspensao de dedicacao exclusiva semed educacao"
+    ]
+  },
+  {
+    "value": "copia de processo semfaz financas",
+    "synonyms": [
+      "copia de processo",
+      "copia de processo semfaz financas"
+    ]
+  },
+  {
+    "value": "declaracao de tempo de servico e contribuicao seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de tempo de servico e contribuicao seplog planejamento e gestao",
+      "declaracao de tempo de servico e contribuicao"
+    ]
+  },
+  {
+    "value": "reparcelamento de iss semfaz financas",
+    "synonyms": [
+      "reparcelamento de iss semfaz financas",
+      "reparcelamento de iss",
+      "iss reparcelamento",
+      "parcelar iss",
+      "parcelar meu iss",
+      "parcelar o iss",
+      "quero parcelar iss",
+      "quero parcelar meu iss",
+      "quero parcelar o iss",
+      "gostaria de parcelar iss",
+      "gostaria de parcelar meu iss",
+      "gostaria de parcelar o iss",
+      "negociar iss",
+      "negociar meu iss",
+      "negociar o iss",
+      "acordo de iss",
+      "acordo de meu iss",
+      "acordo de o iss",
+      "preciso parcelar meu iss",
+      "tenho que parcelar meu iss"
+    ]
+  },
+  {
+    "value": "nota fiscal smtt transporte e transito",
+    "synonyms": [
+      "nota fiscal smtt transporte e transito",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "nota fiscal sema meio ambiente",
+    "synonyms": [
+      "nota fiscal sema meio ambiente",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "nota fiscal cgm controladoria do municipio",
+    "synonyms": [
+      "nota fiscal cgm controladoria do municipio",
+      "nota fiscal"
+    ]
+  },
+  {
+    "value": "nota fiscal semed educacao",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal semed educacao"
+    ]
+  },
+  {
+    "value": "nota fiscal ssm aju seguranca e cidadania",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal ssm aju seguranca e cidadania"
+    ]
+  },
+  {
+    "value": "nota fiscal ajuprev previdencia municipal",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "nota fiscal pgm advocacia do municipio",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal pgm advocacia do municipio"
+    ]
+  },
+  {
+    "value": "deferimento parcial da isencao do itbi semfaz financas",
+    "synonyms": [
+      "deferimento parcial da isencao do itbi",
+      "deferimento parcial da isencao do itbi semfaz financas",
+      "itbi deferimento parcial da isencao",
+      "pedir isencao itbi",
+      "pedir isencao meu itbi",
+      "pedir isencao o itbi",
+      "solicitar isencao itbi",
+      "solicitar isencao meu itbi",
+      "solicitar isencao o itbi",
+      "quero isencao itbi",
+      "quero isencao meu itbi",
+      "quero isencao o itbi",
+      "gostaria de isencao itbi",
+      "gostaria de isencao meu itbi",
+      "gostaria de isencao o itbi"
+    ]
+  },
+  {
+    "value": "certificado de dispensa de licenca ambiental sema meio ambiente",
+    "synonyms": [
+      "certificado de dispensa de licenca ambiental",
+      "certificado de dispensa de licenca ambiental sema meio ambiente"
+    ]
+  },
+  {
+    "value": "solicitacao diversas jari smtt transporte e transito",
+    "synonyms": [
+      "solicitacao diversas jari",
+      "solicitacao diversas jari smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "transporte e transito",
+    "synonyms": [
+      "transporte e transito"
+    ]
+  },
+  {
+    "value": "cancelamento de debito de iss semfaz financas",
+    "synonyms": [
+      "cancelamento de debito de iss",
+      "cancelamento de debito de iss semfaz financas",
+      "iss cancelamento de debito",
+      "cancelar debito iss",
+      "cancelar debito meu iss",
+      "cancelar debito o iss",
+      "quitar debito iss",
+      "quitar debito meu iss",
+      "quitar debito o iss",
+      "baixar debito iss",
+      "baixar debito meu iss",
+      "baixar debito o iss"
+    ]
+  },
+  {
+    "value": "cancelamento de debito de itbi semfaz financas",
+    "synonyms": [
+      "cancelamento de debito de itbi semfaz financas",
+      "cancelamento de debito de itbi",
+      "itbi cancelamento de debito",
+      "cancelar debito itbi",
+      "cancelar debito meu itbi",
+      "cancelar debito o itbi",
+      "quitar debito itbi",
+      "quitar debito meu itbi",
+      "quitar debito o itbi",
+      "baixar debito itbi",
+      "baixar debito meu itbi",
+      "baixar debito o itbi"
+    ]
+  },
+  {
+    "value": "cancelamento de debito de tlf semfaz financas",
+    "synonyms": [
+      "cancelamento de debito de tlf",
+      "cancelamento de debito de tlf semfaz financas",
+      "tlf cancelamento de debito",
+      "cancelar debito tlf",
+      "cancelar debito meu tlf",
+      "cancelar debito o tlf",
+      "quitar debito tlf",
+      "quitar debito meu tlf",
+      "quitar debito o tlf",
+      "baixar debito tlf",
+      "baixar debito meu tlf",
+      "baixar debito o tlf"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para eventos em espaco publico emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para eventos em espaco publico",
+      "solicitacao de permissao para eventos em espaco publico emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "solicitacao de auditorio reuniao sejesp esporte",
+    "synonyms": [
+      "solicitacao de auditorio reuniao",
+      "solicitacao de auditorio reuniao sejesp esporte"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para comercializar em feiras livres emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para comercializar em feiras livres",
+      "solicitacao de permissao para comercializar em feiras livres emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "certidao negativa vinculada ao imovel semfaz financas",
+    "synonyms": [
+      "certidao negativa vinculada ao imovel",
+      "certidao negativa vinculada ao imovel semfaz financas"
+    ]
+  },
+  {
+    "value": "exames admissionais seplog planejamento e gestao",
+    "synonyms": [
+      "exames admissionais",
+      "exames admissionais seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "saude",
+    "synonyms": [
+      "saude"
+    ]
+  },
+  {
+    "value": "restituicao de itbi semfaz financas",
+    "synonyms": [
+      "restituicao de itbi",
+      "restituicao de itbi semfaz financas",
+      "itbi restituicao",
+      "pedir restituicao itbi",
+      "pedir restituicao meu itbi",
+      "pedir restituicao o itbi",
+      "solicitar restituicao itbi",
+      "solicitar restituicao meu itbi",
+      "solicitar restituicao o itbi",
+      "quero restituicao itbi",
+      "quero restituicao meu itbi",
+      "quero restituicao o itbi"
+    ]
+  },
+  {
+    "value": "restituicao de tlf semfaz financas",
+    "synonyms": [
+      "restituicao de tlf",
+      "restituicao de tlf semfaz financas",
+      "tlf restituicao",
+      "pedir restituicao tlf",
+      "pedir restituicao meu tlf",
+      "pedir restituicao o tlf",
+      "solicitar restituicao tlf",
+      "solicitar restituicao meu tlf",
+      "solicitar restituicao o tlf",
+      "quero restituicao tlf",
+      "quero restituicao meu tlf",
+      "quero restituicao o tlf"
+    ]
+  },
+  {
+    "value": "reparcelamento de tlf semfaz financas",
+    "synonyms": [
+      "reparcelamento de tlf",
+      "reparcelamento de tlf semfaz financas",
+      "tlf reparcelamento",
+      "parcelar tlf",
+      "parcelar meu tlf",
+      "parcelar o tlf",
+      "quero parcelar tlf",
+      "quero parcelar meu tlf",
+      "quero parcelar o tlf",
+      "gostaria de parcelar tlf",
+      "gostaria de parcelar meu tlf",
+      "gostaria de parcelar o tlf",
+      "negociar tlf",
+      "negociar meu tlf",
+      "negociar o tlf",
+      "acordo de tlf",
+      "acordo de meu tlf",
+      "acordo de o tlf",
+      "preciso parcelar meu tlf",
+      "tenho que parcelar meu tlf"
+    ]
+  },
+  {
+    "value": "compensacao de itbi semfaz financas",
+    "synonyms": [
+      "compensacao de itbi",
+      "compensacao de itbi semfaz financas",
+      "itbi compensacao",
+      "pedir compensacao itbi",
+      "pedir compensacao meu itbi",
+      "pedir compensacao o itbi",
+      "solicitar compensacao itbi",
+      "solicitar compensacao meu itbi",
+      "solicitar compensacao o itbi"
+    ]
+  },
+  {
+    "value": "compensacao issqn semfaz financas",
+    "synonyms": [
+      "compensacao issqn",
+      "compensacao issqn semfaz financas",
+      "pedir compensacao iss",
+      "pedir compensacao meu iss",
+      "pedir compensacao o iss",
+      "solicitar compensacao iss",
+      "solicitar compensacao meu iss",
+      "solicitar compensacao o iss"
+    ]
+  },
+  {
+    "value": "desmembramento iptu semfaz financas",
+    "synonyms": [
+      "desmembramento iptu",
+      "desmembramento iptu semfaz financas",
+      "iptu desmembramento"
+    ]
+  },
+  {
+    "value": "rubrica contracheque inclusao seplog planejamento e gestao",
+    "synonyms": [
+      "rubrica contracheque inclusao",
+      "rubrica contracheque inclusao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "rubrica contracheque exclusao seplog planejamento e gestao",
+    "synonyms": [
+      "rubrica contracheque exclusao",
+      "rubrica contracheque exclusao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "copia de rol de lancamento semfaz financas",
+    "synonyms": [
+      "copia de rol de lancamento",
+      "copia de rol de lancamento semfaz financas"
+    ]
+  },
+  {
+    "value": "resultado de exame covid sms saude",
+    "synonyms": [
+      "resultado de exame covid",
+      "resultado de exame covid sms saude"
+    ]
+  },
+  {
+    "value": "indicacao do real condutor",
+    "synonyms": [
+      "indicacao do real condutor dentro do prazo legal",
+      "indicacao do real condutor dentro do prazo legal smtt transporte e transito",
+      "real condutor",
+      "indicacao condutor",
+      "indicacao real condutor",
+      "mudar condutor multa",
+      "indicacao de condutor"
+    ]
+  },
+  {
+    "value": "defesa de autuacao defesa previa smtt transporte e transito",
+    "synonyms": [
+      "defesa de autuacao defesa previa",
+      "defesa de autuacao defesa previa smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "recurso a jari smtt transporte e transito",
+    "synonyms": [
+      "recurso a jari smtt transporte e transito",
+      "recurso a jari"
+    ]
+  },
+  {
+    "value": "ressarcimentos de valores de multa de transito smtt transporte e transito",
+    "synonyms": [
+      "ressarcimentos de valores de multa de transito",
+      "ressarcimentos de valores de multa de transito smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de copia de ar aviso de recebimento dos correios ou edital de notificacao smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de copia de ar aviso de recebimento dos correios ou edital de notificacao",
+      "solicitacao de copia de ar aviso de recebimento dos correios ou edital de notificacao smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de copia do auto de infracao ait smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de copia do auto de infracao ait",
+      "solicitacao de copia do auto de infracao ait smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de parecer da defesa de autuacao ou do recurso a jari smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de parecer da defesa de autuacao ou do recurso a jari",
+      "solicitacao de parecer da defesa de autuacao ou do recurso a jari smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de efeito suspensivo do auto de infracao smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de efeito suspensivo do auto de infracao smtt transporte e transito",
+      "solicitacao de efeito suspensivo do auto de infracao"
+    ]
+  },
+  {
+    "value": "solicitacao de cancelamento de pedido anterior smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de cancelamento de pedido anterior",
+      "solicitacao de cancelamento de pedido anterior smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao motivada de revisao de processo smtt transporte e transito",
+    "synonyms": [
+      "solicitacao motivada de revisao de processo",
+      "solicitacao motivada de revisao de processo smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de copia integral de processo de multa protocolizado anteriormente smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de copia integral de processo de multa protocolizado anteriormente",
+      "solicitacao de copia integral de processo de multa protocolizado anteriormente smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "isencao de iss semfaz financas",
+    "synonyms": [
+      "isencao de iss semfaz financas",
+      "isencao de iss",
+      "iss isencao",
+      "pedir isencao iss",
+      "pedir isencao meu iss",
+      "pedir isencao o iss",
+      "solicitar isencao iss",
+      "solicitar isencao meu iss",
+      "solicitar isencao o iss",
+      "quero isencao iss",
+      "quero isencao meu iss",
+      "quero isencao o iss",
+      "gostaria de isencao iss",
+      "gostaria de isencao meu iss",
+      "gostaria de isencao o iss"
+    ]
+  },
+  {
+    "value": "alvara de funcionamento semfaz financas",
+    "synonyms": [
+      "alvara funcionamento",
+      "alvara de funcionamento semfaz financas",
+      "alvara de funcionamento"
+    ]
+  },
+  {
+    "value": "defesa previa de notificacao de multas administrativas do transporte coletivo por onibus smtt transporte e transito",
+    "synonyms": [
+      "defesa previa de notificacao de multas administrativas do transporte coletivo por onibus smtt transporte e transito",
+      "defesa previa de notificacao de multas administrativas do transporte coletivo por onibus"
+    ]
+  },
+  {
+    "value": "recurso de multa administrativa do transporte coletivo por onibus ao conselho de administracao da smtt smtt transporte e transito",
+    "synonyms": [
+      "recurso de multa administrativa do transporte coletivo por onibus ao conselho de administracao da smtt",
+      "recurso de multa administrativa do transporte coletivo por onibus ao conselho de administracao da smtt smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "ressarcimentos de valores de multa administrativa do transporte coletivo por onibus smtt transporte e transito",
+    "synonyms": [
+      "ressarcimentos de valores de multa administrativa do transporte coletivo por onibus",
+      "ressarcimentos de valores de multa administrativa do transporte coletivo por onibus smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de parecer da defesa previa ou de recurso ao conselho de administracao smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de parecer da defesa previa ou de recurso ao conselho de administracao",
+      "solicitacao de parecer da defesa previa ou de recurso ao conselho de administracao smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "alvara taxi smtt transporte e transito",
+    "synonyms": [
+      "alvara taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "taxas para permissionario taxi smtt transporte e transito",
+    "synonyms": [
+      "taxas para permissionario taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "alvara escolar smtt transporte e transito",
+    "synonyms": [
+      "alvara escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "taxas para permissionario escolar smtt transporte e transito",
+    "synonyms": [
+      "taxas para permissionario escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "alvara permissionario taxi smtt transporte e transito",
+    "synonyms": [
+      "alvara permissionario taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "alvara auxiliar taxi smtt transporte e transito",
+    "synonyms": [
+      "alvara auxiliar taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "nada consta taxi smtt transporte e transito",
+    "synonyms": [
+      "nada consta taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "isencao de ipi taxi smtt transporte e transito",
+    "synonyms": [
+      "isencao de ipi taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "isencao de icms taxi smtt transporte e transito",
+    "synonyms": [
+      "isencao de icms taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "termo de responsabilidade taxi smtt transporte e transito",
+    "synonyms": [
+      "termo de responsabilidade taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "declaracao para afericao taxi smtt transporte e transito",
+    "synonyms": [
+      "declaracao para afericao taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "requerimento para veiculo novo taxi smtt transporte e transito",
+    "synonyms": [
+      "requerimento para veiculo novo taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "publicidade taxi smtt transporte e transito",
+    "synonyms": [
+      "publicidade taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "termo de revogacao taxi smtt transporte e transito",
+    "synonyms": [
+      "termo de revogacao taxi smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "nada consta escolar smtt transporte e transito",
+    "synonyms": [
+      "nada consta escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "termo de responsabilidade escolar smtt transporte e transito",
+    "synonyms": [
+      "termo de responsabilidade escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "termo de revogacao escolar smtt transporte e transito",
+    "synonyms": [
+      "termo de revogacao escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "publicidade escolar smtt transporte e transito",
+    "synonyms": [
+      "publicidade escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "alvara autorizado escolar smtt transporte e transito",
+    "synonyms": [
+      "alvara autorizado escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "alvara motorista auxiliar escolar smtt transporte e transito",
+    "synonyms": [
+      "alvara motorista auxiliar escolar smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "autorizacao para supressao de arvores sema meio ambiente",
+    "synonyms": [
+      "autorizacao para supressao de arvores",
+      "autorizacao para supressao de arvores sema meio ambiente"
+    ]
+  },
+  {
+    "value": "solicitacao de copia do auto de infracao smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de copia do auto de infracao smtt transporte e transito",
+      "solicitacao de copia do auto de infracao"
+    ]
+  },
+  {
+    "value": "desvinculacao de empresa contabil semfaz financas",
+    "synonyms": [
+      "desvinculacao de empresa contabil semfaz financas",
+      "desvinculacao de empresa contabil"
+    ]
+  },
+  {
+    "value": "aprovacao de projeto de sinalizacao temporaria smtt transporte e transito",
+    "synonyms": [
+      "aprovacao de projeto de sinalizacao temporaria",
+      "aprovacao de projeto de sinalizacao temporaria smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "solicitacao de tpov termo de permissao para ocupacao de vias smtt transporte e transito",
+    "synonyms": [
+      "solicitacao de tpov termo de permissao para ocupacao de vias smtt transporte e transito",
+      "solicitacao de tpov termo de permissao para ocupacao de vias"
+    ]
+  },
+  {
+    "value": "informacao de obito seplog planejamento e gestao",
+    "synonyms": [
+      "informacao de obito",
+      "informacao de obito seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "documentos oficiais",
+    "synonyms": [
+      "documentos oficiais"
+    ]
+  },
+  {
+    "value": "eventos",
+    "synonyms": [
+      "eventos"
+    ]
+  },
+  {
+    "value": "juridico",
+    "synonyms": [
+      "juridico"
+    ]
+  },
+  {
+    "value": "informacao",
+    "synonyms": [
+      "informacao"
+    ]
+  },
+  {
+    "value": "inscricao",
+    "synonyms": [
+      "inscricao"
+    ]
+  },
+  {
+    "value": "beneficios eventuais",
+    "synonyms": [
+      "beneficios eventuais"
+    ]
+  },
+  {
+    "value": "assistencia",
+    "synonyms": [
+      "assistencia"
+    ]
+  },
+  {
+    "value": "documentos escolares",
+    "synonyms": [
+      "documentos escolares"
+    ]
+  },
+  {
+    "value": "apoio pedagogico",
+    "synonyms": [
+      "apoio pedagogico"
+    ]
+  },
+  {
+    "value": "matricula academico",
+    "synonyms": [
+      "matricula academico"
+    ]
+  },
+  {
+    "value": "inscricao alteracao ou baixa",
+    "synonyms": [
+      "inscricao alteracao ou baixa"
+    ]
+  },
+  {
+    "value": "iptu",
+    "synonyms": [
+      "iptu",
+      "imposto predial e territorial urbano",
+      "imposto predial territorial urbano",
+      "iptu segunda via",
+      "iptu 2 via",
+      "segunda via iptu",
+      "2 via iptu",
+      "iptu boleto",
+      "boleto iptu",
+      "iptu guia",
+      "guia iptu",
+      "consulta iptu",
+      "debito iptu"
+    ]
+  },
+  {
+    "value": "iss",
+    "synonyms": [
+      "iss",
+      "imposto sobre servico",
+      "imposto sobre servicos",
+      "issqn",
+      "iss segunda via",
+      "iss 2 via",
+      "segunda via iss",
+      "2 via iss",
+      "iss boleto",
+      "boleto iss",
+      "iss guia",
+      "guia iss",
+      "consulta iss",
+      "debito iss"
+    ]
+  },
+  {
+    "value": "tlf",
+    "synonyms": [
+      "tlf",
+      "taxa de licenca de funcionamento",
+      "tlf segunda via",
+      "tlf 2 via",
+      "segunda via tlf",
+      "2 via tlf",
+      "tlf boleto",
+      "boleto tlf",
+      "tlf guia",
+      "guia tlf",
+      "consulta tlf",
+      "debito tlf"
+    ]
+  },
+  {
+    "value": "certidoes",
+    "synonyms": [
+      "certidoes"
+    ]
+  },
+  {
+    "value": "declaracoes",
+    "synonyms": [
+      "declaracoes"
+    ]
+  },
+  {
+    "value": "ipva",
+    "synonyms": [
+      "ipva",
+      "ipva segunda via",
+      "ipva 2 via",
+      "segunda via ipva",
+      "2 via ipva",
+      "ipva boleto",
+      "boleto ipva",
+      "ipva guia",
+      "guia ipva",
+      "consulta ipva",
+      "debito ipva"
+    ]
+  },
+  {
+    "value": "processo administrativo",
+    "synonyms": [
+      "processo administrativo"
+    ]
+  },
+  {
+    "value": "simples nacional",
+    "synonyms": [
+      "simples nacional"
+    ]
+  },
+  {
+    "value": "itbi",
+    "synonyms": [
+      "itbi",
+      "imposto sobre transmissao de bens imoveis",
+      "itbi segunda via",
+      "itbi 2 via",
+      "segunda via itbi",
+      "2 via itbi",
+      "itbi boleto",
+      "boleto itbi",
+      "itbi guia",
+      "guia itbi",
+      "consulta itbi",
+      "debito itbi"
+    ]
+  },
+  {
+    "value": "termos",
+    "synonyms": [
+      "termos"
+    ]
+  },
+  {
+    "value": "autorizacoes",
+    "synonyms": [
+      "autorizacoes"
+    ]
+  },
+  {
+    "value": "defesas",
+    "synonyms": [
+      "defesas"
+    ]
+  },
+  {
+    "value": "alvaras",
+    "synonyms": [
+      "alvaras"
+    ]
+  },
+  {
+    "value": "anuencias",
+    "synonyms": [
+      "anuencias"
+    ]
+  },
+  {
+    "value": "denuncia",
+    "synonyms": [
+      "denuncia"
+    ]
+  },
+  {
+    "value": "fiscalizacao e monitoramento",
+    "synonyms": [
+      "fiscalizacao e monitoramento"
+    ]
+  },
+  {
+    "value": "dependentes",
+    "synonyms": [
+      "dependentes"
+    ]
+  },
+  {
+    "value": "documentos",
+    "synonyms": [
+      "documentos"
+    ]
+  },
+  {
+    "value": "outras pensoes e indenizacoes",
+    "synonyms": [
+      "outras pensoes e indenizacoes"
+    ]
+  },
+  {
+    "value": "pedidos para a aposentadoria",
+    "synonyms": [
+      "pedidos para a aposentadoria"
+    ]
+  },
+  {
+    "value": "pedidos de revisao",
+    "synonyms": [
+      "pedidos de revisao"
+    ]
+  },
+  {
+    "value": "atualizacao de cadastro",
+    "synonyms": [
+      "atualizacao de cadastro"
+    ]
+  },
+  {
+    "value": "consulta e exames",
+    "synonyms": [
+      "consulta e exames"
+    ]
+  },
+  {
+    "value": "vigilancia sanitaria",
+    "synonyms": [
+      "vigilancia sanitaria"
+    ]
+  },
+  {
+    "value": "permissoes e autorizacoes",
+    "synonyms": [
+      "permissoes e autorizacoes"
+    ]
+  },
+  {
+    "value": "publicidade",
+    "synonyms": [
+      "publicidade"
+    ]
+  },
+  {
+    "value": "laudos",
+    "synonyms": [
+      "laudos"
+    ]
+  },
+  {
+    "value": "admissao exoneracao",
+    "synonyms": [
+      "admissao exoneracao"
+    ]
+  },
+  {
+    "value": "declaracoes e certidoes",
+    "synonyms": [
+      "declaracoes e certidoes"
+    ]
+  },
+  {
+    "value": "disponibilidade e vacancia",
+    "synonyms": [
+      "disponibilidade e vacancia"
+    ]
+  },
+  {
+    "value": "beneficios",
+    "synonyms": [
+      "beneficios"
+    ]
+  },
+  {
+    "value": "gratificacoes",
+    "synonyms": [
+      "gratificacoes"
+    ]
+  },
+  {
+    "value": "incorporacao",
+    "synonyms": [
+      "incorporacao"
+    ]
+  },
+  {
+    "value": "indenizacao",
+    "synonyms": [
+      "indenizacao"
+    ]
+  },
+  {
+    "value": "licencas",
+    "synonyms": [
+      "licencas"
+    ]
+  },
+  {
+    "value": "outros servicos",
+    "synonyms": [
+      "outros servicos"
+    ]
+  },
+  {
+    "value": "abono",
+    "synonyms": [
+      "abonos"
+    ]
+  },
+  {
+    "value": "contracheque",
+    "synonyms": [
+      "contracheque"
+    ]
+  },
+  {
+    "value": "revisao",
+    "synonyms": [
+      "revisao"
+    ]
+  },
+  {
+    "value": "jari processo administrativo",
+    "synonyms": [
+      "jari processo administrativo"
+    ]
+  },
+  {
+    "value": "onibus",
+    "synonyms": [
+      "onibus"
+    ]
+  },
+  {
+    "value": "autorizacao para eventos em vias publicas",
+    "synonyms": [
+      "autorizacao para eventos em vias publicas"
+    ]
+  },
+  {
+    "value": "obras em vias publicas",
+    "synonyms": [
+      "obras em vias publicas"
+    ]
+  },
+  {
+    "value": "taxi",
+    "synonyms": [
+      "taxi"
+    ]
+  },
+  {
+    "value": "transporte escolar",
+    "synonyms": [
+      "transporte escolar"
+    ]
+  },
+  {
+    "value": "evento com fechamento parcial ou total de via sem agente de transito smtt transporte e transito",
+    "synonyms": [
+      "evento com fechamento parcial ou total de via sem agente de transito smtt transporte e transito",
+      "evento com fechamento parcial ou total de via sem agente de transito"
+    ]
+  },
+  {
+    "value": "evento com fechamento parcial ou total de via com agente de transito smtt transporte e transito",
+    "synonyms": [
+      "evento com fechamento parcial ou total de via com agente de transito",
+      "evento com fechamento parcial ou total de via com agente de transito smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "anuencia loteamento emurb obras e urbanizacao",
+    "synonyms": [
+      "anuencia loteamento",
+      "anuencia loteamento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "autorizacao de instalacao de estacao radio base emurb obras e urbanizacao",
+    "synonyms": [
+      "autorizacao de instalacao de estacao radio base",
+      "instalacao de estacao radio base",
+      "autorizacao de instalacao de estacao radio base emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "atualizacao de cadastro previdenciario ajuprev previdencia municipal",
+    "synonyms": [
+      "atualizacao de cadastro previdenciario",
+      "atualizacao de cadastro previdenciario ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "certidao de recuo especial emurb obras e urbanizacao",
+    "synonyms": [
+      "recuo especial",
+      "certidao de recuo especial",
+      "certidao de recuo especial emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "assistencia a crianca e ao adolescente semfas assistencia social",
+    "synonyms": [
+      "assistencia a crianca e ao adolescente",
+      "assistencia a crianca e ao adolescente semfas assistencia social"
+    ]
+  },
+  {
+    "value": "assistencia ao idoso semfas assistencia social",
+    "synonyms": [
+      "assistencia ao idoso",
+      "assistencia ao idoso semfas assistencia social"
+    ]
+  },
+  {
+    "value": "assistencia a pessoa com deficiencia semfas assistencia social",
+    "synonyms": [
+      "assistencia a pessoa com deficiencia",
+      "assistencia a pessoa com deficiencia semfas assistencia social"
+    ]
+  },
+  {
+    "value": "assistencia aos povos indigenas semfas assistencia social",
+    "synonyms": [
+      "assistencia aos povos indigenas semfas assistencia social",
+      "assistencia aos povos indigenas"
+    ]
+  },
+  {
+    "value": "assistencia comunitaria semfas assistencia social",
+    "synonyms": [
+      "assistencia comunitaria",
+      "assistencia comunitaria semfas assistencia social"
+    ]
+  },
+  {
+    "value": "custodia e reintegracao social semfas assistencia social",
+    "synonyms": [
+      "custodia e reintegracao social semfas assistencia social",
+      "custodia e reintegracao social"
+    ]
+  },
+  {
+    "value": "direitos individuais coletivos e difusos semfas assistencia social",
+    "synonyms": [
+      "direitos individuais coletivos e difusos semfas assistencia social"
+    ]
+  },
+  {
+    "value": "auxilio moradia semfas assistencia social",
+    "synonyms": [
+      "auxilio moradia",
+      "auxilio moradia semfas assistencia social"
+    ]
+  },
+  {
+    "value": "auxilio funerario semfas assistencia social",
+    "synonyms": [
+      "auxilio funerario",
+      "auxilio funerario semfas assistencia social"
+    ]
+  },
+  {
+    "value": "beneficios eventuais semfas assistencia social",
+    "synonyms": [
+      "beneficios eventuais",
+      "beneficios eventuais semfas assistencia social"
+    ]
+  },
+  {
+    "value": "cestas basicas semfas assistencia social",
+    "synonyms": [
+      "cestas basicas",
+      "cestas basicas semfas assistencia social"
+    ]
+  },
+  {
+    "value": "cartao mais inclusao semfas assistencia social",
+    "synonyms": [
+      "cartao mais inclusao",
+      "cartao mais inclusao semfas assistencia social"
+    ]
+  },
+  {
+    "value": "certidao de demolicao emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de demolicao",
+      "certidao de demolicao emurb obras e urbanizacao",
+      "demolicao"
+    ]
+  },
+  {
+    "value": "declaracao de atendimento a termo de compromisso",
+    "synonyms": [
+      "declaracao de atendimento a termo de compromisso"
+    ]
+  },
+  {
+    "value": "declaracao de instalacao de estacao radio base emurb obras e urbanizacao",
+    "synonyms": [
+      "declaracao de instalacao de estacao radio base",
+      "declaracao de instalacao de estacao radio base emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "declaracao de revenda de gas liquefeito de petroleo glp emurb obras e urbanizacao",
+    "synonyms": [
+      "declaracao de revenda de gas liquefeito de petroleo glp",
+      "declaracao de revenda de gas liquefeito de petroleo glp emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "declaracao de numero de porta emurb obras e urbanizacao",
+    "synonyms": [
+      "declaracao de numero de porta emurb obras e urbanizacao",
+      "declaracao de numero de porta"
+    ]
+  },
+  {
+    "value": "substituicao de projetos",
+    "synonyms": [
+      "substituicao de projetos"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao temporaria de espaco publico para comercializar emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao temporaria de espaco publico para comercializar",
+      "solicitacao de permissao temporaria de espaco publico para comercializar emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "poda de arvore em via publica",
+    "synonyms": [
+      "poda de arvore em via publica",
+      "poda de arvore em via publica emsurb servicos urbanos",
+      "poda de arvore",
+      "podar arvore",
+      "cortar galhos de arvore"
+    ]
+  },
+  {
+    "value": "retirada de animal apreendido emsurb servicos urbanos",
+    "synonyms": [
+      "retirada de animal apreendido",
+      "retirada de animal apreendido emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "solicitacao de banheiro quimico gambiarra toldos para eventos publicos emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de banheiro quimico gambiarra toldos para eventos publicos",
+      "solicitacao de banheiro quimico gambiarra toldos para eventos publicos emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "autorizacao de translado de ossada emsurb servicos urbanos",
+    "synonyms": [
+      "autorizacao de translado de ossada",
+      "translado de ossada",
+      "autorizacao de translado de ossada emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "declaracao de translado de ossada emsurb servicos urbanos",
+    "synonyms": [
+      "declaracao de translado de ossada emsurb servicos urbanos",
+      "declaracao de translado de ossada"
+    ]
+  },
+  {
+    "value": "segunda via jazigo e ossuario emsurb servicos urbanos",
+    "synonyms": [
+      "segunda via jazigo e ossuario",
+      "segunda via jazigo e ossuario emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "declaracao de conformidade dos deposito de residuos emsurb servicos urbanos",
+    "synonyms": [
+      "declaracao de conformidade dos deposito de residuos",
+      "declaracao de conformidade dos deposito de residuos emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "liberacao para publicidade temporaria emsurb servicos urbanos",
+    "synonyms": [
+      "liberacao para publicidade temporaria",
+      "liberacao para publicidade temporaria emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "reforma de jazigo emsurb servicos urbanos",
+    "synonyms": [
+      "reforma de jazigo emsurb servicos urbanos",
+      "reforma de jazigo"
+    ]
+  },
+  {
+    "value": "devolucao de permissao para comercializacao emsurb servicos urbanos",
+    "synonyms": [
+      "devolucao de permissao para comercializacao",
+      "devolucao de permissao para comercializacao emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "remocao do letreiro totem emsurb servicos urbanos",
+    "synonyms": [
+      "remocao do letreiro totem",
+      "remocao do letreiro totem emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "devolucao de publicidade apreendida emsurb servicos urbanos",
+    "synonyms": [
+      "devolucao de publicidade apreendida",
+      "devolucao de publicidade apreendida emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "renovacao de alvara publicitario emsurb servicos urbanos",
+    "synonyms": [
+      "renovacao de alvara publicitario",
+      "renovacao de alvara publicitario emsurb servicos urbanos",
+      "renovacao de alvara",
+      "renovar alvara publicitario"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para comercializar em mercados municipais emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para comercializar em mercados municipais",
+      "solicitacao de permissao para comercializar em mercados municipais emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "aprovacao de viabilidade de coleta de lixo emsurb servicos urbanos",
+    "synonyms": [
+      "aprovacao de viabilidade de coleta de lixo",
+      "aprovacao de viabilidade de coleta de lixo emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para uso do espaco publico nas orlas emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para uso do espaco publico nas orlas",
+      "solicitacao de permissao para uso do espaco publico nas orlas emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para uso do espaco publico nos parques emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para uso do espaco publico nos parques",
+      "solicitacao de permissao para uso do espaco publico nos parques emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "autorizacao para reformas modificacoes obras nos espacos publicos das orlas emsurb servicos urbanos",
+    "synonyms": [
+      "autorizacao para reformas modificacoes obras nos espacos publicos das orlas",
+      "autorizacao para reformas modificacoes obras nos espacos publicos das orlas emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "solicitacao de permissao para comercializacao em espaco publico emsurb servicos urbanos",
+    "synonyms": [
+      "solicitacao de permissao para comercializacao em espaco publico emsurb servicos urbanos",
+      "solicitacao de permissao para comercializacao em espaco publico"
+    ]
+  },
+  {
+    "value": "liberacao de espaco publico para eventos emsurb servicos urbanos",
+    "synonyms": [
+      "liberacao de espaco publico para eventos",
+      "liberacao de espaco publico para eventos emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "convite",
+    "synonyms": [
+      "convite"
+    ]
+  },
+  {
+    "value": "mandado judicial",
+    "synonyms": [
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "nota fiscal e certidoes",
+    "synonyms": [
+      "nota fiscal e certidoes"
+    ]
+  },
+  {
+    "value": "notificacao",
+    "synonyms": [
+      "notificacao"
+    ]
+  },
+  {
+    "value": "oficio",
+    "synonyms": [
+      "oficio"
+    ]
+  },
+  {
+    "value": "solicitacao de inspecao sanitaria inicial sms saude",
+    "synonyms": [
+      "solicitacao de inspecao sanitaria inicial sms saude",
+      "solicitacao de inspecao sanitaria inicial"
+    ]
+  },
+  {
+    "value": "solicitacao de retorno de inspecao sanitaria sms saude",
+    "synonyms": [
+      "solicitacao de retorno de inspecao sanitaria",
+      "solicitacao de retorno de inspecao sanitaria sms saude"
+    ]
+  },
+  {
+    "value": "avaliacao de projeto basico de arquitetura sms saude",
+    "synonyms": [
+      "avaliacao de projeto basico de arquitetura",
+      "avaliacao de projeto basico de arquitetura sms saude"
+    ]
+  },
+  {
+    "value": "convite ajuprev previdencia municipal",
+    "synonyms": [
+      "convite ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "convite cgm controladoria do municipio",
+    "synonyms": [
+      "convite cgm controladoria do municipio"
+    ]
+  },
+  {
+    "value": "convite emsurb servicos urbanos",
+    "synonyms": [
+      "convite emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "convite funcaju arte e cultura",
+    "synonyms": [
+      "convite funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "convite fundat qualificacao e trabalho",
+    "synonyms": [
+      "convite fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "convite pgm advocacia do municipio",
+    "synonyms": [
+      "convite pgm advocacia do municipio"
+    ]
+  },
+  {
+    "value": "convite secom comunicacao social",
+    "synonyms": [
+      "convite secom comunicacao social"
+    ]
+  },
+  {
+    "value": "convite segov secretaria de governo",
+    "synonyms": [
+      "convite segov secretaria de governo"
+    ]
+  },
+  {
+    "value": "convite sejesp esporte",
+    "synonyms": [
+      "convite sejesp esporte"
+    ]
+  },
+  {
+    "value": "convite sema meio ambiente",
+    "synonyms": [
+      "convite sema meio ambiente"
+    ]
+  },
+  {
+    "value": "convite ssm aju seguranca e cidadania",
+    "synonyms": [
+      "convite ssm aju seguranca e cidadania"
+    ]
+  },
+  {
+    "value": "convite semed educacao",
+    "synonyms": [
+      "convite semed educacao"
+    ]
+  },
+  {
+    "value": "convite semfas assistencia social",
+    "synonyms": [
+      "convite semfas assistencia social"
+    ]
+  },
+  {
+    "value": "convite semfaz financas",
+    "synonyms": [
+      "convite semfaz financas"
+    ]
+  },
+  {
+    "value": "convite setur turismo",
+    "synonyms": [
+      "convite setur turismo"
+    ]
+  },
+  {
+    "value": "convite seplog planejamento e gestao",
+    "synonyms": [
+      "convite seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "convite sms saude",
+    "synonyms": [
+      "convite sms saude"
+    ]
+  },
+  {
+    "value": "convite smtt transporte e transito",
+    "synonyms": [
+      "convite smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "mandado judicial ajuprev previdencia municipal",
+    "synonyms": [
+      "mandado judicial ajuprev previdencia municipal",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial cgm controladoria do municipio",
+    "synonyms": [
+      "mandado judicial cgm controladoria do municipio",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial emsurb servicos urbanos",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "mandado judicial funcaju arte e cultura",
+    "synonyms": [
+      "mandado judicial funcaju arte e cultura",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial fundat qualificacao e trabalho",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "mandado judicial pgm advocacia do municipio",
+    "synonyms": [
+      "mandado judicial pgm advocacia do municipio",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial secom comunicacao social",
+    "synonyms": [
+      "mandado judicial secom comunicacao social",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial segov secretaria de governo",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial segov secretaria de governo"
+    ]
+  },
+  {
+    "value": "mandado judicial sejesp esporte",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial sejesp esporte"
+    ]
+  },
+  {
+    "value": "mandado judicial sema meio ambiente",
+    "synonyms": [
+      "mandado judicial sema meio ambiente",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial ssm aju seguranca e cidadania",
+    "synonyms": [
+      "mandado judicial ssm aju seguranca e cidadania",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial semed educacao",
+    "synonyms": [
+      "mandado judicial semed educacao",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "mandado judicial semfaz financas",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial semfaz financas"
+    ]
+  },
+  {
+    "value": "mandado judicial setur turismo",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial setur turismo"
+    ]
+  },
+  {
+    "value": "mandado judicial seplog planejamento e gestao",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "mandado judicial sms saude",
+    "synonyms": [
+      "mandado judicial",
+      "mandado judicial sms saude"
+    ]
+  },
+  {
+    "value": "mandado judicial smtt transporte e transito",
+    "synonyms": [
+      "mandado judicial smtt transporte e transito",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "notificacao ajuprev previdencia municipal",
+    "synonyms": [
+      "notificacao ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "notificacao cgm controladoria do municipio",
+    "synonyms": [
+      "notificacao cgm controladoria do municipio"
+    ]
+  },
+  {
+    "value": "notificacao emsurb servicos urbanos",
+    "synonyms": [
+      "notificacao emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "notificacao funcaju arte e cultura",
+    "synonyms": [
+      "notificacao funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "notificacao fundat qualificacao e trabalho",
+    "synonyms": [
+      "notificacao fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "notificacao pgm advocacia do municipio",
+    "synonyms": [
+      "notificacao pgm advocacia do municipio"
+    ]
+  },
+  {
+    "value": "notificacao secom comunicacao social",
+    "synonyms": [
+      "notificacao secom comunicacao social"
+    ]
+  },
+  {
+    "value": "notificacao segov secretaria de governo",
+    "synonyms": [
+      "notificacao segov secretaria de governo"
+    ]
+  },
+  {
+    "value": "notificacao sejesp esporte",
+    "synonyms": [
+      "notificacao sejesp esporte"
+    ]
+  },
+  {
+    "value": "notificacao sema meio ambiente",
+    "synonyms": [
+      "notificacao sema meio ambiente"
+    ]
+  },
+  {
+    "value": "notificacao ssm aju seguranca e cidadania",
+    "synonyms": [
+      "notificacao ssm aju seguranca e cidadania"
+    ]
+  },
+  {
+    "value": "notificacao semed educacao",
+    "synonyms": [
+      "notificacao semed educacao"
+    ]
+  },
+  {
+    "value": "notificacao semfas assistencia social",
+    "synonyms": [
+      "notificacao semfas assistencia social"
+    ]
+  },
+  {
+    "value": "notificacao semfaz financas",
+    "synonyms": [
+      "notificacao semfaz financas"
+    ]
+  },
+  {
+    "value": "notificacao setur turismo",
+    "synonyms": [
+      "notificacao setur turismo"
+    ]
+  },
+  {
+    "value": "notificacao seplog planejamento e gestao",
+    "synonyms": [
+      "notificacao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "notificacao sms saude",
+    "synonyms": [
+      "notificacao sms saude"
+    ]
+  },
+  {
+    "value": "notificacao smtt transporte e transito",
+    "synonyms": [
+      "notificacao smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "oficio ajuprev previdencia municipal",
+    "synonyms": [
+      "oficio ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "oficio cgm controladoria do municipio",
+    "synonyms": [
+      "oficio cgm controladoria do municipio"
+    ]
+  },
+  {
+    "value": "oficio emsurb servicos urbanos",
+    "synonyms": [
+      "oficio emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "oficio emurb obras e urbanizacao",
+    "synonyms": [
+      "oficio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "oficio funcaju arte e cultura",
+    "synonyms": [
+      "oficio funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "oficio fundat qualificacao e trabalho",
+    "synonyms": [
+      "oficio fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "oficio pgm advocacia do municipio",
+    "synonyms": [
+      "oficio pgm advocacia do municipio"
+    ]
+  },
+  {
+    "value": "oficio secom comunicacao social",
+    "synonyms": [
+      "oficio secom comunicacao social"
+    ]
+  },
+  {
+    "value": "oficio segov secretaria de governo",
+    "synonyms": [
+      "oficio segov secretaria de governo"
+    ]
+  },
+  {
+    "value": "oficio sejesp esporte",
+    "synonyms": [
+      "oficio sejesp esporte"
+    ]
+  },
+  {
+    "value": "oficio sema meio ambiente",
+    "synonyms": [
+      "oficio sema meio ambiente"
+    ]
+  },
+  {
+    "value": "oficio ssm aju seguranca e cidadania",
+    "synonyms": [
+      "oficio ssm aju seguranca e cidadania"
+    ]
+  },
+  {
+    "value": "oficio semed educacao",
+    "synonyms": [
+      "oficio semed educacao"
+    ]
+  },
+  {
+    "value": "oficio semfas assistencia social",
+    "synonyms": [
+      "oficio semfas assistencia social"
+    ]
+  },
+  {
+    "value": "oficio semfaz financas",
+    "synonyms": [
+      "oficio semfaz financas"
+    ]
+  },
+  {
+    "value": "oficio setur turismo",
+    "synonyms": [
+      "oficio setur turismo"
+    ]
+  },
+  {
+    "value": "oficio seplog planejamento e gestao",
+    "synonyms": [
+      "oficio seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "oficio sms saude",
+    "synonyms": [
+      "oficio sms saude"
+    ]
+  },
+  {
+    "value": "oficio smtt transporte e transito",
+    "synonyms": [
+      "oficio smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "emissao de certificado fundat qualificacao e trabalho",
+    "synonyms": [
+      "emissao de certificado fundat qualificacao e trabalho",
+      "emissao de certificado"
+    ]
+  },
+  {
+    "value": "envio de curriculo fundat qualificacao e trabalho",
+    "synonyms": [
+      "envio de curriculo",
+      "envio de curriculo fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "ofertas de vagas de emprego fundat qualificacao e trabalho",
+    "synonyms": [
+      "ofertas de vagas de emprego",
+      "ofertas de vagas de emprego fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "orientacoes sobre seu negocio fundat qualificacao e trabalho",
+    "synonyms": [
+      "orientacoes sobre seu negocio",
+      "orientacoes sobre seu negocio fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "solicite credito para o seu negocio fundat qualificacao e trabalho",
+    "synonyms": [
+      "solicite credito para o seu negocio",
+      "solicite credito para o seu negocio fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "licenciamento ordinario sema meio ambiente",
+    "synonyms": [
+      "licenciamento ordinario",
+      "licenciamento ordinario sema meio ambiente"
+    ]
+  },
+  {
+    "value": "solicitacao plantio de mudas sema meio ambiente",
+    "synonyms": [
+      "solicitacao plantio de mudas sema meio ambiente",
+      "solicitacao plantio de mudas"
+    ]
+  },
+  {
+    "value": "difusao cultural funcaju arte e cultura",
+    "synonyms": [
+      "difusao cultural funcaju arte e cultura",
+      "difusao cultural"
+    ]
+  },
+  {
+    "value": "patrimonio historico artistico e arqueologico funcaju arte e cultura",
+    "synonyms": [
+      "patrimonio historico artistico e arqueologico funcaju arte e cultura"
+    ]
+  },
+  {
+    "value": "declaracao de matricula semed educacao",
+    "synonyms": [
+      "declaracao de matricula",
+      "declaracao de matricula semed educacao"
+    ]
+  },
+  {
+    "value": "declaracao para o bolsa familia semed educacao",
+    "synonyms": [
+      "declaracao para o bolsa familia",
+      "declaracao para o bolsa familia semed educacao"
+    ]
+  },
+  {
+    "value": "matricula online semed educacao",
+    "synonyms": [
+      "matricula online semed educacao",
+      "matricula online"
+    ]
+  },
+  {
+    "value": "consultar matricula semed educacao",
+    "synonyms": [
+      "consultar matricula",
+      "consultar matricula semed educacao"
+    ]
+  },
+  {
+    "value": "boletim do aluno semed educacao",
+    "synonyms": [
+      "boletim do aluno",
+      "boletim do aluno semed educacao"
+    ]
+  },
+  {
+    "value": "agendamento de consultas sms saude",
+    "synonyms": [
+      "agendamento de consultas",
+      "agendamento de consultas sms saude"
+    ]
+  },
+  {
+    "value": "visualizacao de agendamentos de exames sms saude",
+    "synonyms": [
+      "visualizacao de agendamentos de exames sms saude",
+      "visualizacao de agendamentos de exames"
+    ]
+  },
+  {
+    "value": "lista de espera sms saude",
+    "synonyms": [
+      "lista de espera sms saude",
+      "lista de espera"
+    ]
+  },
+  {
+    "value": "resultados de exames sms saude",
+    "synonyms": [
+      "resultados de exames",
+      "resultados de exames sms saude"
+    ]
+  },
+  {
+    "value": "lista publica de espera de pacientes sms saude",
+    "synonyms": [
+      "lista publica de espera de pacientes sms saude",
+      "lista publica de espera de pacientes"
+    ]
+  },
+  {
+    "value": "carteira de vacinacao sms saude",
+    "synonyms": [
+      "carteira de vacinacao",
+      "carteira de vacinacao sms saude"
+    ]
+  },
+  {
+    "value": "verificador de assinaturas sms saude",
+    "synonyms": [
+      "verificador de assinaturas sms saude",
+      "verificador de assinaturas"
+    ]
+  },
+  {
+    "value": "alvara de construcao substituicao de projetos emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao substituicao de projetos",
+      "alvara construcao substituicao de projetos",
+      "alvara de construcao substituicao de projetos emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "autorizacao de obras de infraestrutura emurb obras e urbanizacao",
+    "synonyms": [
+      "autorizacao de obras de infraestrutura",
+      "autorizacao de obras de infraestrutura emurb obras e urbanizacao",
+      "obras de infraestrutura"
+    ]
+  },
+  {
+    "value": "declaracao de conclusao",
+    "synonyms": [
+      "declaracao de conclusao"
+    ]
+  },
+  {
+    "value": "termo de verificacao de obras tvo emurb obras e urbanizacao",
+    "synonyms": [
+      "termo de verificacao de obras tvo",
+      "termo de verificacao de obras tvo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "recomposicao de pavimentacao asfaltica",
+    "synonyms": [
+      "recomposicao de pavimentacao asfaltica"
+    ]
+  },
+  {
+    "value": "parcelamento de tlf semfaz financas",
+    "synonyms": [
+      "parcelamento de tlf semfaz financas",
+      "parcelamento de tlf",
+      "tlf parcelamento",
+      "parcelar tlf",
+      "parcelar meu tlf",
+      "parcelar o tlf",
+      "quero parcelar tlf",
+      "quero parcelar meu tlf",
+      "quero parcelar o tlf",
+      "gostaria de parcelar tlf",
+      "gostaria de parcelar meu tlf",
+      "gostaria de parcelar o tlf",
+      "negociar tlf",
+      "negociar meu tlf",
+      "negociar o tlf",
+      "acordo de tlf",
+      "acordo de meu tlf",
+      "acordo de o tlf",
+      "preciso parcelar meu tlf",
+      "tenho que parcelar meu tlf"
+    ]
+  },
+  {
+    "value": "imunidade tributaria itbi semfaz financas",
+    "synonyms": [
+      "imunidade tributaria itbi",
+      "imunidade tributaria itbi semfaz financas",
+      "itbi imunidade tributaria",
+      "pedir imunidade tributaria itbi",
+      "pedir imunidade tributaria meu itbi",
+      "pedir imunidade tributaria o itbi",
+      "solicitar imunidade tributaria itbi",
+      "solicitar imunidade tributaria meu itbi",
+      "solicitar imunidade tributaria o itbi"
+    ]
+  },
+  {
+    "value": "pedido de prorrogacao de prazo de inspecao sanitaria sms saude",
+    "synonyms": [
+      "pedido de prorrogacao de prazo de inspecao sanitaria sms saude",
+      "pedido de prorrogacao de prazo de inspecao sanitaria"
+    ]
+  },
+  {
+    "value": "oficio gab gabinete da prefeita",
+    "synonyms": [
+      "oficio gab gabinete da prefeita"
+    ]
+  },
+  {
+    "value": "ppp perfil profissiografico previdenciario sms saude",
+    "synonyms": [
+      "ppp perfil profissiografico previdenciario",
+      "ppp perfil profissiografico previdenciario sms saude"
+    ]
+  },
+  {
+    "value": "declaracao de rendimentos irrf seplog planejamento e gestao",
+    "synonyms": [
+      "declaracao de rendimentos irrf seplog planejamento e gestao",
+      "declaracao de rendimentos irrf"
+    ]
+  },
+  {
+    "value": "gratificacao especial de trabalho em saude seplog planejamento e gestao",
+    "synonyms": [
+      "gratificacao especial de trabalho em saude",
+      "gratificacao especial de trabalho em saude seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "pessoa fisica",
+    "synonyms": [
+      "pessoa fisica"
+    ]
+  },
+  {
+    "value": "informe de rendimentos pessoa fisica sms saude",
+    "synonyms": [
+      "informe de rendimentos pessoa fisica",
+      "informe de rendimentos pessoa fisica sms saude"
+    ]
+  },
+  {
+    "value": "cadastramento das empresas transportadoras de residuos solidos rccvs sema meio ambiente",
+    "synonyms": [
+      "cadastramento das empresas transportadoras de residuos solidos rccvs",
+      "cadastramento das empresas transportadoras de residuos solidos rccvs sema meio ambiente"
+    ]
+  },
+  {
+    "value": "transferencia de lotacao seplog planejamento e gestao",
+    "synonyms": [
+      "transferencia de lotacao",
+      "transferencia de lotacao seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "desmajoracao de licenca premio seplog planejamento e gestao",
+    "synonyms": [
+      "desmajoracao de licenca premio",
+      "desmajoracao de licenca premio seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "desaverbacao de tempo de servico seplog planejamento e gestao",
+    "synonyms": [
+      "desaverbacao de tempo de servico seplog planejamento e gestao",
+      "desaverbacao de tempo de servico"
+    ]
+  },
+  {
+    "value": "concessao de alvara publicitario emsurb servicos urbanos",
+    "synonyms": [
+      "concessao de alvara publicitario",
+      "concessao de alvara publicitario emsurb servicos urbanos"
+    ]
+  },
+  {
+    "value": "restituicao de faltas seplog planejamento e gestao",
+    "synonyms": [
+      "restituicao de faltas",
+      "restituicao de faltas seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "restituicao",
+    "synonyms": [
+      "restituicao"
+    ]
+  },
+  {
+    "value": "retificacao da dirf seplog planejamento e gestao",
+    "synonyms": [
+      "retificacao da dirf",
+      "retificacao da dirf seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "licenca maternidade seplog planejamento e gestao",
+    "synonyms": [
+      "licenca maternidade",
+      "licenca maternidade seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "solicitacao de estagio camara municipal",
+    "synonyms": [
+      "solicitacao de estagio camara municipal"
+    ]
+  },
+  {
+    "value": "seplog prorrogacao da posse seplog planejamento e gestao",
+    "synonyms": [
+      "seplog prorrogacao da posse",
+      "seplog prorrogacao da posse seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "apresentacao de defesa de processo administrativo sanitario pas sms saude",
+    "synonyms": [
+      "apresentacao de defesa de processo administrativo sanitario pas sms saude",
+      "apresentacao de defesa de processo administrativo sanitario pas"
+    ]
+  },
+  {
+    "value": "solicitacao vigilancia sanitaria outras sms saude",
+    "synonyms": [
+      "solicitacao vigilancia sanitaria outras",
+      "solicitacao vigilancia sanitaria outras sms saude"
+    ]
+  },
+  {
+    "value": "protocolo pessoa juridica sms saude",
+    "synonyms": [
+      "protocolo pessoa juridica",
+      "protocolo pessoa juridica sms saude"
+    ]
+  },
+  {
+    "value": "indenizacao de recesso estagiario seplog planejamento e gestao",
+    "synonyms": [
+      "indenizacao de recesso estagiario",
+      "indenizacao de recesso estagiario seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "nucar",
+    "synonyms": [
+      "nucar"
+    ]
+  },
+  {
+    "value": "coordenacao de regulacao de procedimentos eletivos sms saude",
+    "synonyms": [
+      "coordenacao de regulacao de procedimentos eletivos",
+      "coordenacao de regulacao de procedimentos eletivos sms saude"
+    ]
+  },
+  {
+    "value": "regulacao ambulatorial aracaju sms saude",
+    "synonyms": [
+      "regulacao ambulatorial aracaju sms saude",
+      "regulacao ambulatorial aracaju"
+    ]
+  },
+  {
+    "value": "regulacao ambulatorial interior sms saude",
+    "synonyms": [
+      "regulacao ambulatorial interior",
+      "regulacao ambulatorial interior sms saude"
+    ]
+  },
+  {
+    "value": "regulacao apac sms saude",
+    "synonyms": [
+      "regulacao apac",
+      "regulacao apac sms saude"
+    ]
+  },
+  {
+    "value": "regulacao hospitalar sms saude",
+    "synonyms": [
+      "regulacao hospitalar",
+      "regulacao hospitalar sms saude"
+    ]
+  },
+  {
+    "value": "suporte ao sistema ids sms saude",
+    "synonyms": [
+      "suporte ao sistema ids",
+      "suporte ao sistema ids sms saude"
+    ]
+  },
+  {
+    "value": "criacao de agendas sms saude",
+    "synonyms": [
+      "criacao de agendas",
+      "criacao de agendas sms saude"
+    ]
+  },
+  {
+    "value": "animais",
+    "synonyms": [
+      "animais"
+    ]
+  },
+  {
+    "value": "cadastro de tutores para abrigo temporario sema meio ambiente",
+    "synonyms": [
+      "cadastro de tutores para abrigo temporario sema meio ambiente",
+      "cadastro de tutores para abrigo temporario"
+    ]
+  },
+  {
+    "value": "consulta medica veterinaria sema meio ambiente",
+    "synonyms": [
+      "consulta medica veterinaria",
+      "consulta medica veterinaria sema meio ambiente"
+    ]
+  },
+  {
+    "value": "cadastro para castracao caninos sema meio ambiente",
+    "synonyms": [
+      "cadastro para castracao caninos sema meio ambiente",
+      "cadastro para castracao caninos",
+      "castracao de caninos",
+      "castracao de cachorro",
+      "castrar cachorro",
+      "castrar meu cachorro",
+      "cachorro"
+    ]
+  },
+  {
+    "value": "relatorio sema meio ambiente",
+    "synonyms": [
+      "relatorio",
+      "relatorio sema meio ambiente"
+    ]
+  },
+  {
+    "value": "ava ceps sms saude",
+    "synonyms": [
+      "ava ceps",
+      "ava ceps sms saude"
+    ]
+  },
+  {
+    "value": "solicitacao ao ceps de pesquisas ou projetos de extensao na area da saude sms saude",
+    "synonyms": [
+      "solicitacao ao ceps de pesquisas ou projetos de extensao na area da saude sms saude",
+      "solicitacao ao ceps de pesquisas ou projetos de extensao na area da saude"
+    ]
+  },
+  {
+    "value": "solicitacao ao ceps de estagios obrigatorios visitas tecnicas aulas praticas e residencias na area da saude sms saude",
+    "synonyms": [
+      "solicitacao ao ceps de estagios obrigatorios visitas tecnicas aulas praticas e residencias na area da saude sms saude"
+    ]
+  },
+  {
+    "value": "solicitacao de acesso para marcador do interior sms saude",
+    "synonyms": [
+      "solicitacao de acesso para marcador do interior",
+      "solicitacao de acesso para marcador do interior sms saude"
+    ]
+  },
+  {
+    "value": "cnes inclusao alteracao exclusao sms saude",
+    "synonyms": [
+      "cnes inclusao alteracao exclusao",
+      "cnes inclusao alteracao exclusao sms saude"
+    ]
+  },
+  {
+    "value": "conselho municipal de educacao conmea",
+    "synonyms": [
+      "conselho municipal de educacao conmea"
+    ]
+  },
+  {
+    "value": "requerimento conmea semed educacao",
+    "synonyms": [
+      "requerimento conmea semed educacao",
+      "requerimento conmea"
+    ]
+  },
+  {
+    "value": "afastamento para exercicio de mandato eletivo seplog planejamento e gestao",
+    "synonyms": [
+      "afastamento para exercicio de mandato eletivo",
+      "afastamento para exercicio de mandato eletivo seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "alvara de construcao renovacao emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao renovacao",
+      "alvara de construcao renovacao emurb obras e urbanizacao",
+      "alvara construcao renovacao",
+      "renovar alvara de construcao",
+      "renovacao de alvara de construcao"
+    ]
+  },
+  {
+    "value": "anuencia edificacoes emurb obras e urbanizacao",
+    "synonyms": [
+      "anuencia edificacoes emurb obras e urbanizacao",
+      "anuencia edificacoes"
+    ]
+  },
+  {
+    "value": "autorizacao de terraplanagem emurb obras e urbanizacao",
+    "synonyms": [
+      "terraplanagem",
+      "autorizacao de terraplanagem",
+      "autorizacao de terraplanagem emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "autorizacao de instalacao de parklet emurb obras e urbanizacao",
+    "synonyms": [
+      "autorizacao de instalacao de parklet",
+      "instalacao de parklet",
+      "autorizacao de instalacao de parklet emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de adequacao urbanistica uniresidencial emurb obras e urbanizacao",
+    "synonyms": [
+      "adequacao urbanistica uniresidencial",
+      "certidao de adequacao urbanistica uniresidencial",
+      "certidao de adequacao urbanistica uniresidencial emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "certidao de regularizacao de loteamento emurb obras e urbanizacao",
+    "synonyms": [
+      "certidao de regularizacao de loteamento",
+      "certidao de regularizacao de loteamento emurb obras e urbanizacao",
+      "regularizacao de loteamento"
+    ]
+  },
+  {
+    "value": "termo de demarcacao emurb obras e urbanizacao",
+    "synonyms": [
+      "termo de demarcacao emurb obras e urbanizacao",
+      "termo de demarcacao"
+    ]
+  },
+  {
+    "value": "solicitacao de cadastramento de profissional solicitante do interior sms saude",
+    "synonyms": [
+      "solicitacao de cadastramento de profissional solicitante do interior sms saude",
+      "solicitacao de cadastramento de profissional solicitante do interior"
+    ]
+  },
+  {
+    "value": "defesa do consumidor",
+    "synonyms": [
+      "defesa do consumidor"
+    ]
+  },
+  {
+    "value": "reclamacao direta procon",
+    "synonyms": [
+      "reclamacao direta procon"
+    ]
+  },
+  {
+    "value": "denuncia procon",
+    "synonyms": [
+      "denuncia procon"
+    ]
+  },
+  {
+    "value": "oficio sema conselho municipal",
+    "synonyms": [
+      "oficio sema conselho municipal"
+    ]
+  },
+  {
+    "value": "impugnacao semfaz financas",
+    "synonyms": [
+      "impugnacao semfaz financas",
+      "impugnacao"
+    ]
+  },
+  {
+    "value": "agendamentos",
+    "synonyms": [
+      "agendamentos"
+    ]
+  },
+  {
+    "value": "agendamento de pericia medica acompanhante seplog planejamento e gestao",
+    "synonyms": [
+      "agendamento de pericia medica acompanhante",
+      "agendamento de pericia medica acompanhante seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "agendamento de pericia medica aposentadoria por invalidez seplog planejamento e gestao",
+    "synonyms": [
+      "agendamento de pericia medica aposentadoria por invalidez seplog planejamento e gestao",
+      "agendamento de pericia medica aposentadoria por invalidez"
+    ]
+  },
+  {
+    "value": "agendamento de pericia medica inclusao de dependente seplog planejamento e gestao",
+    "synonyms": [
+      "agendamento de pericia medica inclusao de dependente",
+      "agendamento de pericia medica inclusao de dependente seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "agendamento de pericia medica isencao de ir seplog planejamento e gestao",
+    "synonyms": [
+      "agendamento de pericia medica isencao de ir",
+      "agendamento de pericia medica isencao de ir seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "agendamento de pericia medica seplog planejamento e gestao",
+    "synonyms": [
+      "agendamento de pericia medica seplog planejamento e gestao",
+      "agendamento de pericia medica"
+    ]
+  },
+  {
+    "value": "enfermagem",
+    "synonyms": [
+      "enfermagem"
+    ]
+  },
+  {
+    "value": "assistencia financeira complementar portaria gm gm n1135 2023 sms saude",
+    "synonyms": [
+      "assistencia financeira complementar portaria gm gm n1135 2023 sms saude",
+      "assistencia financeira complementar portaria gm gm n1135 2023"
+    ]
+  },
+  {
+    "value": "cadastro para castracao felinos sema meio ambiente",
+    "synonyms": [
+      "cadastro para castracao felinos sema meio ambiente",
+      "cadastro para castracao felinos",
+      "castracao de felinos",
+      "castracao de gatos",
+      "castrar meu gato",
+      "gato"
+    ]
+  },
+  {
+    "value": "solicitacao diversas smtt transporte e transito",
+    "synonyms": [
+      "solicitacao diversas",
+      "solicitacao diversas smtt transporte e transito"
+    ]
+  },
+  {
+    "value": "oficio sempi articulacao parcerias e investimentos",
+    "synonyms": [
+      "oficio sempi articulacao parcerias e investimentos"
+    ]
+  },
+  {
+    "value": "obras",
+    "synonyms": [
+      "obras"
+    ]
+  },
+  {
+    "value": "servicos de engenharia",
+    "synonyms": [
+      "servicos de engenharia"
+    ]
+  },
+  {
+    "value": "obras aditivo de prazo emurb obras e urbanizacao",
+    "synonyms": [
+      "obras aditivo de prazo",
+      "obras aditivo de prazo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos aditivo de prazo emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos aditivo de prazo",
+      "servicos aditivo de prazo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "obras aditivo de valor emurb obras e urbanizacao",
+    "synonyms": [
+      "obras aditivo de valor",
+      "obras aditivo de valor emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos aditivo de valor emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos aditivo de valor",
+      "servicos aditivo de valor emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "obras termo de apostilamento emurb obras e urbanizacao",
+    "synonyms": [
+      "obras termo de apostilamento",
+      "obras termo de apostilamento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos termo de apostilamento emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos termo de apostilamento",
+      "servicos termo de apostilamento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "obras boletim obra emurb obras e urbanizacao",
+    "synonyms": [
+      "obras boletim obra",
+      "obras boletim obra emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos pagamentos emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos pagamentos",
+      "servicos pagamentos emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "obras paralisacao e reinicio emurb obras e urbanizacao",
+    "synonyms": [
+      "obras paralisacao e reinicio",
+      "obras paralisacao e reinicio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos paralisacao e reinicio emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos paralisacao e reinicio emurb obras e urbanizacao",
+      "servicos paralisacao e reinicio"
+    ]
+  },
+  {
+    "value": "obras reequilibrio emurb obras e urbanizacao",
+    "synonyms": [
+      "obras reequilibrio",
+      "obras reequilibrio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos reequilibrio emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos reequilibrio",
+      "servicos reequilibrio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "aracaju cidade do futuro",
+    "synonyms": [
+      "aracaju cidade do futuro"
+    ]
+  },
+  {
+    "value": "acf aditivo de prazo emurb obras e urbanizacao",
+    "synonyms": [
+      "acf aditivo de prazo",
+      "acf aditivo de prazo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "acf aditivo de valor emurb obras e urbanizacao",
+    "synonyms": [
+      "acf aditivo de valor",
+      "acf aditivo de valor emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "acf termo de apostilamento emurb obras e urbanizacao",
+    "synonyms": [
+      "acf termo de apostilamento",
+      "acf termo de apostilamento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "acf boletim obra emurb obras e urbanizacao",
+    "synonyms": [
+      "acf boletim obra",
+      "acf boletim obra emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "acf paralisacao e reinicio emurb obras e urbanizacao",
+    "synonyms": [
+      "acf paralisacao e reinicio",
+      "acf paralisacao e reinicio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "acf reequilibrio emurb obras e urbanizacao",
+    "synonyms": [
+      "acf reequilibrio",
+      "acf reequilibrio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "unificacao atualizacao de cadastro de usuarios pacientes sms saude",
+    "synonyms": [
+      "unificacao atualizacao de cadastro de usuarios pacientes",
+      "unificacao atualizacao de cadastro de usuarios pacientes sms saude"
+    ]
+  },
+  {
+    "value": "oficio semde desenvolvimento economico e inovacao",
+    "synonyms": [
+      "oficio semde desenvolvimento economico e inovacao"
+    ]
+  },
+  {
+    "value": "declaracao de direitos de falecido ajuprev previdencia municipal",
+    "synonyms": [
+      "declaracao de direitos de falecido ajuprev previdencia municipal",
+      "declaracao de direitos de falecido"
+    ]
+  },
+  {
+    "value": "declaracao para revisao de certidao de tempo de contribuicao ajuprev previdencia municipal",
+    "synonyms": [
+      "declaracao para revisao de certidao de tempo de contribuicao ajuprev previdencia municipal",
+      "declaracao para revisao de certidao de tempo de contribuicao",
+      "declaracao para revisao de tempo de contribuicao"
+    ]
+  },
+  {
+    "value": "aposentadoria por incapacidade permanente seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria por incapacidade permanente seplog planejamento e gestao",
+      "aposentadoria por incapacidade permanente"
+    ]
+  },
+  {
+    "value": "aposentadoria tempo contribuicao professor seplog planejamento e gestao",
+    "synonyms": [
+      "aposentadoria tempo contribuicao professor",
+      "aposentadoria tempo contribuicao professor seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "declaracao de tempo de servico e contribuicao ajuprev previdencia municipal",
+    "synonyms": [
+      "declaracao de tempo de servico e contribuicao ajuprev previdencia municipal",
+      "declaracao de tempo de servico e contribuicao"
+    ]
+  },
+  {
+    "value": "malha fiscal semfaz financas",
+    "synonyms": [
+      "malha fiscal",
+      "malha fiscal semfaz financas"
+    ]
+  },
+  {
+    "value": "credenciamento de instrutor fundat qualificacao e trabalho",
+    "synonyms": [
+      "credenciamento de instrutor",
+      "credenciamento de instrutor fundat qualificacao e trabalho"
+    ]
+  },
+  {
+    "value": "economia e inovacao",
+    "synonyms": [
+      "economia e inovacao"
+    ]
+  },
+  {
+    "value": "credenciamento semde desenvolvimento economico e inovacao",
+    "synonyms": [
+      "credenciamento",
+      "credenciamento semde desenvolvimento economico e inovacao"
+    ]
+  },
+  {
+    "value": "obras boletim servico fornecimento emurb obras e urbanizacao",
+    "synonyms": [
+      "obras boletim servico fornecimento",
+      "obras boletim servico fornecimento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "acf boletim servico fornecimento emurb obras e urbanizacao",
+    "synonyms": [
+      "acf boletim servico fornecimento",
+      "acf boletim servico fornecimento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "pedido de reconsideracao semde desenvolvimento economico e inovacao",
+    "synonyms": [
+      "pedido de reconsideracao",
+      "pedido de reconsideracao semde desenvolvimento economico e inovacao"
+    ]
+  },
+  {
+    "value": "certidao negativa de processos disciplinares seplog planejamento e gestao",
+    "synonyms": [
+      "certidao negativa de processos disciplinares",
+      "certidao negativa de processos disciplinares seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "prestacao de contas mensal ppi sms saude",
+    "synonyms": [
+      "prestacao de contas mensal ppi",
+      "prestacao de contas mensal ppi sms saude"
+    ]
+  },
+  {
+    "value": "solicitacao de alvara sanitario pessoa juridica sms saude",
+    "synonyms": [
+      "solicitacao de alvara sanitario pessoa juridica",
+      "solicitacao de alvara sanitario pessoa juridica sms saude"
+    ]
+  },
+  {
+    "value": "envio de documentacao credenciamento de leiloeiros oficiais seplog planejamento e gestao",
+    "synonyms": [
+      "envio de documentacao credenciamento de leiloeiros oficiais",
+      "envio de documentacao credenciamento de leiloeiros oficiais seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "agendamento online procon",
+    "synonyms": [
+      "agendamento online procon"
+    ]
+  },
+  {
+    "value": "restituicao de vigilancia sanitaria semfaz financas",
+    "synonyms": [
+      "restituicao de vigilancia sanitaria",
+      "restituicao de vigilancia sanitaria semfaz financas"
+    ]
+  },
+  {
+    "value": "credenciamento de leiloeiros oficiais",
+    "synonyms": [
+      "credenciamento de leiloeiros oficiais"
+    ]
+  },
+  {
+    "value": "pedido de esclarecimento e ou impugnacao credenciamento de leiloeiros oficiais seplog planejamento e gestao",
+    "synonyms": [
+      "pedido de esclarecimento e ou impugnacao credenciamento de leiloeiros oficiais",
+      "pedido de esclarecimento e ou impugnacao credenciamento de leiloeiros oficiais seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "nota fiscal semfaz financas",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal semfaz financas"
+    ]
+  },
+  {
+    "value": "solicitacao visita guiada sema meio ambiente",
+    "synonyms": [
+      "solicitacao visita guiada",
+      "solicitacao visita guiada sema meio ambiente"
+    ]
+  },
+  {
+    "value": "solicitacao educacao ambiental sema meio ambiente",
+    "synonyms": [
+      "solicitacao educacao ambiental sema meio ambiente",
+      "solicitacao educacao ambiental"
+    ]
+  },
+  {
+    "value": "nota fiscal sempi articulacao parcerias e investimentos",
+    "synonyms": [
+      "nota fiscal sempi articulacao parcerias e investimentos"
+    ]
+  },
+  {
+    "value": "nota fiscal semde desenvolvimento economico e inovacao",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal semde desenvolvimento economico e inovacao"
+    ]
+  },
+  {
+    "value": "credenciamento ajuanimal sema meio ambiente",
+    "synonyms": [
+      "credenciamento ajuanimal",
+      "credenciamento ajuanimal sema meio ambiente"
+    ]
+  },
+  {
+    "value": "indenizacao de direitos demit professor substituto seplog planejamento e gestao",
+    "synonyms": [
+      "indenizacao de direitos demit professor substituto seplog planejamento e gestao",
+      "indenizacao de direitos demit professor substituto"
+    ]
+  },
+  {
+    "value": "alteracao de complemento de endereco semfaz financas",
+    "synonyms": [
+      "alteracao de complemento de endereco semfaz financas",
+      "alteracao de complemento de endereco"
+    ]
+  },
+  {
+    "value": "certidao de tempo de servico seplog planejamento e gestao",
+    "synonyms": [
+      "certidao de tempo de servico seplog planejamento e gestao",
+      "certidao de tempo de servico",
+      "tempo de servico"
+    ]
+  },
+  {
+    "value": "isencao de previdencia ajuprev previdencia municipal",
+    "synonyms": [
+      "isencao de previdencia",
+      "isencao de previdencia ajuprev previdencia municipal"
+    ]
+  },
+  {
+    "value": "alvara de construcao uniresidencial autodeclaratorio emurb obras e urbanizacao",
+    "synonyms": [
+      "alvara de construcao uniresidencial autodeclaratorio",
+      "alvara construcao uniresidencial autodeclaratorio",
+      "alvara de construcao uniresidencial autodeclaratorio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "simulador de taxas emurb obras e urbanizacao",
+    "synonyms": [
+      "simulador de taxas",
+      "simulador de taxas emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "oficio seminfra infraestrutura",
+    "synonyms": [
+      "oficio seminfra infraestrutura"
+    ]
+  },
+  {
+    "value": "operacional",
+    "synonyms": [
+      "operacional"
+    ]
+  },
+  {
+    "value": "servico aditivo de prazo emurb obras e urbanizacao",
+    "synonyms": [
+      "servico aditivo de prazo emurb obras e urbanizacao",
+      "servico aditivo de prazo"
+    ]
+  },
+  {
+    "value": "servico aditivo de valor emurb obras e urbanizacao",
+    "synonyms": [
+      "servico aditivo de valor",
+      "servico aditivo de valor emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servico boletim de medicao nota fiscal emurb obras e urbanizacao",
+    "synonyms": [
+      "servico boletim de medicao nota fiscal",
+      "servico boletim de medicao nota fiscal emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servico paralisacao e reinicio emurb obras e urbanizacao",
+    "synonyms": [
+      "servico paralisacao e reinicio",
+      "servico paralisacao e reinicio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servico reequilibrio emurb obras e urbanizacao",
+    "synonyms": [
+      "servico reequilibrio",
+      "servico reequilibrio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "fornecimento aditivo de prazo emurb obras e urbanizacao",
+    "synonyms": [
+      "fornecimento aditivo de prazo",
+      "fornecimento aditivo de prazo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "fornecimento aditivo de valor emurb obras e urbanizacao",
+    "synonyms": [
+      "fornecimento aditivo de valor emurb obras e urbanizacao",
+      "fornecimento aditivo de valor"
+    ]
+  },
+  {
+    "value": "fornecimento boletim de medicao nota fiscal emurb obras e urbanizacao",
+    "synonyms": [
+      "fornecimento boletim de medicao nota fiscal",
+      "fornecimento boletim de medicao nota fiscal emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "fornecimento paralisacao e reinicio emurb obras e urbanizacao",
+    "synonyms": [
+      "fornecimento paralisacao e reinicio",
+      "fornecimento paralisacao e reinicio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "fornecimento reequilibrio emurb obras e urbanizacao",
+    "synonyms": [
+      "fornecimento reequilibrio",
+      "fornecimento reequilibrio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "iluminacao publica",
+    "synonyms": [
+      "iluminacao publica"
+    ]
+  },
+  {
+    "value": "faturas iluminacao publica emurb obras e urbanizacao",
+    "synonyms": [
+      "faturas iluminacao publica",
+      "faturas iluminacao publica emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "faturas energia emurb obras e urbanizacao",
+    "synonyms": [
+      "faturas energia emurb obras e urbanizacao",
+      "faturas energia"
+    ]
+  },
+  {
+    "value": "obras bomteim servico fornecimento emurb obras e urbanizacao",
+    "synonyms": [
+      "obras bomteim servico fornecimento",
+      "obras bomteim servico fornecimento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos boletim obra emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos boletim obra",
+      "servicos boletim obra emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "servicos boletim servico fornecimento emurb obras e urbanizacao",
+    "synonyms": [
+      "servicos boletim servico fornecimento",
+      "servicos boletim servico fornecimento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "habitacao aditivo de prazo emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao aditivo de prazo",
+      "habitacao aditivo de prazo emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "habitacao aditivo de valor emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao aditivo de valor emurb obras e urbanizacao",
+      "habitacao aditivo de valor"
+    ]
+  },
+  {
+    "value": "habitacao boletim obra emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao boletim obra",
+      "habitacao boletim obra emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "habitacao boletim servico fornecimento emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao boletim servico fornecimento",
+      "habitacao boletim servico fornecimento emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "habitacao paralisacao e reinicio emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao paralisacao e reinicio",
+      "habitacao paralisacao e reinicio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "habitacao reequilibrio emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao reequilibrio",
+      "habitacao reequilibrio emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "habitacao termo de apostilamento emurb obras e urbanizacao",
+    "synonyms": [
+      "habitacao termo de apostilamento emurb obras e urbanizacao",
+      "habitacao termo de apostilamento"
+    ]
+  },
+  {
+    "value": "emurb",
+    "synonyms": [
+      "emurb"
+    ]
+  },
+  {
+    "value": "fornecimento boletim de medicao nota fiscal emurb obras e urbanizacao",
+    "synonyms": [
+      "fornecimento boletim de medicao nota fiscal",
+      "fornecimento boletim de medicao nota fiscal emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "seminfra",
+    "synonyms": [
+      "seminfra"
+    ]
+  },
+  {
+    "value": "aditivo de prazo seminfra infraestrutura",
+    "synonyms": [
+      "aditivo de prazo seminfra infraestrutura",
+      "aditivo de prazo"
+    ]
+  },
+  {
+    "value": "aditivo de valor seminfra infraestrutura",
+    "synonyms": [
+      "aditivo de valor",
+      "aditivo de valor seminfra infraestrutura"
+    ]
+  },
+  {
+    "value": "boletim obra seminfra infraestrutura",
+    "synonyms": [
+      "boletim obra",
+      "boletim obra seminfra infraestrutura"
+    ]
+  },
+  {
+    "value": "boletim servico fornecimento seminfra infraestrutura",
+    "synonyms": [
+      "boletim servico fornecimento seminfra infraestrutura",
+      "boletim servico fornecimento"
+    ]
+  },
+  {
+    "value": "paralisacao e reinicio seminfra infraestrutura",
+    "synonyms": [
+      "paralisacao e reinicio",
+      "paralisacao e reinicio seminfra infraestrutura"
+    ]
+  },
+  {
+    "value": "reequilibrio seminfra infraestrutura",
+    "synonyms": [
+      "reequilibrio seminfra infraestrutura",
+      "reequilibrio"
+    ]
+  },
+  {
+    "value": "termo de apostilamento seminfra infraestrutura",
+    "synonyms": [
+      "termo de apostilamento",
+      "termo de apostilamento seminfra infraestrutura"
+    ]
+  },
+  {
+    "value": "editais de credenciamento",
+    "synonyms": [
+      "editais de credenciamento"
+    ]
+  },
+  {
+    "value": "chamamento publico 003 2025 sms saude",
+    "synonyms": [
+      "chamamento publico 003 2025",
+      "chamamento publico 003 2025 sms saude"
+    ]
+  },
+  {
+    "value": "modernizacao",
+    "synonyms": [
+      "modernizacao"
+    ]
+  },
+  {
+    "value": "propostas comerciais tecnologicas",
+    "synonyms": [
+      "propostas comerciais tecnologicas"
+    ]
+  },
+  {
+    "value": "atas tecnologicas portfolios",
+    "synonyms": [
+      "atas tecnologicas portfolios"
+    ]
+  },
+  {
+    "value": "contratos tecnologias",
+    "synonyms": [
+      "contratos tecnologias"
+    ]
+  },
+  {
+    "value": "solicitacoes",
+    "synonyms": [
+      "solicitacoes"
+    ]
+  },
+  {
+    "value": "tecnologias moveis teste",
+    "synonyms": [
+      "tecnologias moveis teste"
+    ]
+  },
+  {
+    "value": "fixa",
+    "synonyms": [
+      "fixa"
+    ]
+  },
+  {
+    "value": "acf reclamacoes e queixas emurb obras e urbanizacao",
+    "synonyms": [
+      "acf reclamacoes e queixas",
+      "acf reclamacoes e queixas emurb obras e urbanizacao"
+    ]
+  },
+  {
+    "value": "relatorio mensal sintetico rccvs sema meio ambiente",
+    "synonyms": [
+      "relatorio mensal sintetico rccvs",
+      "relatorio mensal sintetico rccvs sema meio ambiente"
+    ]
+  },
+  {
+    "value": "cumprimento de notificacao sema meio ambiente",
+    "synonyms": [
+      "cumprimento de notificacao sema meio ambiente",
+      "cumprimento de notificacao"
+    ]
+  },
+  {
+    "value": "chamamento publico 001 2025 sms saude",
+    "synonyms": [
+      "chamamento publico 001 2025",
+      "chamamento publico 001 2025 sms saude"
+    ]
+  },
+  {
+    "value": "credenciamento osc lei 13019 2014 sms saude",
+    "synonyms": [
+      "credenciamento osc lei 13019 2014",
+      "credenciamento osc lei 13019 2014 sms saude"
+    ]
+  },
+  {
+    "value": "chamamento publico 002 2025 sms saude",
+    "synonyms": [
+      "chamamento publico 002 2025 sms saude",
+      "chamamento publico 002 2025"
+    ]
+  },
+  {
+    "value": "chamamento publico 004 2025 sms saude",
+    "synonyms": [
+      "chamamento publico 004 2025 sms saude",
+      "chamamento publico 004 2025"
+    ]
+  },
+  {
+    "value": "portal da educacao semed educacao",
+    "synonyms": [
+      "portal da educacao",
+      "portal da educacao semed educacao"
+    ]
+  },
+  {
+    "value": "ambiente virtual de aprendizagem semed educacao",
+    "synonyms": [
+      "ambiente virtual de aprendizagem semed educacao",
+      "ambiente virtual de aprendizagem"
+    ]
+  },
+  {
+    "value": "empresas",
+    "synonyms": [
+      "empresas"
+    ]
+  },
+  {
+    "value": "licenciamento ambiental",
+    "synonyms": [
+      "licenciamento ambiental"
+    ]
+  },
+  {
+    "value": "trabalho",
+    "synonyms": [
+      "trabalho"
+    ]
+  },
+  {
+    "value": "empreendedor popular",
+    "synonyms": [
+      "empreendedor popular"
+    ]
+  },
+  {
+    "value": "arvores",
+    "synonyms": [
+      "arvores"
+    ]
+  },
+  {
+    "value": "fornecedores",
+    "synonyms": [
+      "fornecedores"
+    ]
+  },
+  {
+    "value": "fundat",
+    "synonyms": [
+      "fundat"
+    ]
+  },
+  {
+    "value": "estagios",
+    "synonyms": [
+      "estagios"
+    ]
+  },
+  {
+    "value": "fomento a cultura",
+    "synonyms": [
+      "fomento a cultura"
+    ]
+  },
+  {
+    "value": "secult fomento a cultura",
+    "synonyms": [
+      "secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "oficio secult fomento a cultura",
+    "synonyms": [
+      "oficio secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "secult mapa cultural de aracaju",
+    "synonyms": [
+      "secult mapa cultural de aracaju"
+    ]
+  },
+  {
+    "value": "solicitacao de alteracao de e mail e senha mapa cultural secult fomento a cultura",
+    "synonyms": [
+      "solicitacao de alteracao de e mail e senha mapa cultural",
+      "solicitacao de alteracao de e mail e senha mapa cultural secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "isencao de tlf semfaz financas",
+    "synonyms": [
+      "isencao de tlf semfaz financas",
+      "isencao de tlf",
+      "tlf isencao",
+      "pedir isencao tlf",
+      "pedir isencao meu tlf",
+      "pedir isencao o tlf",
+      "solicitar isencao tlf",
+      "solicitar isencao meu tlf",
+      "solicitar isencao o tlf",
+      "quero isencao tlf",
+      "quero isencao meu tlf",
+      "quero isencao o tlf",
+      "gostaria de isencao tlf",
+      "gostaria de isencao meu tlf",
+      "gostaria de isencao o tlf"
+    ]
+  },
+  {
+    "value": "denuncias sema meio ambiente",
+    "synonyms": [
+      "denuncias",
+      "denuncias sema meio ambiente"
+    ]
+  },
+  {
+    "value": "solicitacao apoio secom comunicacao social",
+    "synonyms": [
+      "solicitacao apoio",
+      "solicitacao apoio secom comunicacao social"
+    ]
+  },
+  {
+    "value": "nota fiscal secult fomento a cultura",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "nota fiscal semdef inclusao aju",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal semdef inclusao aju"
+    ]
+  },
+  {
+    "value": "ouvidoria geral",
+    "synonyms": [
+      "ouvidoria geral"
+    ]
+  },
+  {
+    "value": "solicitacoes ogm ouvidoria geral",
+    "synonyms": [
+      "solicitacoes ogm ouvidoria geral"
+    ]
+  },
+  {
+    "value": "convite sermulher secretaria municipal para as mulheres",
+    "synonyms": [
+      "convite sermulher secretaria municipal para as mulheres"
+    ]
+  },
+  {
+    "value": "mandado judicial sermulher secretaria municipal para as mulheres",
+    "synonyms": [
+      "mandado judicial sermulher secretaria municipal para as mulheres",
+      "mandado judicial"
+    ]
+  },
+  {
+    "value": "nota fiscal sermulher secretaria municipal para as mulheres",
+    "synonyms": [
+      "nota fiscal",
+      "nota fiscal sermulher secretaria municipal para as mulheres"
+    ]
+  },
+  {
+    "value": "notificacao sermulher secretaria municipal para as mulheres",
+    "synonyms": [
+      "notificacao sermulher secretaria municipal para as mulheres"
+    ]
+  },
+  {
+    "value": "oficio sermulher secretaria municipal para as mulheres",
+    "synonyms": [
+      "oficio sermulher secretaria municipal para as mulheres"
+    ]
+  },
+  {
+    "value": "duvidas da plataforma mapa cultural de aracaju secult fomento a cultura",
+    "synonyms": [
+      "duvidas da plataforma mapa cultural de aracaju secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "documentacao artistica contratacao direta secult fomento a cultura",
+    "synonyms": [
+      "documentacao artistica contratacao direta secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "emendas parlamentares documentacao secult fomento a cultura",
+    "synonyms": [
+      "emendas parlamentares documentacao secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "ceps saude",
+    "synonyms": [
+      "ceps saude"
+    ]
+  },
+  {
+    "value": "solicitacao apoio cultural secult fomento a cultura",
+    "synonyms": [
+      "solicitacao apoio cultural",
+      "solicitacao apoio cultural secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "solicitacao apoio carnaval secult fomento a cultura",
+    "synonyms": [
+      "solicitacao apoio carnaval secult fomento a cultura",
+      "solicitacao apoio carnaval"
+    ]
+  },
+  {
+    "value": "solicitacao apoio arraia junino secult fomento a cultura",
+    "synonyms": [
+      "solicitacao apoio arraia junino",
+      "solicitacao apoio arraia junino secult fomento a cultura"
+    ]
+  },
+  {
+    "value": "chamamento publico 005 2025 sms saude",
+    "synonyms": [
+      "chamamento publico 005 2025",
+      "chamamento publico 005 2025 sms saude"
+    ]
+  },
+  {
+    "value": "chamamento publico smtt",
+    "synonyms": [
+      "chamamento publico smtt"
+    ]
+  },
+  {
+    "value": "inscricoes edital nº 01 2026 transporte alternativo",
+    "synonyms": [
+      "inscricoes edital no 01 2026 transporte alternativo",
+      "inscricoes edital nº 01 2026 transporte alternativo"
+    ]
+  },
+  {
+    "value": "edital chamamento publico nº 01 2026",
+    "synonyms": [
+      "edital chamamento publico nº 01 2026",
+      "edital chamamento publico no 01 2026"
+    ]
+  },
+  {
+    "value": "chamamento publico 03 2026 neurodivergente lei 13019 2014 sms saude",
+    "synonyms": [
+      "chamamento publico 03 2026 neurodivergente lei 13019 2014",
+      "chamamento publico 03 2026 neurodivergente lei 13019 2014 sms saude"
+    ]
+  },
+  {
+    "value": "certidao negativa de debitos cnd semfaz financas",
+    "synonyms": [
+      "certidao negativa de debitos cnd",
+      "certidao negativa de debitos cnd semfaz financas",
+      "certidao negativa de debitos certidao negativa"
+    ]
+  },
+  {
+    "value": "consulta de debito iptu iss tlf parcelamento e taxas semfaz financas",
+    "synonyms": [
+      "consulta de debito iptu iss tlf parcelamento e taxas semfaz financas",
+      "consulta de debito",
+      "iptu consulta de debito iss tlf parcelamento e taxas"
+    ]
+  },
+  {
+    "value": "autorizacao para obras de infraestrutura igua emurb obras em geral",
+    "synonyms": [
+      "autorizacao para obras de infraestrutura igua",
+      "autorizacao para obras de infraestrutura igua emurb obras em geral"
+    ]
+  },
+  {
+    "value": "autorizacao para obras de infraestrutura igua emurb ligacoes de agua esgoto",
+    "synonyms": [
+      "autorizacao para obras de infraestrutura igua",
+      "autorizacao para obras de infraestrutura igua emurb ligacoes de agua esgoto"
+    ]
+  },
+  {
+    "value": "sociedade uniprofissional desenquadramento semfaz financas",
+    "synonyms": [
+      "sociedade uniprofissional desenquadramento semfaz financas",
+      "sociedade uniprofissional desenquadramento"
+    ]
+  },
+  {
+    "value": "historico de progressao horizontal adm geral seplog planejamento e gestao",
+    "synonyms": [
+      "historico de progressao horizontal adm geral",
+      "historico de progressao horizontal adm geral seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "historico de progressao horizontal quadro saude seplog planejamento e gestao",
+    "synonyms": [
+      "historico de progressao horizontal quadro saude",
+      "historico de progressao horizontal quadro saude seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "revisao de imposto de renda irrf seplog planejamento e gestao",
+    "synonyms": [
+      "revisao de imposto de renda irrf",
+      "revisao de imposto de renda irrf seplog planejamento e gestao"
+    ]
+  },
+  {
+    "value": "anuencia previa",
+    "synonyms": [
+      "anuencia previa"
+    ]
+  },
+  {
+    "value": "castracao",
+    "synonyms": [
+      "castracao",
+      "castrar meu animal",
+      "castrar"
+    ]
+  },
+  {
+    "value": "irrf",
+    "synonyms": [
+      "irrf",
+      "irpf",
+      "imposto de renda",
+      "declarar imposto de renda",
+      "declaracao de imposto de renda",
+      "declaracao imposto"
+    ]
+  },
+  {
+    "value": "nota fiscal",
+    "synonyms": [
+      "nota fiscal",
+      "tirar nota fiscal",
+      "gerar nota fiscal"
+    ]
+  },
+  {
+    "value": "oficio",
+    "synonyms": [
+      "oficio",
+      "oficios"
+    ]
+  },
+  {
+    "value": "nota fiscal sms",
+    "synonyms": [
+      "nota fiscal sms",
+      "nota fiscal saude",
+      "gerar nota fiscal saude"
+    ]
+  },
+  {
+    "value": "animal morto",
+    "synonyms": [
+      "animal morto",
+      "cachorro morto",
+      "gato morto",
+      "cavalo morto",
+      "passaro morto",
+      "boi morto",
+      "vaca morta",
+      "jegue morto",
+      "jumento morto",
+      "porco morto",
+      "galinha morta",
+      "pombo morto",
+      "tem animal morto",
+      "tem animais mortos",
+      "animal morto na rua",
+      "animais mortos na rua",
+      "animal morto no bairro",
+      "animais mortos no bairro",
+      "tem um cachorro morto na minha rua",
+      "tem um animal morto no meu bairro",
+      "encontrei animal morto",
+      "achei animal morto",
+      "vi animal morto",
+      "animal sem vida",
+      "bicho morto",
+      "carcaca de animal",
+      "carcaça de animal",
+      "animal atropelado morto",
+      "animal morto na calcada",
+      "animal morto na calçada",
+      "animal morto na avenida",
+      "animal morto na pista",
+      "tem um cao morto na rua",
+      "tem um cão morto na rua",
+      "preciso recolher animal morto",
+      "solicitar coleta de animal morto",
+      "quero denunciar animal morto",
+      "cachoro morto",
+      "cachorro mortoo",
+      "gatto morto"
+    ]
+  },
+  {
+    "value": "animal vivo",
+    "synonyms": [
+      "animal vivo",
+      "cachorro vivo",
+      "gato vivo",
+      "cavalo vivo",
+      "passaro vivo",
+      "boi vivo",
+      "vaca viva",
+      "jegue vivo",
+      "jumento vivo",
+      "porco vivo",
+      "galinha viva",
+      "pombo vivo",
+      "tem animal vivo",
+      "tem animais vivos",
+      "animal vivo na rua",
+      "animais vivos na rua",
+      "animal vivo no bairro",
+      "animais vivos no bairro",
+      "tem um cachorro vivo na minha rua",
+      "tem um animal vivo no meu bairro",
+      "encontrei animal vivo",
+      "achei animal vivo",
+      "vi animal vivo",
+      "bicho vivo",
+      "animal solto na rua",
+      "animal abandonado vivo",
+      "animal vivo na calcada",
+      "animal vivo na calçada",
+      "animal vivo na avenida",
+      "animal vivo na pista",
+      "tem um cao vivo na rua",
+      "tem um cão vivo na rua",
+      "resgatar animal vivo",
+      "animal vivo abandonado",
+      "animal vivo ferido",
+      "animal machucado na rua",
+      "cachoro vivo",
+      "gatto vivo"
+    ]
+  }
+]

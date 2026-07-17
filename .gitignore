@@ -6,6 +6,11 @@
 *.key
 *.pem
 
+# Banco de runtime: cache de perguntas de cidadaos (LGPD) + indice de intencoes.
+# E' regeneravel (POST /intent/reindex) e nao deve sair da VPS.
+cache.db
+*.db
+
 # Dependencias
 node_modules/
 __pycache__/

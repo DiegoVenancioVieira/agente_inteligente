@@ -15,6 +15,7 @@ import time
 import asyncio
 import sqlite3
 import re
+import unicodedata
 from contextlib import asynccontextmanager
 from collections import deque, defaultdict
 
@@ -34,6 +35,21 @@ EMBEDDER = os.getenv("OLLAMA_EMBEDDER", "bge-m3")
 HIT_THRESHOLD = float(os.getenv("CACHE_SIMILARITY_THRESHOLD", "0.85"))
 TTL_DAYS = int(os.getenv("CACHE_TTL_DAYS", "30"))
 DB_PATH = os.getenv("CACHE_DB_PATH", "./cache.db")
+
+# --- classificacao de intencao (API para outros sistemas; substitui o Dialogflow)
+INTENTS_PATH = os.getenv("INTENTS_PATH", "./sources/intents-1doc.json")
+# CALIBRADOS em 2026-07-17 com bge-m3 real (scripts/testa_intent.py):
+# 14 frases dentro do escopo (min 0.669, media 0.835) x 8 fora (max 0.681, media 0.536).
+# Corte em 0.70: nao aceita nenhuma das 8 de fora e perde 1 das 14 de dentro -- e essa
+# 1 vinha com o assunto ERRADO, entao recusar era o certo. O custo e assimetrico:
+# formulario errado e pior que nenhum formulario, entao erra-se para o lado de recusar.
+INTENT_THRESHOLD = float(os.getenv("INTENT_THRESHOLD", "0.70"))   # abaixo disso: nao identificado
+# 0.04 pega as 7 colisoes reais do JSON (todas com margem 0.00-0.03) sem estragar as
+# consultas limpas (margem mediana 0.12).
+INTENT_MARGIN = float(os.getenv("INTENT_MARGIN", "0.04"))         # 1o e 2o colados: ambiguo
+# /intent e' servidor-a-servidor: TODAS as chamadas chegam do mesmo IP, entao o
+# limite por IP do /ask (20/min) derrubaria a integracao. Limite proprio e alto.
+INTENT_RATE_LIMIT_PER_MIN = int(os.getenv("INTENT_RATE_LIMIT_PER_MIN", "600"))
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "20"))
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 
@@ -91,15 +107,60 @@ def _valid_ws(ws: str | None) -> str:
     return ws
 
 
+# Siglas de orgao que aparecem como sufixo no "value" do 1doc.
+# Servem para desambiguar sinonimos repetidos ("nota fiscal" existe em 23 orgaos).
+ORGAOS: dict[str, str] = {
+    "seplog": "SEPLOG — Planejamento e Gestão",
+    "emurb": "EMURB — Obras e Urbanização",
+    "semfaz": "SEMFAZ — Finanças",
+    "sms": "SMS — Saúde",
+    "smtt": "SMTT — Transporte e Trânsito",
+    "emsurb": "EMSURB — Serviços Urbanos",
+    "sema": "SEMA — Meio Ambiente",
+    "ajuprev": "AJUPREV — Previdência Municipal",
+    "semfas": "SEMFAS — Assistência Social",
+    "funcaju": "FUNCAJU — Arte e Cultura",
+    "semed": "SEMED — Educação",
+    "fundat": "FUNDAT — Qualificação e Trabalho",
+    "sejesp": "SEJESP — Esporte",
+    "secult": "SECULT — Fomento à Cultura",
+    "seminfra": "SEMINFRA — Infraestrutura",
+    "secom": "SECOM — Comunicação Social",
+    "cgm": "CGM — Controladoria do Município",
+    "pgm": "PGM — Advocacia do Município",
+    "segov": "SEGOV — Secretaria de Governo",
+    "setur": "SETUR — Turismo",
+    "semde": "SEMDE — Desenvolvimento Econômico e Inovação",
+    "semdef": "SEMDEF — Inclusão Aju",
+    "sermulher": "SERMULHER — Políticas Públicas para as Mulheres",
+    "ssm": "SSM AJU — Segurança e Cidadania",
+    "procon": "PROCON",
+    "nucar": "NUCAR",
+}
+_ORGAO_RE = re.compile(r"\b(" + "|".join(ORGAOS) + r")\b")
+
 # --------------------------------------------------------------- estado em RAM
 _lock = asyncio.Lock()
 _vecs_by_ws: dict[str, np.ndarray] = {}                     # ws -> (n, dim)
 _meta_by_ws: dict[str, list] = defaultdict(list)            # ws -> [{id,question,answer,...}]
 _stats_by_ws: dict[str, dict] = defaultdict(lambda: {"hits": 0, "misses": 0, "refusals": 0})
 
+# indice de intencoes: um vetor por SINONIMO, apontando para o "value" do 1doc
+_intent_vecs: np.ndarray | None = None                      # (n, dim)
+_intent_meta: list[dict] = []                               # [{synonym, value, orgao}]
+_intent_orgs: np.ndarray | None = None                      # (n,) sigla ou ""
+
 
 def _norm_text(t: str) -> str:
     return re.sub(r"\s+", " ", t.strip().lower())
+
+
+def _norm_intent(t: str) -> str:
+    """Normalizacao do lado das INTENCOES. O json_normalizado.json vem sem acento
+    ('isencao', 'demolicao'), mas o cidadao escreve com ('isenção'). Sem tirar o
+    acento dos dois lados, a consulta e o sinonimo nunca casam de verdade."""
+    t = unicodedata.normalize("NFKD", _norm_text(t))
+    return "".join(c for c in t if not unicodedata.combining(c))
 
 
 def _unit(v: list[float]) -> np.ndarray:
@@ -121,6 +182,11 @@ def _db():
     con.execute(
         "CREATE TABLE IF NOT EXISTS unanswered ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT, created_at REAL)"
+    )
+    con.execute(
+        "CREATE TABLE IF NOT EXISTS intents ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, synonym TEXT, value TEXT, "
+        "orgao TEXT, embedding BLOB)"
     )
     # migracoes idempotentes
     for tbl, col, ddl in [
@@ -157,9 +223,35 @@ def _load_cache():
         _vecs_by_ws[ws] = np.vstack(m)
 
 
+def _orgao_de(value: str) -> str:
+    """Extrai a sigla do orgao do 'value' do 1doc. Vazio nos values genericos."""
+    m = _ORGAO_RE.search(value)
+    return m.group(1) if m else ""
+
+
+def _load_intents():
+    """Carrega o indice de intencoes (1 vetor por sinonimo) do SQLite para a RAM."""
+    global _intent_vecs, _intent_orgs
+    _intent_meta.clear()
+    con = _db()
+    rows = con.execute(
+        "SELECT synonym, value, orgao, embedding FROM intents ORDER BY id").fetchall()
+    con.close()
+    if not rows:
+        _intent_vecs, _intent_orgs = None, None
+        return
+    mats = []
+    for syn, val, org, emb in rows:
+        _intent_meta.append({"synonym": syn, "value": val, "orgao": org or ""})
+        mats.append(np.frombuffer(emb, dtype=np.float32))
+    _intent_vecs = np.vstack(mats)
+    _intent_orgs = np.array([m["orgao"] for m in _intent_meta])
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     _load_cache()
+    _load_intents()
     app.state.client = httpx.AsyncClient(timeout=httpx.Timeout(30.0))
     yield
     await app.state.client.aclose()
@@ -204,6 +296,22 @@ async def _embed(client: httpx.AsyncClient, text: str) -> np.ndarray:
                           json={"model": EMBEDDER, "prompt": text}, timeout=60)
     r.raise_for_status()
     return _unit(r.json()["embedding"])
+
+
+async def _embed_batch(client: httpx.AsyncClient, texts: list[str]) -> list[np.ndarray]:
+    """Embeda em lote via /api/embed. Cai no /api/embeddings (1 a 1) se o Ollama for antigo."""
+    out: list[np.ndarray] = []
+    for i in range(0, len(texts), 64):
+        chunk = texts[i:i + 64]
+        try:
+            r = await client.post(f"{OLLAMA_URL}/api/embed",
+                                  json={"model": EMBEDDER, "input": chunk}, timeout=180)
+            r.raise_for_status()
+            out.extend(_unit(e) for e in r.json()["embeddings"])
+        except (httpx.HTTPStatusError, KeyError):
+            for t in chunk:
+                out.append(await _embed(client, t))
+    return out
 
 
 async def _ask_llm(client: httpx.AsyncClient, ws: str, question: str) -> tuple[str, int]:
@@ -273,6 +381,24 @@ def _search(ws: str, vec: np.ndarray) -> tuple[float, int]:
     return float(sims[i]), i
 
 
+def _search_intents(vec: np.ndarray, orgao: str = "", top_n: int = 3) -> list[dict]:
+    """Ranqueia os assuntos do 1doc. Varios sinonimos apontam para o mesmo value,
+    entao colapsa por value guardando o melhor sinonimo de cada um."""
+    if _intent_vecs is None:
+        return []
+    sims = _intent_vecs @ vec
+    idx = np.where(_intent_orgs == orgao)[0] if orgao else range(len(sims))
+    best: dict[str, tuple[float, str]] = {}
+    for i in idx:
+        m = _intent_meta[i]
+        s = float(sims[i])
+        if m["value"] not in best or s > best[m["value"]][0]:
+            best[m["value"]] = (s, m["synonym"])
+    ranked = sorted(best.items(), key=lambda kv: -kv[1][0])[:top_n]
+    return [{"intent": v, "score": round(s, 4), "matched_synonym": syn,
+             "orgao": _orgao_de(v)} for v, (s, syn) in ranked]
+
+
 # ------------------------------------------------- rate-limit / admin / log
 _hits_by_ip: dict[str, deque] = defaultdict(deque)
 
@@ -284,12 +410,12 @@ def _client_ip(request: Request) -> str:
     return request.client.host if request.client else "?"
 
 
-def _rate_ok(ip: str) -> bool:
+def _rate_ok(ip: str, limit: int = 0) -> bool:
     now = time.time()
     dq = _hits_by_ip[ip]
     while dq and now - dq[0] > 60:
         dq.popleft()
-    if len(dq) >= RATE_LIMIT_PER_MIN:
+    if len(dq) >= (limit or RATE_LIMIT_PER_MIN):
         return False
     dq.append(now)
     return True
@@ -375,6 +501,79 @@ async def ask(body: AskIn, request: Request):
 
     return AskOut(answer=answer, cached=False, similarity=round(score, 3),
                   latency_ms=int((time.time() - t0) * 1000))
+
+
+# ---------------------------------------------- intencao (API p/ outros sistemas)
+class IntentIn(BaseModel):
+    text: str = Field(min_length=1, max_length=500)
+    orgao: str | None = None      # filtra por secretaria; resolve sinonimo ambiguo
+    top_n: int = Field(default=3, ge=1, le=10)
+
+
+@app.post("/intent")
+async def intent(body: IntentIn, request: Request):
+    """Classifica texto livre em um assunto do 1doc. NAO usa LLM: so embedding +
+    cosseno contra os sinonimos, entao nao ha como inventar um assunto inexistente
+    (o retorno sai sempre da lista) e responde em ~150ms sem entrar na fila do 7b."""
+    if not _rate_ok(_client_ip(request), INTENT_RATE_LIMIT_PER_MIN):
+        raise HTTPException(429, "Muitas requisicoes. Tente em instantes.")
+    if _intent_vecs is None:
+        raise HTTPException(503, "Indice de intencoes vazio. Rode POST /intent/reindex.")
+    orgao = (body.orgao or "").strip().lower()
+    if orgao and orgao not in ORGAOS:
+        raise HTTPException(400, f"orgao invalido. Validos: {sorted(ORGAOS)}")
+
+    t0 = time.time()
+    vec = await _embed(request.app.state.client, _norm_intent(body.text))
+    cands = _search_intents(vec, orgao, body.top_n)
+    took = int((time.time() - t0) * 1000)
+
+    if not cands or cands[0]["score"] < INTENT_THRESHOLD:
+        return {"status": "nao_identificado", "intent": None, "score":
+                cands[0]["score"] if cands else 0.0, "candidates": cands,
+                "took_ms": took}
+    # 1o e 2o colados: o texto nao distingue os dois (ex.: "nota fiscal", que
+    # existe em 23 orgaos). Devolve os candidatos p/ o chamador desambiguar.
+    if len(cands) > 1 and (cands[0]["score"] - cands[1]["score"]) < INTENT_MARGIN:
+        return {"status": "ambiguo", "intent": None, "score": cands[0]["score"],
+                "candidates": cands, "took_ms": took}
+    return {"status": "ok", "intent": cands[0]["intent"], "score": cands[0]["score"],
+            "matched_synonym": cands[0]["matched_synonym"],
+            "orgao": cands[0]["orgao"], "candidates": cands[1:], "took_ms": took}
+
+
+@app.get("/intent/orgaos")
+async def intent_orgaos():
+    return {"orgaos": [{"sigla": k, "label": v} for k, v in ORGAOS.items()]}
+
+
+@app.post("/intent/reindex", dependencies=[Depends(require_admin)])
+async def intent_reindex(request: Request):
+    """Reconstroi o indice a partir do JSON. Demorado (1 embedding por sinonimo):
+    roda so quando a lista de assuntos do 1doc muda."""
+    if not os.path.exists(INTENTS_PATH):
+        raise HTTPException(400, f"arquivo nao encontrado: {INTENTS_PATH}")
+    data = json.load(open(INTENTS_PATH, encoding="utf-8"))
+    pares = [(_norm_intent(s), e["value"]) for e in data for s in e.get("synonyms", [])
+             if s and s.strip()]
+    if not pares:
+        raise HTTPException(400, "JSON sem sinonimos")
+
+    t0 = time.time()
+    vecs = await _embed_batch(request.app.state.client, [s for s, _ in pares])
+    con = _db()
+    con.execute("DELETE FROM intents")
+    con.executemany(
+        "INSERT INTO intents (synonym, value, orgao, embedding) VALUES (?,?,?,?)",
+        [(s, v, _orgao_de(v), vec.astype(np.float32).tobytes())
+         for (s, v), vec in zip(pares, vecs)])
+    con.commit()
+    con.close()
+    async with _lock:
+        _load_intents()
+    return {"status": "ok", "sinonimos": len(pares),
+            "assuntos": len({v for _, v in pares}),
+            "segundos": round(time.time() - t0, 1)}
 
 
 @app.get("/health")
