@@ -16,7 +16,7 @@ services:
       - WORKSPACE_SLUG=${WORKSPACE_SLUG:-semde}
       - CACHE_SIMILARITY_THRESHOLD=${CACHE_SIMILARITY_THRESHOLD:-0.85}
       - CACHE_TTL_DAYS=${CACHE_TTL_DAYS:-30}
-      - TRUSTED_PROXY_HOPS=${TRUSTED_PROXY_HOPS:-0}
+      - TRUSTED_PROXIES=${TRUSTED_PROXIES:-}
     volumes:
       - faq_cache_data:/data
 

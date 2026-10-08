@@ -15,6 +15,7 @@ import time
 import asyncio
 import sqlite3
 import re
+import ipaddress
 import unicodedata
 from contextlib import asynccontextmanager
 from collections import deque, defaultdict
@@ -56,10 +57,13 @@ INTENT_MARGIN = float(os.getenv("INTENT_MARGIN", "0.04"))         # 1o e 2o cola
 INTENT_RATE_LIMIT_PER_MIN = int(os.getenv("INTENT_RATE_LIMIT_PER_MIN", "600"))
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "20"))
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
-# Quantos proxies confiaveis ficam na frente do servico (Traefik do Coolify, rota
-# /api/chat do hub qrcode...). 0 = legado: usa a 1a entrada do X-Forwarded-For,
-# que o cliente pode forjar para escapar do rate-limit.
-TRUSTED_PROXY_HOPS = int(os.getenv("TRUSTED_PROXY_HOPS", "0"))
+# Redes (CIDR, separadas por virgula) dos proxies confiaveis na frente do servico:
+# Traefik do Coolify, container do hub qrcode... Ex.: "172.16.0.0/12,10.0.0.0/8".
+# O X-Forwarded-For so e lido quando a CONEXAO vem de uma dessas redes; quem chama
+# a porta publicada direto e identificado pelo proprio IP de origem.
+# Vazio = legado: usa a 1a entrada do X-Forwarded-For, que o cliente pode forjar.
+TRUSTED_PROXIES = [ipaddress.ip_network(c.strip(), strict=False)
+                   for c in os.getenv("TRUSTED_PROXIES", "").split(",") if c.strip()]
 
 API_BASE = f"{ANYTHINGLLM_URL}/api/v1"
 AUTH = {"Authorization": f"Bearer {ANYTHINGLLM_API_KEY}"}
@@ -450,17 +454,28 @@ def _search_intents(vec: np.ndarray, orgao: str = "", top_n: int = 3) -> list[di
 _hits_by_ip: dict[str, deque] = defaultdict(deque)
 
 
+def _is_trusted_proxy(ip: str) -> bool:
+    try:
+        addr = ipaddress.ip_address(ip)
+    except ValueError:
+        return False
+    return any(addr in net for net in TRUSTED_PROXIES)
+
+
 def _client_ip(request: Request) -> str:
-    xff = request.headers.get("x-forwarded-for")
-    if xff:
-        parts = [p.strip() for p in xff.split(",") if p.strip()]
-        # cada proxy confiavel acrescenta o IP que viu a DIREITA; as entradas
-        # a esquerda delas vieram do cliente e nao valem
-        if TRUSTED_PROXY_HOPS > 0 and len(parts) >= TRUSTED_PROXY_HOPS:
-            return parts[-TRUSTED_PROXY_HOPS]
-        if parts:
-            return parts[0]
-    return request.client.host if request.client else "?"
+    peer = request.client.host if request.client else "?"
+    parts = [p.strip() for p in request.headers.get("x-forwarded-for", "").split(",")
+             if p.strip()]
+    if not TRUSTED_PROXIES:
+        return parts[0] if parts else peer
+    if not _is_trusted_proxy(peer):
+        return peer          # chamou a porta direto: o cabecalho e do proprio cliente
+    # cada proxy acrescenta a DIREITA o IP que viu; o 1o nao-proxy vindo da direita
+    # e o cliente. O que estiver a esquerda dele foi o cliente que escreveu.
+    for ip in reversed(parts):
+        if not _is_trusted_proxy(ip):
+            return ip
+    return parts[0] if parts else peer
 
 
 def _rate_ok(ip: str, limit: int = 0) -> bool:
