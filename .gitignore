@@ -23,3 +23,5 @@ venv/
 Thumbs.db
 
 benchmark-modelos.md
+tokens/
+simulacao-custos.md
