@@ -9,6 +9,7 @@ services:
       # host 8100 (livre na VPS2) -> container 8000. A 8000 do host e do Coolify.
       - "8100:8000"
     environment:
+      - PREFEITURA=${PREFEITURA:-aracaju}
       - ANYTHINGLLM_URL=${ANYTHINGLLM_URL}
       - ANYTHINGLLM_API_KEY=${ANYTHINGLLM_API_KEY}
       - OLLAMA_URL=${OLLAMA_URL}
@@ -16,6 +17,7 @@ services:
       - WORKSPACE_SLUG=${WORKSPACE_SLUG:-semde}
       - CACHE_SIMILARITY_THRESHOLD=${CACHE_SIMILARITY_THRESHOLD:-0.85}
       - CACHE_TTL_DAYS=${CACHE_TTL_DAYS:-30}
+      - TRUSTED_PROXIES=${TRUSTED_PROXIES:-}
     volumes:
       - faq_cache_data:/data
 

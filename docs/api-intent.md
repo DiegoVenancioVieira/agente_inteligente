@@ -89,7 +89,7 @@ Lista as siglas aceitas em `orgao`.
 
 ## `POST /intent/reindex` (admin)
 
-Reconstrói o índice a partir de `sources/intents-1doc.json`. Exige
+Reconstrói o índice a partir de `sources/<prefeitura>/intents-1doc.json` (campo `intentsSeed` da config). Exige
 `Authorization: Bearer <ADMIN_TOKEN>`. Rode **quando a lista de assuntos do 1doc mudar** —
 é o passo lento (um embedding por sinônimo).
 
@@ -97,7 +97,7 @@ Reconstrói o índice a partir de `sources/intents-1doc.json`. Exige
 
 | variável | default | o que faz |
 |---|---|---|
-| `INTENTS_PATH` | `./sources/intents-1doc.json` | fonte dos assuntos |
+| `INTENTS_SEED` | `intentsSeed` da config da prefeitura | fonte dos assuntos |
 | `INTENT_THRESHOLD` | `0.70` | abaixo disso → `nao_identificado` |
 | `INTENT_MARGIN` | `0.04` | diferença 1º–2º abaixo disso → `ambiguo` |
 | `INTENT_RATE_LIMIT_PER_MIN` | `600` | limite do `/intent` |

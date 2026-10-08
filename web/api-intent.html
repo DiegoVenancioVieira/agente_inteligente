@@ -85,7 +85,7 @@
 </head>
 <body>
 <div class="wrap">
-  <img class="logo" src="/static/aju.png" alt="Prefeitura de Aracaju">
+  <img class="logo" src="{{LOGO}}" alt="{{LOGO_ALT}}">
   <div class="eyebrow">Documentação de integração</div>
   <h1>API de Intenção</h1>
   <p class="lede">Recebe o texto livre do cidadão e devolve o <b>assunto do 1doc</b> correspondente, para o sistema chamador localizar o formulário e montar o card. Substitui o Dialogflow.</p>
@@ -202,7 +202,7 @@
         <thead><tr><th>endpoint</th><th>o que faz</th></tr></thead>
         <tbody>
           <tr><td><code>GET /intent/orgaos</code> <span class="tag pub">público</span></td><td>lista as 26 siglas aceitas em <code>orgao</code></td></tr>
-          <tr><td><code>POST /intent/reindex</code> <span class="tag adm">admin</span></td><td>reconstrói o índice a partir de <code>sources/intents-1doc.json</code>. Exige <code>Authorization: Bearer &lt;ADMIN_TOKEN&gt;</code></td></tr>
+          <tr><td><code>POST /intent/reindex</code> <span class="tag adm">admin</span></td><td>reconstrói o índice a partir de <code>sources/&lt;prefeitura&gt;/intents-1doc.json</code>. Exige <code>Authorization: Bearer &lt;ADMIN_TOKEN&gt;</code></td></tr>
           <tr><td><code>GET /health</code> <span class="tag pub">público</span></td><td><code>intent.sinonimos</code> mostra o tamanho do índice carregado</td></tr>
         </tbody>
       </table>
@@ -212,7 +212,7 @@
   <section>
     <h2>Operação</h2>
     <h3>Quando a lista de assuntos do 1doc mudar</h3>
-    <p>Atualize <code>sources/intents-1doc.json</code> e rode o reindex. Leva <b>~2 minutos</b> (um embedding por sinônimo) — é o único passo lento, e não deve rodar a cada requisição.</p>
+    <p>Atualize <code>sources/&lt;prefeitura&gt;/intents-1doc.json</code> e rode o reindex. Leva <b>~2 minutos</b> (um embedding por sinônimo) — é o único passo lento, e não deve rodar a cada requisição.</p>
     <pre><code>curl -X POST http://192.168.0.118:8100/intent/reindex \
      -H "Authorization: Bearer $ADMIN_TOKEN"
 
@@ -225,7 +225,7 @@
       <table>
         <thead><tr><th>variável</th><th>padrão</th><th>o que faz</th></tr></thead>
         <tbody>
-          <tr><td><code>INTENTS_PATH</code></td><td><code>./sources/intents-1doc.json</code></td><td>fonte dos assuntos</td></tr>
+          <tr><td><code>INTENTS_SEED</code></td><td><code>intentsSeed</code> da config da prefeitura</td><td>fonte dos assuntos</td></tr>
           <tr><td><code>INTENT_THRESHOLD</code></td><td><code>0.70</code></td><td>abaixo disso → <code>nao_identificado</code></td></tr>
           <tr><td><code>INTENT_MARGIN</code></td><td><code>0.04</code></td><td>diferença 1º–2º abaixo disso → <code>ambiguo</code></td></tr>
           <tr><td><code>INTENT_RATE_LIMIT_PER_MIN</code></td><td><code>600</code></td><td>limite do <code>/intent</code></td></tr>
@@ -242,7 +242,7 @@
   </section>
 
   <div class="foot">
-    Base de conhecimento: <code>sources/intents-1doc.json</code> — 758 assuntos, 1.888 sinônimos, herdados do
+    Base de conhecimento: <code>sources/&lt;prefeitura&gt;/intents-1doc.json</code> — 758 assuntos, 1.888 sinônimos, herdados do
     <code>json_normalizado.json</code> que alimentava o Dialogflow. Dados medidos e limitações conhecidas no
     <a href="/relatorio-intent" style="color:var(--ink-2)">relatório desta API</a>.
   </div>

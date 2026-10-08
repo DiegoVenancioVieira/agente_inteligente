@@ -46,6 +46,10 @@ O corte 0,85 pega os repetidos genuínos e **nunca** devolve a resposta de outra
 | `POST` | `/cache/clear` | **admin** | limpa o cache (webhook de invalidação) |
 
 \* `/ask` tem **rate-limit por IP** (`RATE_LIMIT_PER_MIN`, padrão 20/min) → responde `429` ao exceder.
+Atrás de proxy reverso, defina `TRUSTED_PROXIES` com as redes (CIDR) dos proxies confiáveis — Traefik
+do Coolify e o container do hub, normalmente as redes Docker, ex.: `172.16.0.0/12,10.0.0.0/8`. O
+`X-Forwarded-For` só é lido quando a conexão vem de uma dessas redes; quem chama a porta publicada
+direto é limitado pelo próprio IP de origem (vazio = comportamento antigo, forjável).
 Endpoints **admin** exigem o header `Authorization: Bearer <ADMIN_TOKEN>` (defina um token forte no `.env`;
 se vazio, os endpoints admin ficam bloqueados por padrão).
 
@@ -70,6 +74,42 @@ curl http://SEU_HOST:8000/unanswered -H "Authorization: Bearer $ADMIN_TOKEN"
 
 > **Rede:** o serviço precisa alcançar o Ollama da VPS1 (`OLLAMA_URL`) para os embeddings
 > e o AnythingLLM (`ANYTHINGLLM_URL`). Rodando na VPS2, ambos são acessíveis.
+
+## Configuração por prefeitura
+
+Um único código atende várias prefeituras — **um deploy por prefeitura**. Os dados do município
+ficam em `config/prefeituras/<slug>.json`, escolhido pela env **`PREFEITURA`** (padrão `aracaju`):
+
+| Campo | O que controla |
+| --- | --- |
+| `prefeitura.nome` / `prefeitura.nomeOficial` | Nome exibido nas páginas (título, rodapés) |
+| `marca.logo` / `marca.logoAlt` | Brasão das páginas (`/static/<arquivo>` em `web/` ou URL absoluta) |
+| `secretarias` | `{slug: {label, welcome, chips}}` — cada slug é um workspace do AnythingLLM |
+| `orgaos` | `{sigla: nome}` usados pela API de intenção para desambiguar assuntos |
+| `intentsSeed` | Base de assuntos da API de intenção, ex.: `sources/<slug>/intents-1doc.json` |
+
+A config é validada no boot: `PREFEITURA` desconhecida ou campo obrigatório vazio impedem o
+serviço de subir, com a mensagem do problema. `ANYTHINGLLM_URL` e `OLLAMA_URL` não têm mais
+endereço padrão no código: defina-as no `.env`.
+
+Para uma nova prefeitura: copie `config/prefeituras/aracaju.json`, ajuste os dados, coloque as
+FAQs/intents em `sources/<slug>/`, crie os workspaces no AnythingLLM e suba um deploy com
+`PREFEITURA=<slug>`. O conteúdo de `relatorio*.html` e `tutorial.html` descreve a implantação de
+Aracaju; só nome e brasão vêm da config.
+
+## Chat no hub qrcode
+
+O hub de QR Codes da prefeitura (repo `qrcode`) tem um widget de chat que chama este serviço
+pela rota interna `/api/chat` do Next.js, com seletor de secretaria (`GET /secretarias`).
+O hub repassa o IP do cidadão no `X-Forwarded-For`. Para isso funcionar:
+
+- aponte `AGENTE_API_URL` do hub para o endereço **interno** deste container
+  (ex.: `http://faq-cache:8000` na rede do Coolify), sem passar pelo Traefik público;
+- defina aqui `TRUSTED_PROXIES` cobrindo as redes Docker do Traefik e do hub
+  (ex.: `172.16.0.0/12,10.0.0.0/8`): vale tanto para o hub quanto para cidadãos que chegam
+  pelo Traefik.
+
+Sem isso, todos os cidadãos que vêm pelo hub dividem o mesmo limite de `RATE_LIMIT_PER_MIN`.
 
 ## Perguntas sem resposta (insumo para as secretarias)
 

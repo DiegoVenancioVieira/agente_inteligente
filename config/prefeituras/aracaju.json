@@ -1,0 +1,77 @@
+{
+  "prefeitura": {
+    "nome": "Prefeitura de Aracaju",
+    "nomeOficial": "Prefeitura Municipal de Aracaju"
+  },
+  "marca": {
+    "logo": "/static/aju.png",
+    "logoAlt": "Brasão da Prefeitura de Aracaju"
+  },
+  "intentsSeed": "sources/aracaju/intents-1doc.json",
+  "secretarias": {
+    "semde": {
+      "label": "SEMDE",
+      "welcome": "Olá! 👋 Sou o assistente virtual da SEMDE (Secretaria Municipal do Desenvolvimento Econômico e Inovação) de Aracaju. Como posso ajudar?",
+      "chips": [
+        "Qual a alíquota do ISSQN pela Lei 183?",
+        "O MEI pode pedir o benefício?",
+        "O protocolo de intenções é um contrato?"
+      ]
+    },
+    "procon": {
+      "label": "PROCON",
+      "welcome": "Olá! 👋 Sou o assistente virtual do PROCON de Aracaju. Tire suas dúvidas sobre seus direitos como consumidor. Como posso ajudar?",
+      "chips": [
+        "Comprei um produto com defeito, o que fazer?",
+        "Posso me arrepender de uma compra pela internet?",
+        "Fui cobrado indevidamente, tenho direito a algo?"
+      ]
+    },
+    "sermulher": {
+      "label": "SERMULHER",
+      "welcome": "Olá! 👋 Sou o assistente virtual da SERMULHER (Secretaria Municipal do Respeito às Políticas Públicas para as Mulheres) de Aracaju. Posso orientar sobre nossos serviços e onde buscar ajuda. Se você está em perigo agora, ligue 190. Como posso ajudar?",
+      "chips": [
+        "Sofri violência, onde busco ajuda?",
+        "O que é o Disque 180?",
+        "Quais programas a secretaria oferece?"
+      ]
+    },
+    "integraju": {
+      "label": "IntegrAju",
+      "welcome": "Olá! 👋 Sou o assistente virtual do IntegrAju, a plataforma digital de serviços da Prefeitura de Aracaju. Posso orientar sobre solicitações de serviços, denúncias, sugestões e acompanhamento de demandas. Como posso ajudar?",
+      "chips": [
+        "O que é o IntegrAju?",
+        "Como solicito um serviço?",
+        "Como acompanho minha solicitação?"
+      ]
+    }
+  },
+  "orgaos": {
+    "seplog": "SEPLOG — Planejamento e Gestão",
+    "emurb": "EMURB — Obras e Urbanização",
+    "semfaz": "SEMFAZ — Finanças",
+    "sms": "SMS — Saúde",
+    "smtt": "SMTT — Transporte e Trânsito",
+    "emsurb": "EMSURB — Serviços Urbanos",
+    "sema": "SEMA — Meio Ambiente",
+    "ajuprev": "AJUPREV — Previdência Municipal",
+    "semfas": "SEMFAS — Assistência Social",
+    "funcaju": "FUNCAJU — Arte e Cultura",
+    "semed": "SEMED — Educação",
+    "fundat": "FUNDAT — Qualificação e Trabalho",
+    "sejesp": "SEJESP — Esporte",
+    "secult": "SECULT — Fomento à Cultura",
+    "seminfra": "SEMINFRA — Infraestrutura",
+    "secom": "SECOM — Comunicação Social",
+    "cgm": "CGM — Controladoria do Município",
+    "pgm": "PGM — Advocacia do Município",
+    "segov": "SEGOV — Secretaria de Governo",
+    "setur": "SETUR — Turismo",
+    "semde": "SEMDE — Desenvolvimento Econômico e Inovação",
+    "semdef": "SEMDEF — Inclusão Aju",
+    "sermulher": "SERMULHER — Políticas Públicas para as Mulheres",
+    "ssm": "SSM AJU — Segurança e Cidadania",
+    "procon": "PROCON",
+    "nucar": "NUCAR"
+  }
+}
