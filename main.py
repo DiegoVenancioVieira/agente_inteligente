@@ -15,6 +15,7 @@ import time
 import asyncio
 import sqlite3
 import re
+import html
 import ipaddress
 import unicodedata
 from contextlib import asynccontextmanager
@@ -24,14 +25,14 @@ import httpx
 import numpy as np
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 # ---------------------------------------------------------------- config (.env)
-ANYTHINGLLM_URL = os.getenv("ANYTHINGLLM_URL", "http://192.168.0.118:3001").rstrip("/")
+ANYTHINGLLM_URL = os.getenv("ANYTHINGLLM_URL", "").rstrip("/")
 ANYTHINGLLM_API_KEY = os.getenv("ANYTHINGLLM_API_KEY", "")
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://192.168.0.115:11434").rstrip("/")
+OLLAMA_URL = os.getenv("OLLAMA_URL", "").rstrip("/")
 EMBEDDER = os.getenv("OLLAMA_EMBEDDER", "bge-m3")
 HIT_THRESHOLD = float(os.getenv("CACHE_SIMILARITY_THRESHOLD", "0.85"))
 TTL_DAYS = int(os.getenv("CACHE_TTL_DAYS", "30"))
@@ -41,7 +42,7 @@ DB_PATH = os.getenv("CACHE_DB_PATH", "./cache.db")
 # INTENTS_SEED: copia read-only que vem DENTRO da imagem (Dockerfile COPY sources).
 # INTENTS_PATH: fonte-da-verdade editavel, no VOLUME persistente (/data). A tela de
 # gestao grava aqui; o reindex le daqui. Semeada do SEED no 1o boot (_ensure_intents_file).
-INTENTS_SEED = os.getenv("INTENTS_SEED", "./sources/intents-1doc.json")
+INTENTS_SEED = os.getenv("INTENTS_SEED", "")   # padrao: "intentsSeed" da config da prefeitura
 INTENTS_PATH = os.getenv("INTENTS_PATH", "/data/intents-1doc.json")
 # CALIBRADOS em 2026-07-17 com bge-m3 real (scripts/testa_intent.py):
 # 14 frases dentro do escopo (min 0.669, media 0.835) x 8 fora (max 0.681, media 0.536).
@@ -70,43 +71,49 @@ AUTH = {"Authorization": f"Bearer {ANYTHINGLLM_API_KEY}"}
 
 # Secretarias atendidas. Cada slug = workspace no AnythingLLM.
 # Para adicionar uma nova: crie o workspace no AnythingLLM e acrescente aqui.
-SECRETARIAS: dict[str, dict] = {
-    "semde": {
-        "label": "SEMDE",
-        "welcome": ("Olá! 👋 Sou o assistente virtual da SEMDE (Secretaria Municipal do "
-                    "Desenvolvimento Econômico e Inovação) de Aracaju. Como posso ajudar?"),
-        "chips": ["Qual a alíquota do ISSQN pela Lei 183?",
-                  "O MEI pode pedir o benefício?",
-                  "O protocolo de intenções é um contrato?"],
-    },
-    "procon": {
-        "label": "PROCON",
-        "welcome": ("Olá! 👋 Sou o assistente virtual do PROCON de Aracaju. "
-                    "Tire suas dúvidas sobre seus direitos como consumidor. Como posso ajudar?"),
-        "chips": ["Comprei um produto com defeito, o que fazer?",
-                  "Posso me arrepender de uma compra pela internet?",
-                  "Fui cobrado indevidamente, tenho direito a algo?"],
-    },
-    "sermulher": {
-        "label": "SERMULHER",
-        "welcome": ("Olá! 👋 Sou o assistente virtual da SERMULHER (Secretaria Municipal do Respeito "
-                    "às Políticas Públicas para as Mulheres) de Aracaju. Posso orientar sobre nossos "
-                    "serviços e onde buscar ajuda. Se você está em perigo agora, ligue 190. "
-                    "Como posso ajudar?"),
-        "chips": ["Sofri violência, onde busco ajuda?",
-                  "O que é o Disque 180?",
-                  "Quais programas a secretaria oferece?"],
-    },
-    "integraju": {
-        "label": "IntegrAju",
-        "welcome": ("Olá! 👋 Sou o assistente virtual do IntegrAju, a plataforma digital de serviços "
-                    "da Prefeitura de Aracaju. Posso orientar sobre solicitações de serviços, "
-                    "denúncias, sugestões e acompanhamento de demandas. Como posso ajudar?"),
-        "chips": ["O que é o IntegrAju?",
-                  "Como solicito um serviço?",
-                  "Como acompanho minha solicitação?"],
-    },
-}
+# Dados do municipio (secretarias, orgaos, nome, logo) ficam em
+# config/prefeituras/<PREFEITURA>.json, nunca no codigo. Um deploy por prefeitura.
+PREFEITURA = os.getenv("PREFEITURA", "aracaju").strip().lower() or "aracaju"
+CONFIG_DIR = os.getenv("CONFIG_DIR", "./config/prefeituras")
+
+
+def _load_prefeitura(slug: str) -> dict:
+    """Le e valida a config da prefeitura; erro claro no boot se algo faltar."""
+    path = os.path.join(CONFIG_DIR, f"{slug}.json")
+    if not re.fullmatch(r"[a-z0-9_-]+", slug) or not os.path.exists(path):
+        disp = sorted(f[:-5] for f in os.listdir(CONFIG_DIR) if f.endswith(".json"))
+        raise RuntimeError(f"PREFEITURA='{slug}' nao encontrada em {CONFIG_DIR}. Opcoes: {disp}")
+    cfg = json.load(open(path, encoding="utf-8"))
+    erros = []
+    for campo in ("nome", "nomeOficial"):
+        if not str(cfg.get("prefeitura", {}).get(campo, "")).strip():
+            erros.append(f"prefeitura.{campo} e obrigatorio")
+    for campo in ("logo", "logoAlt"):
+        if not str(cfg.get("marca", {}).get(campo, "")).strip():
+            erros.append(f"marca.{campo} e obrigatorio")
+    secs = cfg.get("secretarias") or {}
+    if not secs:
+        erros.append("secretarias precisa de ao menos uma secretaria (slug = workspace)")
+    for ws, m in secs.items():
+        if not re.fullmatch(r"[a-z0-9_-]+", ws):
+            erros.append(f"secretarias: slug '{ws}' invalido (use a-z, 0-9, - e _)")
+        if not str(m.get("label", "")).strip() or not str(m.get("welcome", "")).strip():
+            erros.append(f"secretarias.{ws}: label e welcome sao obrigatorios")
+        if not isinstance(m.get("chips", []), list):
+            erros.append(f"secretarias.{ws}.chips deve ser uma lista")
+    if not isinstance(cfg.get("orgaos", {}), dict):
+        erros.append("orgaos deve ser um objeto {sigla: nome}")
+    if erros:
+        raise RuntimeError(f"Config invalida em {path}:\n- " + "\n- ".join(erros))
+    return cfg
+
+
+CONFIG = _load_prefeitura(PREFEITURA)
+INTENTS_SEED = INTENTS_SEED or CONFIG.get("intentsSeed", "")
+
+# Secretarias atendidas. Cada slug = workspace no AnythingLLM.
+# Para adicionar uma nova: crie o workspace no AnythingLLM e acrescente no JSON.
+SECRETARIAS: dict[str, dict] = CONFIG["secretarias"]
 DEFAULT_WS = next(iter(SECRETARIAS))
 
 
@@ -121,35 +128,9 @@ def _valid_ws(ws: str | None) -> str:
 
 # Siglas de orgao que aparecem como sufixo no "value" do 1doc.
 # Servem para desambiguar sinonimos repetidos ("nota fiscal" existe em 23 orgaos).
-ORGAOS: dict[str, str] = {
-    "seplog": "SEPLOG — Planejamento e Gestão",
-    "emurb": "EMURB — Obras e Urbanização",
-    "semfaz": "SEMFAZ — Finanças",
-    "sms": "SMS — Saúde",
-    "smtt": "SMTT — Transporte e Trânsito",
-    "emsurb": "EMSURB — Serviços Urbanos",
-    "sema": "SEMA — Meio Ambiente",
-    "ajuprev": "AJUPREV — Previdência Municipal",
-    "semfas": "SEMFAS — Assistência Social",
-    "funcaju": "FUNCAJU — Arte e Cultura",
-    "semed": "SEMED — Educação",
-    "fundat": "FUNDAT — Qualificação e Trabalho",
-    "sejesp": "SEJESP — Esporte",
-    "secult": "SECULT — Fomento à Cultura",
-    "seminfra": "SEMINFRA — Infraestrutura",
-    "secom": "SECOM — Comunicação Social",
-    "cgm": "CGM — Controladoria do Município",
-    "pgm": "PGM — Advocacia do Município",
-    "segov": "SEGOV — Secretaria de Governo",
-    "setur": "SETUR — Turismo",
-    "semde": "SEMDE — Desenvolvimento Econômico e Inovação",
-    "semdef": "SEMDEF — Inclusão Aju",
-    "sermulher": "SERMULHER — Políticas Públicas para as Mulheres",
-    "ssm": "SSM AJU — Segurança e Cidadania",
-    "procon": "PROCON",
-    "nucar": "NUCAR",
-}
-_ORGAO_RE = re.compile(r"\b(" + "|".join(ORGAOS) + r")\b")
+ORGAOS: dict[str, str] = CONFIG.get("orgaos", {})
+# sem orgaos configurados o regex nunca casa (evita "\b()\b", que casaria tudo)
+_ORGAO_RE = re.compile(r"\b(" + "|".join(map(re.escape, ORGAOS)) + r")\b" if ORGAOS else r"(?!)")
 
 # --------------------------------------------------------------- estado em RAM
 _lock = asyncio.Lock()
@@ -298,44 +279,62 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_methods=["*"], allow_headers=["*"])
 
 
+_PAGE_VARS = {
+    "{{PREFEITURA}}": html.escape(CONFIG["prefeitura"]["nome"]),
+    "{{LOGO}}": html.escape(CONFIG["marca"]["logo"]),
+    "{{LOGO_ALT}}": html.escape(CONFIG["marca"]["logoAlt"]),
+}
+_page_cache: dict[str, str] = {}
+
+
+def _page(name: str) -> HTMLResponse:
+    """Serve web/<name>.html com nome e logo da prefeitura do deploy."""
+    if name not in _page_cache:
+        text = open(f"web/{name}.html", encoding="utf-8").read()
+        for k, v in _PAGE_VARS.items():
+            text = text.replace(k, v)
+        _page_cache[name] = text
+    return HTMLResponse(_page_cache[name])
+
+
 @app.get("/", include_in_schema=False)
 async def index():
-    return FileResponse("web/index.html")
+    return _page("index")
 
 
 @app.get("/relatorio", include_in_schema=False)
 async def relatorio():
-    return FileResponse("web/relatorio.html")
+    return _page("relatorio")
 
 
 @app.get("/admin", include_in_schema=False)
 async def admin_page():
-    return FileResponse("web/admin.html")
+    return _page("admin")
 
 
 @app.get("/documentacao", include_in_schema=False)
 async def documentacao_page():
-    return FileResponse("web/documentacao.html")
+    return _page("documentacao")
 
 
 @app.get("/api-intent", include_in_schema=False)
 async def api_intent_page():
-    return FileResponse("web/api-intent.html")
+    return _page("api-intent")
 
 
 @app.get("/relatorio-intent", include_in_schema=False)
 async def relatorio_intent_page():
-    return FileResponse("web/relatorio-intent.html")
+    return _page("relatorio-intent")
 
 
 @app.get("/admin-intent", include_in_schema=False)
 async def admin_intent_page():
-    return FileResponse("web/admin-intent.html")
+    return _page("admin-intent")
 
 
 @app.get("/tutorial", include_in_schema=False)
 async def tutorial_page():
-    return FileResponse("web/tutorial.html")
+    return _page("tutorial")
 
 
 app.mount("/static", StaticFiles(directory="web"), name="static")
@@ -521,7 +520,7 @@ class AskOut(BaseModel):
 @app.get("/secretarias")
 async def secretarias():
     """Lista das secretarias para o seletor da interface."""
-    return {"secretarias": [
+    return {"prefeitura": CONFIG["prefeitura"]["nome"], "secretarias": [
         {"slug": s, "label": m["label"], "welcome": m["welcome"], "chips": m["chips"]}
         for s, m in SECRETARIAS.items()
     ]}

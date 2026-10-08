@@ -9,6 +9,7 @@ services:
       # host 8100 (livre na VPS2) -> container 8000. A 8000 do host e do Coolify.
       - "8100:8000"
     environment:
+      - PREFEITURA=${PREFEITURA:-aracaju}
       - ANYTHINGLLM_URL=${ANYTHINGLLM_URL}
       - ANYTHINGLLM_API_KEY=${ANYTHINGLLM_API_KEY}
       - OLLAMA_URL=${OLLAMA_URL}
