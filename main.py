@@ -56,6 +56,10 @@ INTENT_MARGIN = float(os.getenv("INTENT_MARGIN", "0.04"))         # 1o e 2o cola
 INTENT_RATE_LIMIT_PER_MIN = int(os.getenv("INTENT_RATE_LIMIT_PER_MIN", "600"))
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "20"))
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
+# Quantos proxies confiaveis ficam na frente do servico (Traefik do Coolify, rota
+# /api/chat do hub qrcode...). 0 = legado: usa a 1a entrada do X-Forwarded-For,
+# que o cliente pode forjar para escapar do rate-limit.
+TRUSTED_PROXY_HOPS = int(os.getenv("TRUSTED_PROXY_HOPS", "0"))
 
 API_BASE = f"{ANYTHINGLLM_URL}/api/v1"
 AUTH = {"Authorization": f"Bearer {ANYTHINGLLM_API_KEY}"}
@@ -449,7 +453,13 @@ _hits_by_ip: dict[str, deque] = defaultdict(deque)
 def _client_ip(request: Request) -> str:
     xff = request.headers.get("x-forwarded-for")
     if xff:
-        return xff.split(",")[0].strip()
+        parts = [p.strip() for p in xff.split(",") if p.strip()]
+        # cada proxy confiavel acrescenta o IP que viu a DIREITA; as entradas
+        # a esquerda delas vieram do cliente e nao valem
+        if TRUSTED_PROXY_HOPS > 0 and len(parts) >= TRUSTED_PROXY_HOPS:
+            return parts[-TRUSTED_PROXY_HOPS]
+        if parts:
+            return parts[0]
     return request.client.host if request.client else "?"
 
 

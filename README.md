@@ -46,6 +46,9 @@ O corte 0,85 pega os repetidos genuínos e **nunca** devolve a resposta de outra
 | `POST` | `/cache/clear` | **admin** | limpa o cache (webhook de invalidação) |
 
 \* `/ask` tem **rate-limit por IP** (`RATE_LIMIT_PER_MIN`, padrão 20/min) → responde `429` ao exceder.
+Atrás de proxy reverso, defina `TRUSTED_PROXY_HOPS` com o número de proxies confiáveis na frente do
+serviço (ex.: `1` para o Traefik do Coolify). Assim o IP do rate-limit vem do `X-Forwarded-For` que o
+proxy escreveu, e não do que o cliente mandou (padrão `0` = comportamento antigo, forjável).
 Endpoints **admin** exigem o header `Authorization: Bearer <ADMIN_TOKEN>` (defina um token forte no `.env`;
 se vazio, os endpoints admin ficam bloqueados por padrão).
 
@@ -70,6 +73,20 @@ curl http://SEU_HOST:8000/unanswered -H "Authorization: Bearer $ADMIN_TOKEN"
 
 > **Rede:** o serviço precisa alcançar o Ollama da VPS1 (`OLLAMA_URL`) para os embeddings
 > e o AnythingLLM (`ANYTHINGLLM_URL`). Rodando na VPS2, ambos são acessíveis.
+
+## Chat no hub qrcode
+
+O hub `qrcode.aracaju.se.gov.br` (repo `qrcode`) tem um widget de chat que chama este serviço
+pela rota interna `/api/chat` do Next.js, com seletor de secretaria (`GET /secretarias`).
+O hub repassa o IP do cidadão no `X-Forwarded-For`. Para isso funcionar:
+
+- aponte `AGENTE_API_URL` do hub para o endereço **interno** deste container
+  (ex.: `http://faq-cache:8000` na rede do Coolify), sem passar pelo Traefik público;
+- use `TRUSTED_PROXY_HOPS=1` aqui: vale tanto para o hub (que chama direto) quanto para
+  cidadãos que chegam pelo Traefik.
+
+Se o hub chamar pela URL pública, o IP do hub entra na cadeia e todos os cidadãos passam a
+dividir o mesmo limite de `RATE_LIMIT_PER_MIN`.
 
 ## Perguntas sem resposta (insumo para as secretarias)
 
