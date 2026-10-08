@@ -21,3 +21,5 @@ venv/
 # Sistema
 .DS_Store
 Thumbs.db
+
+benchmark-modelos.md

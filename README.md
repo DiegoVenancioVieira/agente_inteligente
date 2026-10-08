@@ -14,8 +14,8 @@ Cidadão ─▶ POST /ask ─▶ [1] embedding bge-m3 (VPS1)
           sim ≥ 0,85                sim < 0,85
           (repetida)                 (nova)
               │                          │
-      resposta cacheada         AnythingLLM + qwen2.5:7b (VPS1)
-        (~0,2 s, sem LLM)         (~5–20 s)  ─▶ grava no cache
+      resposta cacheada         AnythingLLM + LLM (Ollama)
+        (~0,2 s, sem LLM)         (tempo depende do modelo) ─▶ grava no cache
 ```
 
 - **Só respostas fundamentadas são cacheadas.** Se o AnythingLLM recusa (pergunta fora
@@ -96,6 +96,94 @@ Para uma nova prefeitura: copie `config/prefeituras/aracaju.json`, ajuste os dad
 FAQs/intents em `sources/<slug>/`, crie os workspaces no AnythingLLM e suba um deploy com
 `PREFEITURA=<slug>`. O conteúdo de `relatorio*.html` e `tutorial.html` descreve a implantação de
 Aracaju; só nome e brasão vêm da config.
+
+## Modelo de geração e hardware
+
+O agente **não escolhe o modelo de geração**: quem chama o LLM é o AnythingLLM. O agente só usa o
+Ollama diretamente para os embeddings (`OLLAMA_EMBEDDER`, padrão `bge-m3`). Para trocar o modelo:
+
+- no AnythingLLM, em *Settings → LLM* (padrão da instância) ou no *Chat model* de cada workspace;
+- ou por env no container do AnythingLLM: `LLM_PROVIDER=ollama`, `OLLAMA_BASE_PATH`,
+  `OLLAMA_MODEL_PREF=<modelo>` e `OLLAMA_MODEL_TOKEN_LIMIT=2048` (confira os nomes na versão instalada).
+
+Baixe o modelo antes no Ollama (`ollama pull qwen2.5:3b`). O cache semântico continua valendo:
+respostas já dadas não passam pelo LLM.
+
+### Requisitos por modelo (CPU, sem GPU, quantização Q4)
+
+Valores **estimados** para 2 vCPUs, não medidos — use o benchmark abaixo para os números reais.
+Em CPU, o tempo até o 1º token é dominado pela leitura do contexto (prompt + trechos da FAQ), por
+isso `num_ctx` e o número de trechos pesam tanto quanto o tamanho do modelo.
+
+| Modelo | RAM do modelo | Geração (2 vCPUs) | Qualidade em português | Uso |
+| --- | --- | --- | --- | --- |
+| `qwen2.5:1.5b` | ~1,5 GB | ~10–15 tok/s | aceitável; mais propenso a errar detalhes | plano B se o 3b ficar lento |
+| `qwen2.5:3b` | ~2,5–3 GB | ~5–8 tok/s | boa, segue bem o contexto | **recomendado para este servidor** |
+| `llama3.2:3b` | ~2,5–3 GB | ~5–8 tok/s | boa, às vezes mistura inglês | alternativa ao qwen2.5:3b |
+| `qwen2.5:7b` | ~5,5–6 GB | ~2–4 tok/s | a melhor | exige ≥ 4 vCPUs e ≥ 12 GB de RAM; não cabe aqui |
+| `bge-m3` (embedder) | ~1,2 GB | — | — | sempre carregado junto |
+
+**Servidor atual (2 vCPUs, 7,8 GB, sem GPU, ~2,3 GB já em uso):** `qwen2.5:3b` + `bge-m3` somam
+~4 GB, ficando ~1,5 GB de folga. O `qwen2.5:7b` + `bge-m3` (~7 GB) não cabe com segurança: sem
+swap, o kernel mata o Ollama quando a memória acaba. Decida entre `qwen2.5:3b`, `llama3.2:3b` e
+`qwen2.5:1.5b` pelo benchmark.
+
+### Ajustes para CPU
+
+No container do **Ollama**:
+
+```bash
+OLLAMA_KEEP_ALIVE=24h         # não descarrega o modelo entre perguntas (recarregar custa segundos)
+OLLAMA_NUM_PARALLEL=1         # uma geração por vez: em 2 vCPUs, paralelo só divide a CPU
+OLLAMA_MAX_LOADED_MODELS=2    # LLM + embedder, sem carregar um terceiro
+```
+
+No **AnythingLLM**: limite de contexto (`OLLAMA_MODEL_TOKEN_LIMIT`) em **2048** e poucos trechos por
+resposta (3–4 em *Max context snippets* do workspace). As FAQs têm trechos curtos; mais contexto só
+aumenta o tempo até o 1º token.
+
+**Embedder:** mantenha o `bge-m3`. O limiar do cache (0,85) e o da API de intenção (0,70) foram
+calibrados com ele. Trocar por um menor (ex.: `paraphrase-multilingual`, ~0,6 GB) exige recalibrar
+os limiares, reindexar a API de intenção (`POST /intent/reindex`), limpar o cache
+(`POST /cache/clear`) e re-embedar os documentos dos workspaces no AnythingLLM.
+
+### Swap (obrigatório neste servidor)
+
+Sem swap, um pico de memória derruba o Ollama. Crie 4 GB no host:
+
+```bash
+sudo fallocate -l 4G /swapfile && sudo chmod 600 /swapfile
+sudo mkswap /swapfile && sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab   # mantém após reiniciar
+free -h                                                        # deve mostrar Swap: 4.0Gi
+```
+
+O swap é rede de segurança, não memória de trabalho: se o modelo passar a usar swap, a geração fica
+dezenas de vezes mais lenta. Nesse caso, desça para um modelo menor.
+
+### Benchmark no servidor
+
+`scripts/benchmark_modelos.py` reproduz o fluxo do agente com perguntas reais da FAQ (parafraseadas)
+e duas perguntas fora da FAQ, e mede carga, tempo até o 1º token, tempo total, tokens/s, memória
+(`ollama ps`) e acertos. Só usa a biblioteca padrão do Python. Cada modelo é descarregado ao terminar,
+para não somar memória com o próximo. Rode em horário de pouco uso, porque o benchmark disputa CPU
+com o atendimento:
+
+```bash
+# Ollama com porta no host:
+python3 scripts/benchmark_modelos.py --ollama http://localhost:11434 --pull
+
+# Ollama só na rede Docker do Coolify (troque <rede> e <ollama>):
+docker run --rm --network <rede> -v "$PWD":/w -w /w python:3.12-slim \
+  python scripts/benchmark_modelos.py --ollama http://<ollama>:11434 --pull
+
+# Só alguns modelos, ou testar o 7b à parte (cuidado com a memória):
+python3 scripts/benchmark_modelos.py --modelos qwen2.5:3b,llama3.2:3b
+```
+
+Saída: uma tabela no terminal e `benchmark-modelos.md` com todas as respostas, para conferir à mão
+se o modelo respondeu certo, sem inventar e em português. A checagem automática procura os fatos
+esperados (prazos, telefones etc.) e a recusa nas perguntas fora da FAQ.
 
 ## Chat no hub qrcode
 

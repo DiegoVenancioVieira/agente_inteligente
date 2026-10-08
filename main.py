@@ -4,7 +4,7 @@ Cache semantico + API do agente de FAQ municipal (MULTI-SECRETARIA).
 Fica NA FRENTE do AnythingLLM. Cada secretaria = um workspace do AnythingLLM.
   pergunta (+secretaria) -> embedding (bge-m3) -> busca no cache DAQUELA secretaria
     - similaridade >= THRESHOLD -> devolve resposta cacheada (~0,3s, sem LLM)
-    - senao                     -> chama o AnythingLLM (qwen2.5:7b) do workspace e grava
+    - senao                     -> chama o AnythingLLM do workspace (modelo escolhido la) e grava
 
 Cache, sugestoes e recusas sao SEPARADOS por secretaria (workspace).
 Recusas (fora de escopo) NAO sao cacheadas.
