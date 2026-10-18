@@ -364,6 +364,13 @@ async def _embed_batch(client: httpx.AsyncClient, texts: list[str]) -> list[np.n
     return out
 
 
+def _parece_recusa(texto: str) -> bool:
+    """Com documento fixado o AnythingLLM sempre devolve fonte, mesmo quando o
+    modelo diz que nao achou: o prompt do workspace manda comecar por "Nao encontrei"."""
+    t = texto.strip().lower()
+    return t.startswith(("não encontrei", "nao encontrei", "desculpe, não encontrei"))
+
+
 def _sem_raciocinio(texto: str) -> str:
     """Remove o raciocinio de modelos "thinking" (ex.: Qwen3), que as vezes vem
     antes da resposta, com ou sem a tag de abertura <think>."""
@@ -580,7 +587,7 @@ async def ask(body: AskIn, request: Request):
         _log_unanswered(ws, body.question)
 
     return AskOut(answer=answer, cached=False, similarity=round(score, 3),
-                  latency_ms=int((time.time() - t0) * 1000), respondida=n_sources > 0)
+                  latency_ms=int((time.time() - t0) * 1000), respondida=n_sources > 0 and not _parece_recusa(answer))
 
 
 # ---------------------------------------------- intencao (API p/ outros sistemas)
