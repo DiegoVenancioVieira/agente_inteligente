@@ -111,6 +111,16 @@ O hub repassa o IP do cidadão no `X-Forwarded-For`. Para isso funcionar:
 
 Sem isso, todos os cidadãos que vêm pelo hub dividem o mesmo limite de `RATE_LIMIT_PER_MIN`.
 
+## Proteção contra robôs (créditos do LLM)
+
+| Variável | Efeito |
+| --- | --- |
+| `ASK_TOKEN` | Segredo compartilhado com o hub. Definido, o `/ask` só responde a quem manda `X-Agente-Token` (o hub); o IP do cidadão vem em `X-Cidadao-IP`. Sem ele, qualquer um que descubra o endereço do agente pergunta direto, sem passar pelas proteções do hub. |
+| `ASK_DAILY_LIMIT` | Teto de consultas ao LLM por dia, somando todo mundo (padrão `0` = sem teto). Ao atingir, `/ask` responde 503 e o hub oferece o atendente humano. Respostas do cache não contam. |
+| `RATE_LIMIT_PER_MIN` | Perguntas por minuto por IP (padrão 20). |
+
+Some-se a isso o limite de gasto da própria chave no provedor (ex.: limite mensal da chave na OpenRouter), que é a última barreira.
+
 ## Perguntas sem resposta (insumo para as secretarias)
 
 Toda vez que o agente **recusa** uma pergunta (não há resposta na FAQ), ela é registrada.

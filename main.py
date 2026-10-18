@@ -16,6 +16,7 @@ import asyncio
 import sqlite3
 import re
 import html
+import hmac
 import ipaddress
 import unicodedata
 from contextlib import asynccontextmanager
@@ -57,6 +58,14 @@ INTENT_MARGIN = float(os.getenv("INTENT_MARGIN", "0.04"))         # 1o e 2o cola
 # limite por IP do /ask (20/min) derrubaria a integracao. Limite proprio e alto.
 INTENT_RATE_LIMIT_PER_MIN = int(os.getenv("INTENT_RATE_LIMIT_PER_MIN", "600"))
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "20"))
+# Protecao contra robos drenando os creditos do LLM:
+# - ASK_TOKEN: segredo compartilhado com o hub. Se definido, /ask exige o cabecalho
+#   X-Agente-Token e so quem o tem (o hub) consegue perguntar; o hub informa o IP do
+#   cidadao em X-Cidadao-IP para o rate-limit continuar valendo por pessoa.
+# - ASK_DAILY_LIMIT: teto de consultas ao LLM por dia (todas as pessoas somadas);
+#   0 = sem teto. Respostas do cache nao contam.
+ASK_TOKEN = os.getenv("ASK_TOKEN", "")
+ASK_DAILY_LIMIT = int(os.getenv("ASK_DAILY_LIMIT", "0"))
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 # Redes (CIDR, separadas por virgula) dos proxies confiaveis na frente do servico:
 # Traefik do Coolify, container do hub qrcode... Ex.: "172.16.0.0/12,10.0.0.0/8".
@@ -503,6 +512,32 @@ def _rate_ok(ip: str, limit: int = 0) -> bool:
     return True
 
 
+_llm_calls_today = {"dia": "", "n": 0}
+
+
+def _daily_budget_ok() -> bool:
+    """Reserva uma consulta ao LLM no teto diario; False quando o teto ja foi atingido."""
+    if ASK_DAILY_LIMIT <= 0:
+        return True
+    hoje = time.strftime("%Y-%m-%d")
+    if _llm_calls_today["dia"] != hoje:
+        _llm_calls_today.update(dia=hoje, n=0)
+    if _llm_calls_today["n"] >= ASK_DAILY_LIMIT:
+        return False
+    _llm_calls_today["n"] += 1
+    return True
+
+
+def _ask_ip(request: Request) -> str:
+    """IP para o rate-limit do /ask. Com ASK_TOKEN, so aceita quem tem o token."""
+    if not ASK_TOKEN:
+        return _client_ip(request)
+    token = request.headers.get("x-agente-token", "")
+    if not hmac.compare_digest(token.encode(), ASK_TOKEN.encode()):
+        raise HTTPException(401, "Nao autorizado")
+    return request.headers.get("x-cidadao-ip", "").strip() or _client_ip(request)
+
+
 def require_admin(authorization: str = Header(default="")):
     if not ADMIN_TOKEN:
         raise HTTPException(503, "ADMIN_TOKEN nao configurado no servidor")
@@ -520,7 +555,7 @@ def _log_unanswered(ws: str, question: str):
 
 # ------------------------------------------------------------------ API
 class AskIn(BaseModel):
-    question: str = Field(..., min_length=2, max_length=1000)
+    question: str = Field(..., min_length=2, max_length=500)
     secretaria: str | None = None
 
 
@@ -545,7 +580,7 @@ async def secretarias():
 
 @app.post("/ask", response_model=AskOut)
 async def ask(body: AskIn, request: Request):
-    if not _rate_ok(_client_ip(request)):
+    if not _rate_ok(_ask_ip(request)):
         raise HTTPException(429, "Muitas perguntas em pouco tempo. Aguarde e tente novamente.")
     ws = _valid_ws(body.secretaria)
     st = _stats_by_ws[ws]
@@ -574,6 +609,9 @@ async def ask(body: AskIn, request: Request):
                       latency_ms=int((time.time() - t0) * 1000), matched_question=m["question"])
 
     st["misses"] += 1
+    if not _daily_budget_ok():
+        raise HTTPException(503, "O assistente atingiu o limite de atendimentos de hoje. "
+                                 "Tente amanha ou fale com um atendente.")
     try:
         answer, n_sources = await _ask_llm(client, ws, body.question)
     except Exception as e:
