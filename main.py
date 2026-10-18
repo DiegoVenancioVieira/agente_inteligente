@@ -523,6 +523,8 @@ class AskOut(BaseModel):
     similarity: float
     latency_ms: int
     matched_question: str | None = None
+    # False quando o AnythingLLM recusou (nenhuma fonte): o hub oferece atendimento humano.
+    respondida: bool = True
 
 
 @app.get("/secretarias")
@@ -578,7 +580,7 @@ async def ask(body: AskIn, request: Request):
         _log_unanswered(ws, body.question)
 
     return AskOut(answer=answer, cached=False, similarity=round(score, 3),
-                  latency_ms=int((time.time() - t0) * 1000))
+                  latency_ms=int((time.time() - t0) * 1000), respondida=n_sources > 0)
 
 
 # ---------------------------------------------- intencao (API p/ outros sistemas)
