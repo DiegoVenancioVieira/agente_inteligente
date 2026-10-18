@@ -1,0 +1,17 @@
+{
+  "prefeitura": {
+    "nome": "Prefeitura de Arauá",
+    "nomeOficial": "Prefeitura Municipal de Arauá"
+  },
+  "marca": {
+    "logo": "https://araua.se.gov.br/wp-content/uploads/sites/12/2021/01/cropped-logo_araua-270x270.png",
+    "logoAlt": "Brasão da Prefeitura de Arauá"
+  },
+  "secretarias": {
+    "teste": {
+      "label": "Saúde",
+      "welcome": "Olá! 👋 Sou o assistente virtual da Secretaria de Saúde de Arauá. Como posso ajudar?",
+      "chips": []
+    }
+  }
+}

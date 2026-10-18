@@ -534,12 +534,14 @@ async def ask(body: AskIn, request: Request):
     st = _stats_by_ws[ws]
     client: httpx.AsyncClient = app.state.client
     t0 = time.time()
-    try:
-        vec = await _embed(client, _norm_text(body.question))
-    except Exception as e:
-        raise HTTPException(502, f"Falha ao gerar embedding: {e}")
-
-    score, idx = _search(ws, vec)
+    # Sem OLLAMA_URL o cache semantico fica desligado: toda pergunta vai ao AnythingLLM.
+    vec, score, idx = None, 0.0, -1
+    if OLLAMA_URL:
+        try:
+            vec = await _embed(client, _norm_text(body.question))
+        except Exception as e:
+            raise HTTPException(502, f"Falha ao gerar embedding: {e}")
+        score, idx = _search(ws, vec)
     if idx >= 0 and score >= HIT_THRESHOLD:
         st["hits"] += 1
         m = _meta_by_ws[ws][idx]
@@ -561,7 +563,8 @@ async def ask(body: AskIn, request: Request):
         raise HTTPException(502, f"Falha ao consultar o AnythingLLM: {e}")
 
     if n_sources > 0:
-        await _store(ws, body.question, answer, vec)
+        if vec is not None:
+            await _store(ws, body.question, answer, vec)
     else:
         st["refusals"] += 1
         _log_unanswered(ws, body.question)
