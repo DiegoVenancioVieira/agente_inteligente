@@ -364,6 +364,14 @@ async def _embed_batch(client: httpx.AsyncClient, texts: list[str]) -> list[np.n
     return out
 
 
+def _sem_raciocinio(texto: str) -> str:
+    """Remove o raciocinio de modelos "thinking" (ex.: Qwen3), que as vezes vem
+    antes da resposta, com ou sem a tag de abertura <think>."""
+    if "</think>" in texto:
+        texto = texto.rsplit("</think>", 1)[1]
+    return texto.strip()
+
+
 async def _ask_llm(client: httpx.AsyncClient, ws: str, question: str) -> tuple[str, int]:
     """Chama o AnythingLLM do workspace em thread NOVA (sem contaminacao)."""
     r = await client.post(f"{API_BASE}/workspace/{ws}/thread/new",
@@ -377,7 +385,7 @@ async def _ask_llm(client: httpx.AsyncClient, ws: str, question: str) -> tuple[s
         )
         r.raise_for_status()
         d = json.loads(r.content)
-        return d.get("textResponse", ""), len(d.get("sources", []))
+        return _sem_raciocinio(d.get("textResponse", "")), len(d.get("sources", []))
     finally:
         try:
             await client.delete(f"{API_BASE}/workspace/{ws}/thread/{slug}",
