@@ -110,6 +110,14 @@ def _load_prefeitura(slug: str) -> dict:
             erros.append(f"secretarias.{ws}: label e welcome sao obrigatorios")
         if not isinstance(m.get("chips", []), list):
             erros.append(f"secretarias.{ws}.chips deve ser uma lista")
+        if not isinstance(m.get("assuntos", ""), str):
+            erros.append(f"secretarias.{ws}.assuntos deve ser um texto")
+    rot = cfg.get("roteamento")
+    if rot is not None:
+        if not str(rot.get("workspace", "")).strip() or not str(rot.get("welcome", "")).strip():
+            erros.append("roteamento: workspace e welcome sao obrigatorios")
+        if not str(rot.get("equipeGeral", "")).strip():
+            erros.append("roteamento.equipeGeral e obrigatorio")
     if not isinstance(cfg.get("orgaos", {}), dict):
         erros.append("orgaos deve ser um objeto {sigla: nome}")
     if erros:
@@ -556,6 +564,7 @@ def _log_unanswered(ws: str, question: str):
 # ------------------------------------------------------------------ API
 class AskIn(BaseModel):
     question: str = Field(..., min_length=2, max_length=500)
+    # Vazio com "roteamento" configurado = o agente descobre a secretaria sozinho.
     secretaria: str | None = None
 
 
@@ -567,25 +576,84 @@ class AskOut(BaseModel):
     matched_question: str | None = None
     # False quando o AnythingLLM recusou (nenhuma fonte): o hub oferece atendimento humano.
     respondida: bool = True
+    # Secretaria que respondeu (escolhida pelo cidadao ou pelo roteador). None = nenhuma
+    # secretaria cobre o assunto: o atendimento vai para a equipe geral.
+    secretaria: str | None = None
+    secretaria_label: str | None = None
+    # Roteador em duvida: slugs para o cidadao escolher (a resposta pede a escolha).
+    opcoes: list[str] | None = None
+
+
+ROTEAMENTO: dict | None = CONFIG.get("roteamento")
 
 
 @app.get("/secretarias")
 async def secretarias():
-    """Lista das secretarias para o seletor da interface."""
-    return {"prefeitura": CONFIG["prefeitura"]["nome"], "secretarias": [
+    """Lista das secretarias para o seletor da interface. Com roteamento, inclui a
+    saudacao do assistente geral (o cidadao nao precisa escolher a secretaria)."""
+    out = {"prefeitura": CONFIG["prefeitura"]["nome"], "secretarias": [
         {"slug": s, "label": m["label"], "welcome": m["welcome"], "chips": m["chips"]}
         for s, m in SECRETARIAS.items()
     ]}
+    if ROTEAMENTO:
+        out["automatico"] = {"welcome": ROTEAMENTO["welcome"],
+                             "chips": ROTEAMENTO.get("chips", []),
+                             "equipeGeral": ROTEAMENTO["equipeGeral"]}
+    return out
+
+
+async def _rotear(client: httpx.AsyncClient, question: str) -> tuple[str | None, list[str]]:
+    """Pergunta ao workspace roteador (sem documentos) qual secretaria cobre o assunto.
+    Devolve (slug, []) quando ha uma so; (None, [slugs]) em duvida; (None, []) se nenhuma."""
+    lista = "\n".join(f"- {s}: {m['label']}. {m.get('assuntos', '')}"
+                      for s, m in SECRETARIAS.items())
+    prompt = (
+        "Classifique a pergunta de um cidadao para a secretaria da prefeitura que trata do "
+        "assunto. Secretarias (codigo: nome. assuntos):\n" + lista + "\n\n"
+        "Responda SOMENTE com o codigo da secretaria. Se mais de uma puder tratar, responda os "
+        "codigos separados por virgula. Se nenhuma tratar do assunto, responda: nenhuma.\n\n"
+        f"Pergunta: {question}"
+    )
+    r = await client.post(f"{API_BASE}/workspace/{ROTEAMENTO['workspace']}/chat", headers=AUTH,
+                          json={"message": prompt, "mode": "chat"}, timeout=60)
+    r.raise_for_status()
+    texto = _sem_raciocinio(json.loads(r.content).get("textResponse") or "").lower()
+    achados = [s for s in SECRETARIAS if re.search(rf"(?<![\w-]){re.escape(s)}(?![\w-])", texto)]
+    if len(achados) == 1:
+        return achados[0], []
+    return None, achados
 
 
 @app.post("/ask", response_model=AskOut)
 async def ask(body: AskIn, request: Request):
     if not _rate_ok(_ask_ip(request)):
         raise HTTPException(429, "Muitas perguntas em pouco tempo. Aguarde e tente novamente.")
-    ws = _valid_ws(body.secretaria)
-    st = _stats_by_ws[ws]
     client: httpx.AsyncClient = app.state.client
     t0 = time.time()
+    if not body.secretaria and ROTEAMENTO:
+        if not _daily_budget_ok():
+            raise HTTPException(503, "O assistente atingiu o limite de atendimentos de hoje. "
+                                     "Tente amanha ou fale com um atendente.")
+        try:
+            ws, opcoes = await _rotear(client, body.question)
+        except Exception as e:
+            raise HTTPException(502, f"Falha ao classificar a pergunta: {e}")
+        if ws is None:
+            ms = int((time.time() - t0) * 1000)
+            if opcoes:
+                nomes = " ou ".join(SECRETARIAS[s]["label"] for s in opcoes)
+                return AskOut(answer=f"Sua dúvida é sobre {nomes}? Escolha abaixo para eu "
+                                     "procurar a resposta certa.",
+                              cached=False, similarity=0.0, latency_ms=ms, respondida=True,
+                              opcoes=opcoes)
+            _log_unanswered("_nenhuma_secretaria", body.question)
+            return AskOut(answer="Não encontrei esse assunto entre as secretarias atendidas pelo "
+                                 "assistente. Se quiser, fale com um atendente da Prefeitura.",
+                          cached=False, similarity=0.0, latency_ms=ms, respondida=False)
+    else:
+        ws = _valid_ws(body.secretaria)
+    st = _stats_by_ws[ws]
+    rotulo = {"secretaria": ws, "secretaria_label": SECRETARIAS[ws]["label"]}
     # Sem OLLAMA_URL o cache semantico fica desligado: toda pergunta vai ao AnythingLLM.
     vec, score, idx = None, 0.0, -1
     if OLLAMA_URL:
@@ -606,7 +674,8 @@ async def ask(body: AskIn, request: Request):
         except Exception:
             pass
         return AskOut(answer=m["answer"], cached=True, similarity=round(score, 3),
-                      latency_ms=int((time.time() - t0) * 1000), matched_question=m["question"])
+                      latency_ms=int((time.time() - t0) * 1000), matched_question=m["question"],
+                      **rotulo)
 
     st["misses"] += 1
     if not _daily_budget_ok():
@@ -625,7 +694,8 @@ async def ask(body: AskIn, request: Request):
         _log_unanswered(ws, body.question)
 
     return AskOut(answer=answer, cached=False, similarity=round(score, 3),
-                  latency_ms=int((time.time() - t0) * 1000), respondida=n_sources > 0 and not _parece_recusa(answer))
+                  latency_ms=int((time.time() - t0) * 1000),
+                  respondida=n_sources > 0 and not _parece_recusa(answer), **rotulo)
 
 
 # ---------------------------------------------- intencao (API p/ outros sistemas)

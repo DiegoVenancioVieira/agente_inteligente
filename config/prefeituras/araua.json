@@ -11,7 +11,8 @@
     "teste": {
       "label": "Saúde",
       "welcome": "Olá! 👋 Sou o assistente virtual da Secretaria de Saúde de Arauá. Como posso ajudar?",
-      "chips": []
+      "chips": [],
+      "assuntos": "Postos e unidades de saúde, consultas, exames, vacinação, medicamentos, SUS, agentes de saúde, vigilância sanitária e epidemiológica."
     },
     "educacao": {
       "label": "Educação",
@@ -20,7 +21,8 @@
         "Quais documentos preciso para a matrícula?",
         "Qual a idade para entrar na creche?",
         "Meu filho tem direito a transporte escolar?"
-      ]
+      ],
+      "assuntos": "Escolas e creches municipais, matrícula, transferência, transporte escolar, merenda, calendário escolar, professores."
     },
     "assistencia-social": {
       "label": "Assistência Social",
@@ -29,7 +31,18 @@
         "Como faço meu cadastro no CadÚnico?",
         "Quem tem direito ao BPC?",
         "O que o CRAS oferece?"
-      ]
+      ],
+      "assuntos": "CadÚnico, Bolsa Família, BPC, CRAS, CREAS, benefícios eventuais (cesta básica, auxílio natalidade e funeral), idosos, pessoas com deficiência em vulnerabilidade, violação de direitos."
     }
+  },
+  "roteamento": {
+    "workspace": "roteador",
+    "equipeGeral": "Atendimento geral",
+    "welcome": "Olá! 👋 Sou o assistente virtual da Prefeitura de Arauá. Pergunte sobre saúde, educação ou assistência social que eu encontro a resposta na secretaria certa.",
+    "chips": [
+      "Quais documentos preciso para a matrícula?",
+      "Como faço meu cadastro no CadÚnico?",
+      "Quem tem direito ao BPC?"
+    ]
   }
 }

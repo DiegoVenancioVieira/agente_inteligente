@@ -111,7 +111,18 @@ O hub repassa o IP do cidadão no `X-Forwarded-For`. Para isso funcionar:
 
 Sem isso, todos os cidadãos que vêm pelo hub dividem o mesmo limite de `RATE_LIMIT_PER_MIN`.
 
-## Proteção contra robôs (créditos do LLM)
+## Roteamento automático de secretaria
+
+Com a seção `roteamento` na config da prefeitura, o cidadão não precisa escolher a
+secretaria: `/ask` sem `secretaria` pergunta a um workspace **sem documentos**
+(`roteamento.workspace`, em modo *chat*) qual secretaria trata do assunto, usando o
+campo `assuntos` de cada secretaria, e responde com a FAQ dela. A resposta traz
+`secretaria`/`secretaria_label` (o hub mostra e usa para o atendimento humano), `opcoes`
+quando há dúvida (o cidadão escolhe) ou `respondida=false` sem secretaria quando nenhuma
+trata do assunto — o atendimento vai para `roteamento.equipeGeral`. Essas perguntas
+ficam em `/unanswered` com workspace `_nenhuma_secretaria`. Mandar `secretaria`
+continua pulando o roteador.
+ (créditos do LLM)
 
 | Variável | Efeito |
 | --- | --- |
