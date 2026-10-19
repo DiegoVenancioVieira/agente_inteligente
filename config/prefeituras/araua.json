@@ -12,6 +12,24 @@
       "label": "Saúde",
       "welcome": "Olá! 👋 Sou o assistente virtual da Secretaria de Saúde de Arauá. Como posso ajudar?",
       "chips": []
+    },
+    "educacao": {
+      "label": "Educação",
+      "welcome": "Olá! 👋 Sou o assistente virtual da Secretaria de Educação de Arauá. Posso ajudar com matrícula, transporte escolar, merenda e mais.",
+      "chips": [
+        "Quais documentos preciso para a matrícula?",
+        "Qual a idade para entrar na creche?",
+        "Meu filho tem direito a transporte escolar?"
+      ]
+    },
+    "assistencia-social": {
+      "label": "Assistência Social",
+      "welcome": "Olá! 👋 Sou o assistente virtual da Secretaria de Assistência Social de Arauá. Posso ajudar com CadÚnico, Bolsa Família, CRAS, BPC e benefícios.",
+      "chips": [
+        "Como faço meu cadastro no CadÚnico?",
+        "Quem tem direito ao BPC?",
+        "O que o CRAS oferece?"
+      ]
     }
   }
 }
